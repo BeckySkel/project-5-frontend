@@ -8,3 +8,13 @@ assignees: ''
 ---
 
 As a ****, I can **** so that ****.
+---
+#### Acceptance Criteria
+**1.** 
+**2.** 
+**3.** 
+---
+#### Tasks
+- [ ] 
+- [ ] 
+- [ ]
