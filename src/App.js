@@ -1,11 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import './App.css';
+import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.App}>
       <NavBar />
       <Container fluid className="Content">
         <Row>
@@ -14,7 +14,9 @@ function App() {
           </Col>
 
           <Col xs="9">
-            Placeholder Contents
+            <div>
+              Placeholder Contents
+            </div>
           </Col>
         </Row>
       </Container>
