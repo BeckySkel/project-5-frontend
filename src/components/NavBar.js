@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import PatchStyles from 'patch-styles';
 import styles from '../styles/NavBar.module.css';
 import { Container, Navbar, Nav, NavDropdown, Collapse, Fade } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -11,10 +12,12 @@ const NavBar = () => {
 
       <Navbar className="bg-gradient NavBar" variant="dark">
         <Container fluid>
-          <Navbar.Brand href="/" className="ps-2">
-            <div className="circle d-inline-block align-top"></div>
-            <span className="logo">Devise</span>
-          </Navbar.Brand>
+          <NavLink to="/">
+            <Navbar.Brand className="ps-2">
+              <div className="circle d-inline-block align-top"></div>
+              <span className="logo">Devise</span>
+            </Navbar.Brand>
+          </NavLink>
 
           <div className="account-menu-container"
             onMouseEnter={() => setOpen(!open)}
@@ -25,8 +28,12 @@ const NavBar = () => {
 
             <Fade in={open} id="account-menu" className="account-menu">
               <Nav className="flex-column">
-                <Nav.Link href="login">Login</Nav.Link>
-                <Nav.Link href="register">Register</Nav.Link>
+                <Nav.Item>
+                  <NavLink to="/login" className="nav-link">Login</NavLink>
+                </Nav.Item>
+                <Nav.Item>
+                <NavLink to="/register" className="nav-link">Register</NavLink>
+                </Nav.Item>
               </Nav>
             </Fade>
           </div>
