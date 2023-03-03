@@ -1,11 +1,34 @@
-import { React, useState } from 'react';
+import { React, useContext, useState } from 'react';
 import PatchStyles from 'patch-styles';
 import styles from '../styles/NavBar.module.css';
 import { Container, Navbar, Nav, Fade } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { CurrentUserContext } from '../App';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+
+  const currentUser = useContext(CurrentUserContext);
+  const loggedInAccountMenu = (
+    <>
+      <Nav.Item>
+        <NavLink to="/login" className="nav-link">Logout</NavLink>
+      </Nav.Item>
+      <Nav.Item>
+        <NavLink to="/register" className="nav-link">Edit Profile</NavLink>
+      </Nav.Item>
+    </>
+  );
+  const loggedOutAccountMenu = (
+    <>
+      <Nav.Item>
+        <NavLink to="/login" className="nav-link">Login</NavLink>
+      </Nav.Item>
+      <Nav.Item>
+        <NavLink to="/register" className="nav-link">Register</NavLink>
+      </Nav.Item>
+    </>
+  );
 
   return (
     <PatchStyles classNames={styles}>
@@ -28,12 +51,13 @@ const NavBar = () => {
 
             <Fade in={open} id="account-menu" className="account-menu">
               <Nav className="flex-column">
-                <Nav.Item>
+                {/* <Nav.Item>
                   <NavLink to="/login" className="nav-link">Login</NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                <NavLink to="/register" className="nav-link">Register</NavLink>
-                </Nav.Item>
+                  <NavLink to="/register" className="nav-link">Register</NavLink>
+                </Nav.Item> */}
+                { currentUser ? loggedInAccountMenu : loggedOutAccountMenu }
               </Nav>
             </Fade>
           </div>
