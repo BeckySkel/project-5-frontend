@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import PatchStyles from 'patch-styles';
 import styles from '../styles/NavBar.module.css';
-import { Container, Navbar, Nav, NavDropdown, Collapse, Fade } from 'react-bootstrap';
+import { Container, Navbar, Nav, Fade } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
