@@ -1,5 +1,5 @@
 import PatchStyles from 'patch-styles';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
@@ -15,50 +15,55 @@ export const SetCurrentUserContext = createContext();
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-
-  // const [errors, setErrors] = useState({});
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMount = async () => {
     try {
       const data = await axios.get('dj-rest-auth/user/');
       setCurrentUser(data);
     } catch (err) {
-      console.log(err);
+      
     }
   }
 
+  const handleChange = (event) => {
+    setMenuOpen(!menuOpen);
+  };
+
   useEffect(() => {
-    handleMount()
+    handleMount();
+    handleChange();
   }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
-    <PatchStyles classNames={styles}>
-      <div className="App">
-        <NavBar />
+        <PatchStyles classNames={styles}>
+          <div className="App">
+            <NavBar />
 
-        <Container fluid>
-          <Row>
-            {/* Menu/Sidebar with navigation links */}
-            <Col xs="3" className="bg-light bg-gradient vh-100 text-start">
-              <SideBar />
-            </Col>
+            <Container fluid>
+              <Row>
+                {/* Menu/Sidebar with navigation links */}
+                <Button className="position-absolute m-2 bg-navy MenuButton" onClick={handleChange}><i class="fa-solid fa-bars"></i></Button>
+                <Col xs={menuOpen ? 2 : 0} className={`bg-navy text-start ${menuOpen ? "d-block" : "d-none"}`}>
+                  <SideBar />
+                </Col>
 
-            {/* Main site contents */}
-            <Col xs="9" className="Main">
-                <Switch>
-                  <Route exact path="/" render={() => <h1>Home page</h1>} />
-                  <Route exact path="/login" render={() => <SignInForm />} />
-                  <Route exact path="/register" render={() => <SignUpForm />} />
-                  <Route render={() => <p>Page not found!</p>} />
-                </Switch>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    </PatchStyles>
-    </SetCurrentUserContext.Provider>
+                {/* Main site contents */}
+                <Col xs={menuOpen ? 10 : 12} className="Main">
+                  <Switch>
+                    <Route exact path="/" render={() => <h1>Home page</h1>} />
+                    <Route exact path="/login" render={() => <SignInForm />} />
+                    <Route exact path="/register" render={() => <SignUpForm />} />
+                    <Route render={() => <p>Page not found!</p>} />
+                  </Switch>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </PatchStyles>
+      </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

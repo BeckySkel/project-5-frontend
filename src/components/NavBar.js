@@ -5,6 +5,7 @@ import { Container, Navbar, Nav, Fade } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../App';
 
+
 const NavBar = () => {
   const [open, setOpen] = useState(false);
 

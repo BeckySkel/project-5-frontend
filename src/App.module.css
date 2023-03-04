@@ -8,3 +8,12 @@
 .Main {
     text-align: center;
 }
+
+.bg-navy {
+    background-color: #102542;
+}
+
+.MenuButton {
+    width: 4rem;
+}
+
