@@ -1,6 +1,6 @@
 import PatchStyles from 'patch-styles';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import styles from './App.module.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import appStyles from './App.module.css';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import { Route, Switch } from "react-router-dom";
@@ -10,48 +10,42 @@ import SignInForm from './pages/auth/SignInForm';
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
+// Context
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 
+// Main app
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleMount = async () => {
-    try {
-      const data = await axios.get('dj-rest-auth/user/');
-      setCurrentUser(data);
-    } catch (err) {
-      
-    }
-  }
-
-  const handleChange = (event) => {
-    setMenuOpen(!menuOpen);
-  };
+  const [errors, setErrors] = useState({});
+  console.log(errors);
 
   useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const data = await axios.get('dj-rest-auth/user/');
+        setCurrentUser(data);
+      } catch (err) {
+        setErrors(err.response?.data);
+      }
+    };
     handleMount();
-    handleChange();
-  }, [])
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
-        <PatchStyles classNames={styles}>
+        <PatchStyles classNames={appStyles}>
           <div className="App">
+            {/* Navigation bar */}
             <NavBar />
-
             <Container fluid>
               <Row>
                 {/* Menu/Sidebar with navigation links */}
-                <Button className="position-absolute m-2 bg-navy MenuButton" onClick={handleChange}><i class="fa-solid fa-bars"></i></Button>
-                <Col xs={menuOpen ? 2 : 0} className={`bg-navy text-start ${menuOpen ? "d-block" : "d-none"}`}>
-                  <SideBar />
-                </Col>
+                <SideBar userName={currentUser} />
 
                 {/* Main site contents */}
-                <Col xs={menuOpen ? 10 : 12} className="Main">
+                <Col className="Main">
                   <Switch>
                     <Route exact path="/" render={() => <h1>Home page</h1>} />
                     <Route exact path="/login" render={() => <SignInForm />} />

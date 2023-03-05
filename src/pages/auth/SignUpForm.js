@@ -42,6 +42,7 @@ const SignUpForm = () => {
                 <Col>
                     <Container>
                         <h1>Register</h1>
+                        {console.log(errors)}
 
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="username">
