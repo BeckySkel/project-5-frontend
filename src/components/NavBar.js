@@ -13,10 +13,10 @@ const NavBar = () => {
   const loggedInAccountMenu = (
     <>
       <Nav.Item>
-        <NavLink to="/login" className="nav-link">Logout</NavLink>
+        <NavLink to="/logout" className="nav-link">Logout</NavLink>
       </Nav.Item>
       <Nav.Item>
-        <NavLink to="/register" className="nav-link">Edit Profile</NavLink>
+        <NavLink to="/edit-profile" className="nav-link">Edit Profile</NavLink>
       </Nav.Item>
     </>
   );

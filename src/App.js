@@ -16,6 +16,7 @@ export const SetCurrentUserContext = createContext();
 
 // Main app
 function App() {
+  // Setting States
   const [currentUser, setCurrentUser] = useState(null);
   const [errors, setErrors] = useState({});
   console.log(errors);
@@ -23,7 +24,7 @@ function App() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const data = await axios.get('dj-rest-auth/user/');
+        const {data} = await axios.get('dj-rest-auth/user/');
         setCurrentUser(data);
       } catch (err) {
         setErrors(err.response?.data);
@@ -36,13 +37,14 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         <PatchStyles classNames={appStyles}>
+
           <div className="App">
             {/* Navigation bar */}
             <NavBar />
             <Container fluid>
               <Row>
                 {/* Menu/Sidebar with navigation links */}
-                { currentUser ? <SideBar userName={currentUser} /> : null }
+                { currentUser ? <SideBar /> : null }
 
                 {/* Main site contents */}
                 <Col className="Main">
@@ -50,12 +52,15 @@ function App() {
                     <Route exact path="/" render={() => <h1>Home page</h1>} />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route exact path="/register" render={() => <SignUpForm />} />
+                    <Route exact path="/logout" render={() => <h1>Logout?</h1>} />
+                    <Route exact path="/edit-profile" render={() => <h1>Edit Profile</h1>} />
                     <Route render={() => <p>404 Page not found!</p>} />
                   </Switch>
                 </Col>
               </Row>
             </Container>
           </div>
+
         </PatchStyles>
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
