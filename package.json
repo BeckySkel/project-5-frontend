@@ -19,6 +19,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
+    "react-slugify": "^3.0.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -48,8 +49,8 @@
     ]
   },
   "devDependencies": {
-    "react-error-overlay": "6.0.9",
-    "msw": "^0.35.0"
+    "msw": "^0.35.0",
+    "react-error-overlay": "6.0.9"
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"
