@@ -52,12 +52,6 @@ const NavBar = () => {
 
             <Fade in={open} id="account-menu" className="account-menu">
               <Nav className="flex-column">
-                {/* <Nav.Item>
-                  <NavLink to="/login" className="nav-link">Login</NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                  <NavLink to="/register" className="nav-link">Register</NavLink>
-                </Nav.Item> */}
                 { currentUser ? loggedInAccountMenu : loggedOutAccountMenu }
               </Nav>
             </Fade>

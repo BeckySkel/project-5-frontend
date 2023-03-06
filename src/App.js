@@ -42,7 +42,7 @@ function App() {
             <Container fluid>
               <Row>
                 {/* Menu/Sidebar with navigation links */}
-                <SideBar userName={currentUser} />
+                { currentUser ? <SideBar userName={currentUser} /> : null }
 
                 {/* Main site contents */}
                 <Col className="Main">
@@ -50,7 +50,7 @@ function App() {
                     <Route exact path="/" render={() => <h1>Home page</h1>} />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route exact path="/register" render={() => <SignUpForm />} />
-                    <Route render={() => <p>Page not found!</p>} />
+                    <Route render={() => <p>404 Page not found!</p>} />
                   </Switch>
                 </Col>
               </Row>
