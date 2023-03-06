@@ -23,40 +23,40 @@ const NavBar = () => {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
 
-      <Navbar className="bg-gradient Bg-Navy NavBar" variant="dark">
-        <Container fluid>
-          {/* Logo (links to homepage) */}
-          <NavLink to="/">
-            <Navbar.Brand className="ps-1">
-              <div className="Circle d-inline-block align-top"></div>
-              <span className="Logo">Devise</span>
-            </Navbar.Brand>
-          </NavLink>
+        <Navbar className="bg-gradient BgNavy NavBar" variant="dark">
+          <Container fluid>
+            {/* Logo (links to homepage) */}
+            <NavLink to="/">
+              <Navbar.Brand className="ps-1">
+                <div className="Circle d-inline-block align-top"></div>
+                <span className="Logo">Devise</span>
+              </Navbar.Brand>
+            </NavLink>
 
-          {/* Stylised account menu which expands when hovered over */}
-          <div className="AccountMenuContainer"
-            onMouseEnter={() => setAccountMenuOpen(!accountMenuOpen)}
-            onMouseLeave={() => setAccountMenuOpen(!accountMenuOpen)}
-            aria-controls="account-menu"
-            aria-expanded={accountMenuOpen}>
+            {/* Stylised account menu which expands when hovered over */}
+            <div className="AccountMenuContainer"
+              onMouseEnter={() => setAccountMenuOpen(!accountMenuOpen)}
+              onMouseLeave={() => setAccountMenuOpen(!accountMenuOpen)}
+              aria-controls="account-menu"
+              aria-expanded={accountMenuOpen}>
               {/* User icon */}
-            <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
+              <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
 
-            {/* Links rendered as list */}
-            <Fade in={accountMenuOpen} id="account-menu" className="AccountMenu">
-              <Nav className="flex-column">
+              {/* Links rendered as list */}
+              <Fade in={accountMenuOpen} id="account-menu" className="AccountMenu">
+                <Nav className="flex-column">
                   {Links.map(link => (
                     <Nav.Item key={link}>
                       <NavLink to={`/${slugify(link)}`} className="nav-link">{link}</NavLink>
                     </Nav.Item>
                   ))}
-              </Nav>
-            </Fade>
-          </div>
-        </Container>
-      </Navbar>
+                </Nav>
+              </Fade>
+            </div>
+          </Container>
+        </Navbar>
 
-    </PatchStyles >
+      </PatchStyles >
     </PatchStyles>
   )
 }

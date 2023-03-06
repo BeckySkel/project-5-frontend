@@ -1,13 +1,18 @@
+// External imports
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import PatchStyles from 'patch-styles';
-import React, { useContext } from 'react'
 import { Nav, Button, Col } from 'react-bootstrap';
+// Internal imports
 import styles from '../styles/SideBar.module.css';
 import appStyles from "../App.module.css";
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 
+/* 
+Collapsible sidebar which welcomes the user and displays their projects with
+option to create new ones 
+*/
 const SideBar = () => {
     const [menuOpen, setMenuOpen] = useState(true);
     const currentUser = useCurrentUser();
@@ -15,11 +20,24 @@ const SideBar = () => {
     return (
         <PatchStyles classNames={styles}>
             <PatchStyles classNames={appStyles}>
-                <Button className="position-absolute m-2 Bg-Navy MenuButton" onClick={() => setMenuOpen(!menuOpen)}><i className="fa-solid fa-bars"></i></Button>
-                <Col xs={menuOpen ? 12 : 0} sm={menuOpen ? 10 : 0} md={menuOpen ? 3 : 0} lg={menuOpen ? 2 : 0} className={`Menu Bg-Navy text-start ${menuOpen ? "d-block" : "d-none"}`}>
 
-                    <Nav className="flex-column bg-navy pt-5" variant="pills">
+                {/* Menu show/hide */}
+                <Button className="position-absolute m-2 BgNavy MenuButton" onClick={() => setMenuOpen(!menuOpen)}>
+                    <i className="fa-solid fa-bars"></i>
+                </Button>
+
+                {/* Collapsible menu */}
+                <Col
+                    xs={12}
+                    sm={10}
+                    md={3}
+                    lg={2}
+                    className={`Menu BgNavy text-start ${menuOpen ? "d-block" : "d-none"}`}
+                >
+                    <Nav className="flex-column pt-5" variant="pills">
+                        {/* Welcome user */}
                         <Nav.Item className="text-white fw-bold">Welcome {currentUser.username}!</Nav.Item>
+                        {/* Navigation links */}
                         <Nav.Item>
                             <NavLink exact to="/" className="nav-link">Dashboard</NavLink>
                         </Nav.Item>
@@ -34,6 +52,7 @@ const SideBar = () => {
                         </Nav.Item>
                     </Nav>
                 </Col>
+
             </PatchStyles>
         </PatchStyles>
     )
