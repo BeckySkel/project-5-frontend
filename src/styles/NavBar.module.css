@@ -1,8 +1,4 @@
-.NavBar {
-    /* background-color: #102542; */
-}
-
-.circle {
+.Circle {
     background-color: #6D72C3;
     width: 2rem;
     height: 2rem;
@@ -10,15 +6,15 @@
     z-index: 0;
 }
     
-.logo {
-    z-index: 2;
+.Logo {
+    z-index: 1;
     position: relative;
     left: -1.2rem;
     top: 0.2rem;
     font-weight: 700;
 }
 
-.account-menu-container {
+.AccountMenuContainer {
     background-color: #F87060;
     width: 5rem;
     height: 5rem;
@@ -30,12 +26,12 @@
     transition: width 0.5s, height 0.5s;
 }
 
-.account-menu-container:hover {
+.AccountMenuContainer:hover {
     width: 10rem;
     height: 10rem;
 }
 
-.user-icon {
+.UserIcon {
     position: absolute;
     right: 1.8rem;
     top: 1.5rem;
@@ -44,8 +40,9 @@
     opacity: 0.4;
 }
 
-.account-menu {
+.AccountMenu {
     position: absolute;
-    left: 2rem;
+    left: 1.7rem;
     top: 2.5rem;
+    font-weight: 600;
 }

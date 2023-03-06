@@ -28,22 +28,22 @@ const NavBar = () => {
           {/* Logo (links to homepage) */}
           <NavLink to="/">
             <Navbar.Brand className="ps-1">
-              <div className="circle d-inline-block align-top"></div>
-              <span className="logo">Devise</span>
+              <div className="Circle d-inline-block align-top"></div>
+              <span className="Logo">Devise</span>
             </Navbar.Brand>
           </NavLink>
 
           {/* Stylised account menu which expands when hovered over */}
-          <div className="account-menu-container"
+          <div className="AccountMenuContainer"
             onMouseEnter={() => setAccountMenuOpen(!accountMenuOpen)}
             onMouseLeave={() => setAccountMenuOpen(!accountMenuOpen)}
             aria-controls="account-menu"
             aria-expanded={accountMenuOpen}>
               {/* User icon */}
-            <i aria-label="Account Menu" className="fas fa-user user-icon"></i>
+            <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
 
             {/* Links rendered as list */}
-            <Fade in={accountMenuOpen} id="account-menu" className="account-menu">
+            <Fade in={accountMenuOpen} id="account-menu" className="AccountMenu">
               <Nav className="flex-column">
                   {Links.map(link => (
                     <Nav.Item key={link}>
