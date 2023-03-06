@@ -19,7 +19,7 @@ function App() {
           <div className="App">
             {/* Navigation bar */}
             <NavBar />
-            <Container fluid>
+            <Container fluid >
               <Row>
                 {/* Menu/Sidebar with navigation links */}
                 { currentUser ? <SideBar /> : null }

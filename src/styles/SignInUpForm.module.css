@@ -1,0 +1,12 @@
+.Input {
+    margin: 1rem 0;
+    border: 2px #6D72C3 solid;
+}
+
+.Submit {
+    border: none;
+}
+
+.Submit:hover {
+    background-color: #e36253;
+}

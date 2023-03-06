@@ -14,6 +14,7 @@ Collapsible sidebar which welcomes the user and displays their projects with
 option to create new ones 
 */
 const SideBar = () => {
+    // Variables
     const [menuOpen, setMenuOpen] = useState(true);
     const currentUser = useCurrentUser();
 

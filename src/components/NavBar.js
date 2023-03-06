@@ -15,6 +15,7 @@ Simple navbar which displays the logo (links to homepage) in the far left
 and a dynamic (different links if user logged in or out) account menu on the right 
 */
 const NavBar = () => {
+  // Variables
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const currentUser = useCurrentUser();
   const Links = currentUser ? ['Logout', 'Edit Profile'] : ['Login', 'Register'];
@@ -28,13 +29,13 @@ const NavBar = () => {
             {/* Logo (links to homepage) */}
             <NavLink to="/">
               <Navbar.Brand className="ps-1">
-                <div className="Circle d-inline-block align-top"></div>
+                <div className="Circle BgPurple d-inline-block align-top"></div>
                 <span className="Logo">Devise</span>
               </Navbar.Brand>
             </NavLink>
 
             {/* Stylised account menu which expands when hovered over */}
-            <div className="AccountMenuContainer"
+            <div className="AccountMenuContainer BgOrange"
               onMouseEnter={() => setAccountMenuOpen(!accountMenuOpen)}
               onMouseLeave={() => setAccountMenuOpen(!accountMenuOpen)}
               aria-controls="account-menu"
