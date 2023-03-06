@@ -3,13 +3,13 @@ import PatchStyles from 'patch-styles';
 import styles from '../styles/NavBar.module.css';
 import { Container, Navbar, Nav, Fade } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { CurrentUserContext } from '../App';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser();
   const loggedInAccountMenu = (
     <>
       <Nav.Item>

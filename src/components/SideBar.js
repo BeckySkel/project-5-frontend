@@ -4,13 +4,13 @@ import { Nav, Button, Col } from 'react-bootstrap';
 import styles from '../styles/SideBar.module.css';
 import appStyles from "../App.module.css";
 import { useState } from 'react';
-import { CurrentUserContext } from '../App';
 import { NavLink } from 'react-router-dom';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 
 const SideBar = () => {
     const [menuOpen, setMenuOpen] = useState(true);
-    const currentUser = useContext(CurrentUserContext);
+    const currentUser = useCurrentUser();
 
     return (
         <PatchStyles classNames={styles}>
@@ -23,8 +23,11 @@ const SideBar = () => {
                         <Nav.Item>
                             <NavLink exact to="/" className="nav-link">Dashboard</NavLink>
                         </Nav.Item>
-                        <Nav.Item>
-                            <NavLink to="/projects" className="nav-link">My Projects</NavLink>
+                        <Nav.Item className="text-white fw-bold">
+                            My Projects
+                            {console.log(currentUser)}
+                            <NavLink exact to="/1" className="nav-link">Project 1</NavLink>
+                            <NavLink exact to="/2" className="nav-link">Project 2</NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink to="/new" className="nav-link">New <i className="fa-solid fa-plus"></i></NavLink>

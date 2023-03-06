@@ -1,19 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import styles from "../../styles/SignInUpForm.module.css";
-// import appStyles from "../../App.module.css";
-import { SetCurrentUserContext } from "../../App";
+import { Form, Alert, Button, Col, Row, Container } from "react-bootstrap";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 
 function SignInForm() {
-    const setCurrentUser = useContext(SetCurrentUserContext);
+    const setCurrentUser = useSetCurrentUser();
 
     const [signInData, setSignInData] = useState({
         username: "",
@@ -59,11 +52,11 @@ function SignInForm() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        {/* {errors.username?.map((message, idx) => (
+                        {errors.username?.map((message, idx) => (
                             <Alert variant="warning" key={idx}>
                                 {message}
                             </Alert>
-                        ))} */}
+                        ))}
 
                         <Form.Group controlId="password">
                             <Form.Label className="d-none">Password</Form.Label>
@@ -75,22 +68,22 @@ function SignInForm() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        {/* {errors.password?.map((message, idx) => (
+                        {errors.password?.map((message, idx) => (
                             <Alert key={idx} variant="warning">
                                 {message}
                             </Alert>
-                        ))} */}
+                        ))}
 
                         <Button
                             type="submit"
                         >
                             Sign In
                         </Button>
-                        {/* {errors.non_field_errors?.map((message, idx) => (
+                        {errors.non_field_errors?.map((message, idx) => (
                             <Alert key={idx} variant="warning" className="mt-3">
                                 {message}
                             </Alert>
-                        ))} */}
+                        ))}
                     </Form>
 
                 </Container>

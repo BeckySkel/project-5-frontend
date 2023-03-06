@@ -4,10 +4,17 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { CurrentUserProvider } from './contexts/CurrentUserContext';
+import PatchStyles from 'patch-styles';
+import appStyles from './App.module.css';
 
 ReactDOM.render(
     <Router>
+      <PatchStyles classNames={appStyles}>
+      <CurrentUserProvider>
       <App />
+      </CurrentUserProvider>
+      </PatchStyles>
     </Router>,  
   document.getElementById('root')
 );

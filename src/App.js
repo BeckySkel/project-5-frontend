@@ -7,35 +7,13 @@ import { Route, Switch } from "react-router-dom";
 import './api/axiosDefaults';
 import SignUpForm from './pages/auth/SignUpForm';
 import SignInForm from './pages/auth/SignInForm';
-import { createContext, useEffect, useState } from 'react';
-import axios from 'axios';
-
-// Context
-export const CurrentUserContext = createContext();
-export const SetCurrentUserContext = createContext();
+import { useCurrentUser } from './contexts/CurrentUserContext';
 
 // Main app
 function App() {
-  // Setting States
-  const [currentUser, setCurrentUser] = useState(null);
-  const [errors, setErrors] = useState({});
-  console.log(errors);
-
-  useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const {data} = await axios.get('dj-rest-auth/user/');
-        setCurrentUser(data);
-      } catch (err) {
-        setErrors(err.response?.data);
-      }
-    };
-    handleMount();
-  }, []);
+  const currentUser = useCurrentUser();
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <SetCurrentUserContext.Provider value={setCurrentUser}>
         <PatchStyles classNames={appStyles}>
 
           <div className="App">
@@ -62,8 +40,6 @@ function App() {
           </div>
 
         </PatchStyles>
-      </SetCurrentUserContext.Provider>
-    </CurrentUserContext.Provider>
   );
 }
 
