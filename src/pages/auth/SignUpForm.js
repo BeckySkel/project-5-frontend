@@ -8,6 +8,7 @@ import PatchStyles from "patch-styles";
 import styles from "../../styles/SignInUpForm.module.css";
 import appStyles from "../../App.module.css";
 import emailjs from '@emailjs/browser';
+import { v4 as uuidv4 } from 'uuid';
 
 
 /* 
@@ -41,15 +42,9 @@ const SignUpForm = () => {
             await axios.post("/dj-rest-auth/registration/", signUpData)
             // history.push("/login");
             emailjs.send("service_6ue6ujt", "template_m1tfcmy", {
-                name: 'James',
-                notes: 'Check this out!'
-            }, "nvcR62V0DXNK9zmT3")
-                .then((result) => {
-                    console.log(result.text);
-                }, (error) => {
-                    console.log(error.text);
-                });
-
+                username: username,
+                verification_code: uuidv4()
+            }, "nvcR62V0DXNK9zmT3");
             setSubmissionSuccess(true);
         } catch (err) {
             setErrors(err.response?.data);
@@ -58,21 +53,27 @@ const SignUpForm = () => {
 
     return (
         <PatchStyles classNames={styles}>
-            <Row>
-                <Col>
-                    <Container>
+            <PatchStyles classNames={appStyles}>
 
+                <Row>
+                    <Col className="pt-5"
+                        xs={{ span: 10, offset: 1 }}
+                        md={{ span: 6, offset: 3 }}
+                        xl={{ span: 4, offset: 4 }}
+                    >
                         {submissionSuccess ? <>
                             <h1>Success!</h1>
                             <p>An email has been sent to XX</p>
                         </> :
-                            <><h1>Register</h1>
+                            <>
+                                <h1 className="mb-4 pt-md-5 fs-1">Register</h1>
 
                                 <Form onSubmit={handleSubmit}>
+                                    {/* Username input */}
                                     <Form.Group controlId="username">
                                         <Form.Label className="d-none">username</Form.Label>
                                         <Form.Control
-                                            className={styles.Input}
+                                            className="Input"
                                             type="text"
                                             placeholder="Username"
                                             name="username"
@@ -80,16 +81,18 @@ const SignUpForm = () => {
                                             onChange={handleChange}
                                         />
                                     </Form.Group>
+                                    {/* Username errors */}
                                     {errors.username?.map((message, idx) => (
                                         <Alert variant="warning" key={idx}>
                                             {message}
                                         </Alert>
                                     ))}
 
+                                    {/* Password input */}
                                     <Form.Group controlId="password1">
                                         <Form.Label className="d-none">Password</Form.Label>
                                         <Form.Control
-                                            className={styles.Input}
+                                            className="Input"
                                             type="password"
                                             placeholder="Password"
                                             name="password1"
@@ -97,16 +100,18 @@ const SignUpForm = () => {
                                             onChange={handleChange}
                                         />
                                     </Form.Group>
+                                    {/* Password errors */}
                                     {errors.password1?.map((message, idx) => (
                                         <Alert key={idx} variant="warning">
                                             {message}
                                         </Alert>
                                     ))}
 
+                                    {/* Confirm password input */}
                                     <Form.Group controlId="password2">
                                         <Form.Label className="d-none">Confirm password</Form.Label>
                                         <Form.Control
-                                            className={styles.Input}
+                                            className="Input"
                                             type="password"
                                             placeholder="Confirm password"
                                             name="password2"
@@ -114,17 +119,23 @@ const SignUpForm = () => {
                                             onChange={handleChange}
                                         />
                                     </Form.Group>
+                                    {/* Confirm password errors */}
                                     {errors.password2?.map((message, idx) => (
                                         <Alert key={idx} variant="warning">
                                             {message}
                                         </Alert>
                                     ))}
 
+                                    {/* Submit */}
                                     <Button
                                         type="submit"
+                                        size="lg"
+                                        variant="warning"
+                                        className="my-3 Submit BgOrange text-white"
                                     >
-                                        Sign up
+                                        Sign Up
                                     </Button>
+                                    {/* Non-field errors */}
                                     {errors.non_field_errors?.map((message, idx) => (
                                         <Alert key={idx} variant="warning" className="mt-3">
                                             {message}
@@ -132,20 +143,16 @@ const SignUpForm = () => {
                                     ))}
                                 </Form>
                             </>}
-                    </Container>
-                    <Container className={`mt-3 ${appStyles.Content}`}>
+
+                        {/* Link to account login */}
                         <Link className={styles.Link} to="/login">
                             Already have an account? <span>Sign in</span>
                         </Link>
-                    </Container>
-                </Col>
-                <Col
-                    md={6}
-                    className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
-                >
-                </Col>
-            </Row>
-        </PatchStyles>
+                    </Col>
+                </Row>
+
+            </PatchStyles>
+        </PatchStyles >
     );
 };
 

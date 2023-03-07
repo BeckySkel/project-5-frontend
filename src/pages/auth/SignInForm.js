@@ -53,7 +53,8 @@ function SignInForm() {
                     <Col className="pt-5"
                         xs={{ span: 10, offset: 1 }}
                         md={{ span: 6, offset: 3 }}
-                        xl={{ span: 4, offset: 4 }}>
+                        xl={{ span: 4, offset: 4 }}
+                    >
                         <h1 className="mb-4 pt-md-5 fs-1">Login</h1>
 
                         <Form onSubmit={handleSubmit}>
