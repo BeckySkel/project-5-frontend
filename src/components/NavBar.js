@@ -20,6 +20,8 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const Links = currentUser ? ['Logout', 'Edit Profile'] : ['Login', 'Register'];
 
+  const disable = () => {return "disabled"}
+
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
