@@ -10,7 +10,7 @@ import './api/axiosDefaults';
 import SignUpForm from './pages/auth/SignUpForm';
 import SignInForm from './pages/auth/SignInForm';
 import { useCurrentUser } from './contexts/CurrentUserContext';
-import Carousel from './components/InfoCarousel';
+import HomePage from './pages/home/HomePage';
 
 
 // Main app
@@ -30,21 +30,13 @@ function App() {
             {currentUser ? <SideBar /> : null}
 
             {/* Main site contents */}
-            <Col className="Main">
+            <Col className="Main pt-5">
               <Switch>
-                {currentUser ?
-                  <>
-                    <Route exact path="/" render={() => <h2>Dashboard</h2>} />
+                    <Route exact path="/" render={() => < HomePage />} />
                     <Route exact path="/logout" render={() => <h1>Logout?</h1>} />
                     <Route exact path="/edit-profile" render={() => <h1>Edit Profile</h1>} />
-                  </>
-                  :
-                  <>
-                    <Route exact path="/" render={() => <Carousel />} />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route exact path="/register" render={() => <SignUpForm />} />
-                  </>
-                }
                 <Route render={() => <p>404 Page not found!</p>} />
               </Switch>
 

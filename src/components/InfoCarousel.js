@@ -15,7 +15,7 @@ function InfoCarousel() {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
 
-        <Row className='pt-5'>
+        <Row>
           <Col
             xs={{ span: 10, offset: 1 }}
             xl={{ span: 8, offset: 2 }}
@@ -26,7 +26,7 @@ function InfoCarousel() {
               <div className='CarouselContainer'>
                 <img
                   src={placeholder1}
-                  alt="Placeholder image"
+                  alt="Placeholder 1"
                 />
                 </div>
 
@@ -41,7 +41,7 @@ function InfoCarousel() {
                 <div className='BgPurple CarouselContainer'>
                 <img
                   src={placeholder2}
-                  alt="Placeholder image"
+                  alt="Placeholder 2"
                 />
                 </div>
 
@@ -56,7 +56,7 @@ function InfoCarousel() {
                 <div className='BgPurple CarouselContainer'>
                 <img
                   src={placeholder3}
-                  alt="Placeholder image"
+                  alt="Placeholder 3"
                 />
                 </div>
                 <Carousel.Caption className='CarouselText'>

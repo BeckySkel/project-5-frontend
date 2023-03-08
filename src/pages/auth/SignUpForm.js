@@ -1,6 +1,6 @@
 // External imports
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
@@ -25,7 +25,6 @@ const SignUpForm = () => {
     const { username, password1, password2 } = signUpData;
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [errors, setErrors] = useState({});
-    const history = useHistory();
 
     // Input display values
     const handleChange = (event) => {
@@ -40,7 +39,6 @@ const SignUpForm = () => {
         event.preventDefault();
         try {
             await axios.post("/dj-rest-auth/registration/", signUpData)
-            // history.push("/login");
             emailjs.send("service_6ue6ujt", "template_m1tfcmy", {
                 username: username,
                 verification_code: uuidv4()
@@ -56,7 +54,7 @@ const SignUpForm = () => {
             <PatchStyles classNames={appStyles}>
 
                 <Row>
-                    <Col className="pt-5"
+                    <Col
                         xs={{ span: 10, offset: 1 }}
                         md={{ span: 6, offset: 3 }}
                         xl={{ span: 4, offset: 4 }}

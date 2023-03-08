@@ -15,7 +15,7 @@ option to create new ones
 */
 const SideBar = () => {
     // Variables
-    const [menuOpen, setMenuOpen] = useState(true);
+    const [menuOpen, setMenuOpen] = useState(false);
     const currentUser = useCurrentUser();
 
     return (
@@ -29,8 +29,8 @@ const SideBar = () => {
 
                 {/* Collapsible menu */}
                 <Col
-                    xs={12}
-                    sm={10}
+                    xs={10}
+                    sm={5}
                     md={3}
                     lg={2}
                     className={`Menu BgNavy text-start ${menuOpen ? "d-block" : "d-none"}`}

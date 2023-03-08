@@ -28,7 +28,7 @@
     transition: width 0.5s, height 0.5s;
 }
 
-.AccountMenuContainer:hover {
+.AccountMenuOpen {
     width: 10rem;
     height: 10rem;
 }

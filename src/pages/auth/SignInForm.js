@@ -50,7 +50,7 @@ function SignInForm() {
             <PatchStyles classNames={appStyles}>
 
                 <Row>
-                    <Col className="pt-5"
+                    <Col
                         xs={{ span: 10, offset: 1 }}
                         md={{ span: 6, offset: 3 }}
                         xl={{ span: 4, offset: 4 }}

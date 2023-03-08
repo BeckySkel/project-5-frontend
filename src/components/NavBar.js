@@ -20,8 +20,6 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const Links = currentUser ? ['Logout', 'Edit Profile'] : ['Login', 'Register'];
 
-  const disable = () => {return "disabled"}
-
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
@@ -37,11 +35,13 @@ const NavBar = () => {
             </NavLink>
 
             {/* Stylised account menu which expands when hovered over */}
-            <div className="AccountMenuContainer BgOrange"
-              onMouseEnter={() => setAccountMenuOpen(!accountMenuOpen)}
-              onMouseLeave={() => setAccountMenuOpen(!accountMenuOpen)}
+            <div className={`AccountMenuContainer BgOrange ${accountMenuOpen ? "AccountMenuOpen" : ""}`}
+              onMouseEnter={() => setAccountMenuOpen(true)}
+              onMouseLeave={() => setAccountMenuOpen(false)}
               aria-controls="account-menu"
-              aria-expanded={accountMenuOpen}>
+              aria-expanded={accountMenuOpen}
+              >
+
               {/* User icon */}
               <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
 
