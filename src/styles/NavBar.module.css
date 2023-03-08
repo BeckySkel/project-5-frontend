@@ -1,3 +1,7 @@
+.NavBar {
+    z-index: 2;
+}
+
 .Circle {
     width: 2rem;
     height: 2rem;

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
+import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
 // Internal imports
 import styles from "../../styles/SignInUpForm.module.css";
