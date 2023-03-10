@@ -11,6 +11,7 @@ import SignUpForm from './pages/auth/SignUpForm';
 import SignInForm from './pages/auth/SignInForm';
 import { useCurrentUser } from './contexts/CurrentUserContext';
 import HomePage from './pages/home/HomePage';
+import SignOutForm from './pages/auth/SignOutForm';
 
 
 // Main app
@@ -33,7 +34,7 @@ function App() {
             <Col className="Main pt-5">
               <Switch>
                     <Route exact path="/" render={() => < HomePage />} />
-                    <Route exact path="/logout" render={() => <h1>Logout?</h1>} />
+                    <Route exact path="/logout" render={() => <SignOutForm />} />
                     <Route exact path="/edit-profile" render={() => <h1>Edit Profile</h1>} />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route exact path="/register" render={() => <SignUpForm />} />

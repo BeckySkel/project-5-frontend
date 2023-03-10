@@ -44,7 +44,6 @@ const SideBar = () => {
                         </Nav.Item>
                         <Nav.Item className="text-white fw-bold">
                             My Projects
-                            {console.log(currentUser)}
                             <NavLink exact to="/1" className="nav-link">Project 1</NavLink>
                             <NavLink exact to="/2" className="nav-link">Project 2</NavLink>
                         </Nav.Item>
