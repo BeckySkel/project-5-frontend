@@ -5,7 +5,7 @@ import axios from "axios";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
 // Internal imports
-import styles from "../../styles/SignInUpForm.module.css";
+import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 import emailjs from '@emailjs/browser';
 import { v4 as uuidv4 } from 'uuid';

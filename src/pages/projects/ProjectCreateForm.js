@@ -5,7 +5,9 @@ import { Form, Button, Row, Col, Alert } from "react-bootstrap/";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
-import appStyles from "../../App.module.css";
+// import appStyles from "../../App.module.css";
+// import styles from "../../styles/Forms.module.css";
+
 
 /* */
 function ProjectCreateForm() {
@@ -18,7 +20,7 @@ function ProjectCreateForm() {
     description: "",
     contributors: "",
   });
-  const { title, description, contributors } = projectData;
+  const { title, description } = projectData;
 
   // Form submission
   const handleSubmit = async (event) => {

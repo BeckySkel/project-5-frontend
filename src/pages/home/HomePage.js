@@ -1,27 +1,30 @@
-// External imports
-import React from "react";
-import PatchStyles from 'patch-styles';
-// Internal imports
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import styles from '../../styles/SignInUpForm.module.css';
-import appStyles from '../../App.module.css';
-import InfoCarousel from "../../components/InfoCarousel";
+import Dashboard from "./Dashboard";
+import InfoCarousel from "./InfoCarousel";
 
+import React, { useEffect, useState } from 'react'
+import { useCurrentUser, useLoaded } from "../../contexts/CurrentUserContext";
 
-// Homepage
-function HomePage() {
+const HomePage = () => {
     const currentUser = useCurrentUser();
+    // const [loaded, setLoaded] = useState(false);
+    const loaded = useLoaded();
 
+    // useEffect(() => {
+    //     console.log()
+    //     if (currentUser) {
+    //     setLoaded(true);
+    //     }
+    //   }, [currentUser]);
+    
     return (
-        <PatchStyles classNames={styles}>
-            <PatchStyles classNames={appStyles}>
-            
-                {currentUser ? <h1>Dashboard</h1> : <InfoCarousel />}
-        
-
-        </PatchStyles>
-    </PatchStyles>
+    <>
+    {console.log(currentUser)}
+    {/* {loaded && !currentUser ?  : null} */}
+    {loaded && currentUser ? <Dashboard /> : loaded && !currentUser ? <InfoCarousel /> : null}
+    </>
   )
 }
 
 export default HomePage
+
+

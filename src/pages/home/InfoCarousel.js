@@ -2,12 +2,12 @@
 import { Carousel, Row, Col } from 'react-bootstrap';
 import React from 'react';
 // Internal imports
-import styles from '../styles/InfoCarousel.module.css';
-import appStyles from '../App.module.css';
+import styles from '../../styles/InfoCarousel.module.css';
+import appStyles from '../../App.module.css';
 import PatchStyles from 'patch-styles';
-import placeholder1 from "../assets/placeholderimage1.jpg";
-import placeholder2 from "../assets/placeholderimage2.jpg";
-import placeholder3 from "../assets/placeholderimage3.jpg";
+import placeholder1 from "../../assets/placeholderimage1.jpg";
+import placeholder2 from "../../assets/placeholderimage2.jpg";
+import placeholder3 from "../../assets/placeholderimage3.jpg";
 
 // Carousel
 function InfoCarousel() {

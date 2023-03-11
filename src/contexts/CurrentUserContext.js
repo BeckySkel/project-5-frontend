@@ -1,4 +1,4 @@
-// Code by CI "Moments" walkthrough project
+// // Code by CI "Moments" walkthrough project
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
@@ -6,21 +6,26 @@ import { useHistory } from "react-router";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
+export const Loaded = createContext();
 
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
+export const useLoaded = () => useContext(Loaded);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loaded, setLoaded] = useState(false);
   const history = useHistory();
 
   const handleMount = async () => {
     try {
-      const { data } = await axiosRes.get("dj-rest-auth/user/");
-      setCurrentUser(data);
+      const { data } = await axiosRes
+        .get("dj-rest-auth/user/")
+        setCurrentUser(data);
     } catch (err) {
       console.log(err);
     }
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export const CurrentUserProvider = ({ children }) => {
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
-              history.push("/login");
+              history.push("/signin");
             }
             return null;
           });
@@ -57,7 +62,7 @@ export const CurrentUserProvider = ({ children }) => {
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                history.push("/login");
+                history.push("/signin");
               }
               return null;
             });
@@ -72,7 +77,9 @@ export const CurrentUserProvider = ({ children }) => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
-        {children}
+        <Loaded.Provider value={loaded}>
+          {children}
+          </Loaded.Provider>
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
   );

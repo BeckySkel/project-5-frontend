@@ -11,8 +11,8 @@ import appStyles from '../App.module.css';
 
 
 /* 
-Simple navbar which displays the logo (links to homepage) in the far left
-and a dynamic (different links if user logged in or out) account menu on the right 
+Minimalist navbar which displays the logo (links to homepage) in the far left
+and a custom collapsing account menu (different links if user logged in or out) on the right 
 */
 const NavBar = () => {
   // Variables
@@ -20,7 +20,9 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const Links = currentUser ? ['Logout', 'Edit Profile'] : ['Login', 'Register'];
 
+  // Display
   return (
+    // Apply styles
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
 
