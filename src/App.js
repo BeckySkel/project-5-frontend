@@ -12,6 +12,7 @@ import SignInForm from './pages/auth/SignInForm';
 import { useCurrentUser } from './contexts/CurrentUserContext';
 import HomePage from './pages/home/HomePage';
 import SignOutForm from './pages/auth/SignOutForm';
+import ProjectCreateForm from './pages/projects/ProjectCreateForm';
 
 
 // Main app
@@ -38,6 +39,7 @@ function App() {
                     <Route exact path="/edit-profile" render={() => <h1>Edit Profile</h1>} />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route exact path="/register" render={() => <SignUpForm />} />
+                    <Route exact path="/new" render={() => <ProjectCreateForm />} />
                 <Route render={() => <p>404 Page not found!</p>} />
               </Switch>
 
