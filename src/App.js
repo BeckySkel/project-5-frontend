@@ -1,4 +1,5 @@
 // External imports
+import React, { useRef } from "react";
 import PatchStyles from "patch-styles";
 import { Container, Row, Col } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
@@ -9,7 +10,7 @@ import SideBar from "./components/SideBar";
 import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
+import { useCurrentUser, useLoaded } from "./contexts/CurrentUserContext";
 import SignOutForm from "./pages/auth/SignOutForm";
 import ProjectCreateForm from "./pages/projects/ProjectCreateForm";
 import ProjectPage from "./pages/projects/ProjectPage";
@@ -19,6 +20,7 @@ import HomePage from "./pages/home/HomePage";
 function App() {
   // Variables
   const currentUser = useCurrentUser();
+  const loaded = useLoaded();
 
   return (
     <PatchStyles classNames={appStyles}>
@@ -27,30 +29,37 @@ function App() {
         <NavBar />
         <Container fluid>
           <Row>
-            {/* Navigation sidebar */}
-            {currentUser ? <SideBar /> : null}
+            <Col className="d-flex flex-row justify-content-between px-0">
+              {/* Navigation sidebar */}
+              {loaded && currentUser ? <SideBar /> : null}
 
-            {/* Main site contents */}
-            <Col className="Main pt-5">
-              <Switch>
-                <Route exact path="/" render={() => <HomePage />} />
+              {/* Main site contents */}
 
-                <Route exact path="/logout" render={() => <SignOutForm />} />
-                <Route
-                  exact
-                  path="/edit-profile"
-                  render={() => <h1>Edit Profile</h1>}
-                />
-                <Route exact path="/login" render={() => <SignInForm />} />
-                <Route exact path="/register" render={() => <SignUpForm />} />
-                <Route exact path="/new" render={() => <ProjectCreateForm />} />
-                <Route
-                  exact
-                  path="/projects/:id"
-                  render={() => <ProjectPage />}
-                />
-                <Route render={() => <p>404 Page not found!</p>} />
-              </Switch>
+              <div className={`Main pt-5`}>
+                <Switch>
+                  <Route exact path="/" render={() => <HomePage />} />
+
+                  <Route exact path="/logout" render={() => <SignOutForm />} />
+                  <Route
+                    exact
+                    path="/edit-profile"
+                    render={() => <h1>Edit Profile</h1>}
+                  />
+                  <Route exact path="/login" render={() => <SignInForm />} />
+                  <Route exact path="/register" render={() => <SignUpForm />} />
+                  <Route
+                    exact
+                    path="/new"
+                    render={() => <ProjectCreateForm />}
+                  />
+                  <Route
+                    exact
+                    path="/projects/:id"
+                    render={() => <ProjectPage />}
+                  />
+                  <Route render={() => <p>404 Page not found!</p>} />
+                </Switch>
+              </div>
             </Col>
           </Row>
         </Container>

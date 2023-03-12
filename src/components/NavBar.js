@@ -1,14 +1,13 @@
 // External imports
-import { React, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import PatchStyles from 'patch-styles';
-import { Container, Navbar, Nav, Fade } from 'react-bootstrap';
-import slugify from 'react-slugify';
+import { React, useState } from "react";
+import { NavLink } from "react-router-dom";
+import PatchStyles from "patch-styles";
+import { Container, Navbar, Nav, Fade } from "react-bootstrap";
+import slugify from "react-slugify";
 // Internal imports
-import { useCurrentUser } from '../contexts/CurrentUserContext';
-import styles from '../styles/NavBar.module.css';
-import appStyles from '../App.module.css';
-
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import styles from "../styles/NavBar.module.css";
+import appStyles from "../App.module.css";
 
 /* 
 Minimalist navbar which displays the logo (links to homepage) in the far left
@@ -18,9 +17,10 @@ const NavBar = () => {
   // Variables
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const currentUser = useCurrentUser();
-  const Links = currentUser ? ['Logout', 'Edit Profile'] : ['Login', 'Register'];
+  const Links = currentUser
+    ? ["Logout", "Edit Profile"]
+    : ["Login", "Register"];
 
-  // Display
   return (
     // Apply styles
     <PatchStyles classNames={styles}>
@@ -37,22 +37,29 @@ const NavBar = () => {
             </NavLink>
 
             {/* Stylised account menu which expands when hovered over */}
-            <div className={`AccountMenuContainer BgOrange ${accountMenuOpen ? "AccountMenuOpen" : ""}`}
+            <div
+              className={`AccountMenuContainer BgOrange ${
+                accountMenuOpen ? "AccountMenuOpen" : ""
+              }`}
               onMouseEnter={() => setAccountMenuOpen(true)}
               onMouseLeave={() => setAccountMenuOpen(false)}
               aria-controls="account-menu"
               aria-expanded={accountMenuOpen}
-              >
-
+            >
               {/* User icon */}
               <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
-
               {/* Links rendered as list */}
-              <Fade in={accountMenuOpen} id="account-menu" className="AccountMenu">
+              <Fade
+                in={accountMenuOpen}
+                id="account-menu"
+                className="AccountMenu"
+              >
                 <Nav className="flex-column">
-                  {Links.map(link => (
+                  {Links.map((link) => (
                     <Nav.Item key={link}>
-                      <NavLink to={`/${slugify(link)}`} className="nav-link">{link}</NavLink>
+                      <NavLink to={`/${slugify(link)}`} className="nav-link">
+                        {link}
+                      </NavLink>
                     </Nav.Item>
                   ))}
                 </Nav>
@@ -61,9 +68,9 @@ const NavBar = () => {
           </Container>
         </Navbar>
 
-      </PatchStyles >
+      </PatchStyles>
     </PatchStyles>
-  )
-}
+  );
+};
 
 export default NavBar;

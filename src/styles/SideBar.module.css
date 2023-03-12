@@ -5,4 +5,21 @@
 
 .Menu {
     height: calc(100vh - 3rem);
+    transition: flex-basis 0.5s;
+    flex-basis: 0;
 }
+
+.MenuOpened {
+    flex-basis: 15rem;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 576px) {
+    .Menu {
+      position: absolute;
+    }
+  }
