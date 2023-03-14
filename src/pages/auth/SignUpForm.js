@@ -1,6 +1,6 @@
 // External imports
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
@@ -19,12 +19,14 @@ const SignUpForm = () => {
     // Variables
     const [signUpData, setSignUpData] = useState({
         username: "",
+        email: "",
         password1: "",
         password2: ""
     });
-    const { username, password1, password2 } = signUpData;
+    const { username, email, password1, password2 } = signUpData;
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [errors, setErrors] = useState({});
+    const history = useHistory();
 
     // Input display values
     const handleChange = (event) => {
@@ -39,13 +41,15 @@ const SignUpForm = () => {
         event.preventDefault();
         try {
             await axios.post("/dj-rest-auth/registration/", signUpData)
-            emailjs.send("service_6ue6ujt", "template_m1tfcmy", {
-                username: username,
-                verification_code: uuidv4()
-            }, "nvcR62V0DXNK9zmT3");
+            // emailjs.send("service_6ue6ujt", "template_m1tfcmy", {
+            //     username: username,
+            //     verification_code: uuidv4()
+            // }, "nvcR62V0DXNK9zmT3");
             setSubmissionSuccess(true);
+            history.push("/");
         } catch (err) {
             setErrors(err.response?.data);
+            console.log(err);
         }
     };
 
@@ -64,16 +68,15 @@ const SignUpForm = () => {
                             <p>An email has been sent to XX</p>
                         </> :
                             <>
-                                <h1 className="mb-4 pt-md-5 fs-1">Register</h1>
-
-                                <Form onSubmit={handleSubmit}>
+                                <Form onSubmit={handleSubmit} className="BgGrey p-4 rounded mt-5">
+                                    <h1 className="fs-2 pb-2">Register</h1>
                                     {/* Username input */}
-                                    <Form.Group controlId="username">
-                                        <Form.Label className="d-none">username</Form.Label>
+                                    <Form.Group controlId="username" className="text-start">
+                                        <Form.Label>Username</Form.Label>
                                         <Form.Control
                                             className="Input"
                                             type="text"
-                                            placeholder="Username"
+                                            placeholder="Enter Username"
                                             name="username"
                                             value={username}
                                             onChange={handleChange}
@@ -86,13 +89,32 @@ const SignUpForm = () => {
                                         </Alert>
                                     ))}
 
+                                    {/* Email input */}
+                                    <Form.Group controlId="email" className="text-start">
+                                        <Form.Label className="Label">Email</Form.Label>
+                                        <Form.Control
+                                            className="Input"
+                                            type="text"
+                                            placeholder="Enter Email"
+                                            name="email"
+                                            value={email}
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
+                                    {/* Email errors */}
+                                    {errors.email?.map((message, idx) => (
+                                        <Alert variant="warning" key={idx}>
+                                            {message}
+                                        </Alert>
+                                    ))}
+
                                     {/* Password input */}
-                                    <Form.Group controlId="password1">
-                                        <Form.Label className="d-none">Password</Form.Label>
+                                    <Form.Group controlId="password1" className="text-start">
+                                        <Form.Label className="Label">Password</Form.Label>
                                         <Form.Control
                                             className="Input"
                                             type="password"
-                                            placeholder="Password"
+                                            placeholder="Enter Password"
                                             name="password1"
                                             value={password1}
                                             onChange={handleChange}
@@ -106,7 +128,7 @@ const SignUpForm = () => {
                                     ))}
 
                                     {/* Confirm password input */}
-                                    <Form.Group controlId="password2">
+                                    <Form.Group controlId="password2" className="text-start">
                                         <Form.Label className="d-none">Confirm password</Form.Label>
                                         <Form.Control
                                             className="Input"
@@ -129,7 +151,7 @@ const SignUpForm = () => {
                                         type="submit"
                                         size="lg"
                                         variant="warning"
-                                        className="my-3 Submit BgOrange text-white"
+                                        className="my-3 Submit BgOrange text-white rounded-pill"
                                     >
                                         Sign Up
                                     </Button>
@@ -143,9 +165,11 @@ const SignUpForm = () => {
                             </>}
 
                         {/* Link to account login */}
-                        <Link className={styles.Link} to="/login">
-                            Already have an account? <span>Sign in</span>
+                        <p className="m-4">Already have an account?
+                        <Link to="/login" className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap">
+                            Sign in
                         </Link>
+                        </p>
                     </Col>
                 </Row>
 

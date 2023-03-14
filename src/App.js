@@ -1,5 +1,5 @@
 // External imports
-import React, { useRef } from "react";
+import React from "react";
 import PatchStyles from "patch-styles";
 import { Container, Row, Col } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
@@ -10,7 +10,7 @@ import SideBar from "./components/SideBar";
 import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
-import { useCurrentUser, useLoaded } from "./contexts/CurrentUserContext";
+import { useCurrentUser, useUserLoaded } from "./contexts/CurrentUserContext";
 import SignOutForm from "./pages/auth/SignOutForm";
 import ProjectCreateForm from "./pages/projects/ProjectCreateForm";
 import ProjectPage from "./pages/projects/ProjectPage";
@@ -20,7 +20,7 @@ import HomePage from "./pages/home/HomePage";
 function App() {
   // Variables
   const currentUser = useCurrentUser();
-  const loaded = useLoaded();
+  const loaded = useUserLoaded();
 
   return (
     <PatchStyles classNames={appStyles}>
@@ -32,10 +32,10 @@ function App() {
             <Col className="d-flex flex-row justify-content-between px-0">
               {/* Navigation sidebar */}
               {loaded && currentUser ? <SideBar /> : null}
-
               {/* Main site contents */}
 
               <div className={`Main pt-5`}>
+                {console.log(currentUser)}
                 <Switch>
                   <Route exact path="/" render={() => <HomePage />} />
 

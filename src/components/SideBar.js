@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
 import { Nav, Button, Fade } from "react-bootstrap";
@@ -9,10 +9,10 @@ import appStyles from "../App.module.css";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
 
-/** 
+/*
 Collapsible sidebar which welcomes the user and acts as site navigation
 */
-const SideBar = () => {
+function SideBar() {
   // Variables
   const [menuOpen, setMenuOpen] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -48,7 +48,6 @@ const SideBar = () => {
   }, [menuOpen, profile_id]);
 
   return (
-    // Apply styles
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         {/* Menu show/hide */}
@@ -61,7 +60,7 @@ const SideBar = () => {
               () => {
                 setFadeIn(!menuOpen);
               },
-              !menuOpen ? 500 : 0
+              !menuOpen ? 250 : 0
             );
           }}
         >
@@ -81,8 +80,9 @@ const SideBar = () => {
             appear
             unmountOnExit
             mountOnEnter
+            timeout={100}
           >
-            <Nav className={`flex-column pt-5 ps-3 pe-4 `} variant="pills">
+            <Nav className="flex-column pt-5 ps-3 pe-4" variant="pills">
               {/* Welcome user */}
               <Nav.Item className="text-white fw-bold">
                 Welcome {currentUser.username}!
@@ -93,15 +93,20 @@ const SideBar = () => {
                   Dashboard
                 </NavLink>
               </Nav.Item>
-              <Nav.Item className="text-white fw-bold">
-                My Projects
-                <NavLink exact to="/1" className="nav-link">
+              <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
+              <NavLink exact to="/1" className="nav-link">
                   Project 1
                 </NavLink>
                 <NavLink exact to="/2" className="nav-link">
                   Project 2
                 </NavLink>
-              </Nav.Item>
+              {/* {Links.map((link) => (
+                <Nav.Item key={link}>
+                  <NavLink to={`/${slugify(link)}`} className="nav-link">
+                    {link}
+                  </NavLink>
+                </Nav.Item>
+              ))} */}
               <Nav.Item>
                 <NavLink to="/new" className="nav-link">
                   New <i className="fa-solid fa-plus"></i>

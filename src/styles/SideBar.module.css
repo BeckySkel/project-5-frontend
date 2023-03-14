@@ -5,12 +5,12 @@
 
 .Menu {
     height: calc(100vh - 3rem);
-    transition: flex-basis 0.5s;
+    transition: flex-basis 0.3s;
     flex-basis: 0;
 }
 
 .MenuOpened {
-    flex-basis: 15rem;
+    flex-basis: 20rem;
 }
 
 

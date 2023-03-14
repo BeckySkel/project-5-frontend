@@ -1,5 +1,5 @@
 .Input {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     border: 2px #6D72C3 solid;
 }
 
@@ -9,4 +9,8 @@
 
 .Submit:hover {
     background-color: #e36253;
+}
+
+.RegForm {
+    background-color: ;
 }

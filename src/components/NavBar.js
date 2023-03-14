@@ -13,7 +13,7 @@ import appStyles from "../App.module.css";
 Minimalist navbar which displays the logo (links to homepage) in the far left
 and a custom collapsing account menu (different links if user logged in or out) on the right 
 */
-const NavBar = () => {
+function NavBar() {
   // Variables
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const currentUser = useCurrentUser();
@@ -22,10 +22,8 @@ const NavBar = () => {
     : ["Login", "Register"];
 
   return (
-    // Apply styles
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
-
         <Navbar className="bg-gradient BgNavy NavBar" variant="dark">
           <Container fluid>
             {/* Logo (links to homepage) */}
@@ -67,10 +65,9 @@ const NavBar = () => {
             </div>
           </Container>
         </Navbar>
-
       </PatchStyles>
     </PatchStyles>
   );
-};
+}
 
 export default NavBar;
