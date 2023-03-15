@@ -5,12 +5,34 @@
 
 .Submit {
     border: none;
+    margin: 1rem auto;
+    color: #fff;
 }
 
 .Submit:hover {
     background-color: #e36253;
 }
 
-.RegForm {
-    background-color: ;
+.AuthForm {
+    padding: 1.5rem;
+    border-radius: 0.3rem;
+    margin-top: 2rem;
 }
+
+.AuthForm h1 {
+    font-size: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.AuthLink {
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    margin: 0.25rem;
+}
+
+.AuthLink:hover {
+    color: #e6dbfe;
+}
+
+
+

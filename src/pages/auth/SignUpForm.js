@@ -1,14 +1,12 @@
 // External imports
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
-// import emailjs from '@emailjs/browser';
-// import { v4 as uuidv4 } from 'uuid';
 
 
 /* 
@@ -24,9 +22,9 @@ const SignUpForm = () => {
         password2: ""
     });
     const { username, email, password1, password2 } = signUpData;
-    const [submissionSuccess, setSubmissionSuccess] = useState(false);
+    const [submissionSuccess, setSubmissionSuccess] = useState(true);
     const [errors, setErrors] = useState({});
-    const history = useHistory();
+    
 
     // Input display values
     const handleChange = (event) => {
@@ -41,12 +39,7 @@ const SignUpForm = () => {
         event.preventDefault();
         try {
             await axios.post("/dj-rest-auth/registration/", signUpData)
-            // emailjs.send("service_6ue6ujt", "template_m1tfcmy", {
-            //     username: username,
-            //     verification_code: uuidv4()
-            // }, "nvcR62V0DXNK9zmT3");
             setSubmissionSuccess(true);
-            history.push("/");
         } catch (err) {
             setErrors(err.response?.data);
             console.log(err);
@@ -64,12 +57,12 @@ const SignUpForm = () => {
                         xl={{ span: 4, offset: 4 }}
                     >
                         {submissionSuccess ? <>
-                            <h1>Success!</h1>
-                            <p>An email has been sent to XX</p>
+                            <h1 className="fs-1">Your account needs verifying</h1>
+                            <p>A confirmation has been sent to {email}, please follow the instructions to verify your account</p>
                         </> :
                             <>
-                                <Form onSubmit={handleSubmit} className="BgGrey p-4 rounded mt-5">
-                                    <h1 className="fs-2 pb-2">Register</h1>
+                                <Form onSubmit={handleSubmit} className="BgGrey AuthForm">
+                                    <h1>Register</h1>
                                     {/* Username input */}
                                     <Form.Group controlId="username" className="text-start">
                                         <Form.Label>Username</Form.Label>
@@ -91,7 +84,7 @@ const SignUpForm = () => {
 
                                     {/* Email input */}
                                     <Form.Group controlId="email" className="text-start">
-                                        <Form.Label className="Label">Email</Form.Label>
+                                        <Form.Label>Email</Form.Label>
                                         <Form.Control
                                             className="Input"
                                             type="text"
@@ -110,7 +103,7 @@ const SignUpForm = () => {
 
                                     {/* Password input */}
                                     <Form.Group controlId="password1" className="text-start">
-                                        <Form.Label className="Label">Password</Form.Label>
+                                        <Form.Label>Password</Form.Label>
                                         <Form.Control
                                             className="Input"
                                             type="password"
@@ -151,9 +144,9 @@ const SignUpForm = () => {
                                         type="submit"
                                         size="lg"
                                         variant="warning"
-                                        className="my-3 Submit BgOrange text-white rounded-pill"
+                                        className="Submit BgOrange rounded-pill"
                                     >
-                                        Sign Up
+                                        Sign up
                                     </Button>
                                     {/* Non-field errors */}
                                     {errors.non_field_errors?.map((message, idx) => (
@@ -166,7 +159,7 @@ const SignUpForm = () => {
 
                         {/* Link to account login */}
                         <p className="m-4">Already have an account?
-                        <Link to="/login" className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap">
+                        <Link to="/login" className="AuthLink BgPurple rounded-pill text-nowrap">
                             Sign in
                         </Link>
                         </p>

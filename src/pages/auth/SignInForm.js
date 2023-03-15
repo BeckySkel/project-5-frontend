@@ -53,15 +53,14 @@ function SignInForm() {
             md={{ span: 6, offset: 3 }}
             xl={{ span: 4, offset: 4 }}
           >
-            <h1 className="mb-4 pt-md-5 fs-1">Login</h1>
-
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="AuthForm BgGrey">
+              <h1 className="">Login</h1>
               {/* Username input */}
-              <Form.Group controlId="username">
-                <Form.Label className="d-none">username</Form.Label>
+              <Form.Group controlId="username" className="text-start">
+                <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Username"
+                  placeholder="Enter Username"
                   name="username"
                   value={username}
                   onChange={handleChange}
@@ -76,11 +75,11 @@ function SignInForm() {
               ))}
 
               {/* Password input */}
-              <Form.Group controlId="password">
-                <Form.Label className="d-none">Password</Form.Label>
+              <Form.Group controlId="password" className="text-start">
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Password"
+                  placeholder="Enter Password"
                   name="password"
                   value={password}
                   onChange={handleChange}
@@ -99,7 +98,7 @@ function SignInForm() {
                 type="submit"
                 size="lg"
                 variant="warning"
-                className="my-3 Submit BgOrange text-white"
+                className="Submit BgOrange rounded-pill"
               >
                 Sign In
               </Button>
@@ -112,9 +111,15 @@ function SignInForm() {
             </Form>
 
             {/* Link to account registration */}
-            <Link to="/register">
-              Don't have an account? <span>Sign up now!</span>
-            </Link>
+            <p className="m-4">
+              Don't have an account?
+              <Link
+                to="/register"
+                className="AuthLink BgPurple rounded-pill text-nowrap"
+              >
+                Sign up now!
+              </Link>
+            </p>
           </Col>
         </Row>
       </PatchStyles>
