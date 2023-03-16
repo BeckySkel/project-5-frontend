@@ -1,8 +1,11 @@
-import React from "react";
-import { Card, Col, Container } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card, Col } from "react-bootstrap";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import appStyles from "../../App.module.css";
 import PatchStyles from "patch-styles";
+import styles from "../../styles/Projects.module.css";
+import { axiosReq } from "../../api/axiosDefaults";
+import Task from "./Task";
 
 function Project(props) {
   // Variables
@@ -23,39 +26,54 @@ function Project(props) {
     url_id,
   } = props;
   const currentUser = useCurrentUser;
-  const is_creator = currentUser?.username === creator;
+  const [task, setTask] = useState({results: []});
+
+  // Get tasks
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const [{ data: task }] = await Promise.all([
+          axiosReq.get("/tasks/", { params: {project_id : id} }),
+        ]);
+        setTask({ results: [task] });
+        console.log(task);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    handleMount();
+  }, [id]);
 
   return (
-    // <PatchStyles classNames={styles}>
-    <PatchStyles classNames={appStyles}>
-      <Col
-        xs={{ span: 10, offset: 1 }}
-        className="BgGrey text-start p-2 rounded mb-5"
-      >
-        <h1>{title}</h1>
-        <h2>by {creator}</h2>
-        <p>total tasks: {task_count}</p>
-        {task_count > 1 ? 
-        <>
-        {task_ids.map((id) => (
-          <Card key={id}>
-            <Card.Header>{id}</Card.Header>
-          </Card>
-        ))}
-        </>
-        :
-        task_count > 0 ?
-        <>
-        <Card>
-            <Card.Header>{task_ids[0]}</Card.Header>
-          </Card>
-          </>
-          :
-        <p>No tasks yet!</p>
-}
+    <PatchStyles classNames={styles}>
+      <PatchStyles classNames={appStyles}>
+        <Col
+          xs={{ span: 10, offset: 1 }}
+          className="BgGrey text-start p-3 rounded mb-5"
+        >
+          <h1>{title}</h1>
+          <h2>by {creator}</h2>
+          <p>total tasks: {task_count}</p>
+          <div className="TaskContainer BgLight rounded">
+            <h3 className="fs-5">To do:</h3>
+            {task_count > 1 ? (
+              <>
+                {task.map((id) => (
+                  <Task {...task.results} />
+                ))}
+              </>
+            ) : task_count > 0 ? (
+              <>
+                <Task {...task.results[0]} />
+              </>
+            ) : (
+              <p>No tasks yet!</p>
+            )}
+          </div>
         </Col>
+      </PatchStyles>
     </PatchStyles>
-    //   </PatchStyles>
   );
 }
 

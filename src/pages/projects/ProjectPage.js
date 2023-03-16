@@ -12,6 +12,7 @@ function ProjectPage() {
   const {id} = useParams();
   const [project, setProject] = useState( {results: []} )
 
+  // Get project from id on mount
   useEffect(() => {
     const handleMount = async () => {
         try {
