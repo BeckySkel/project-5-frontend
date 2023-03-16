@@ -18,6 +18,7 @@ function SideBar() {
   const [fadeIn, setFadeIn] = useState(false);
   const currentUser = useCurrentUser();
   const profile_id = currentUser.profile_id;
+  const [projectsList, setProjectsList] = useState([]);
 
   // Get previous menu state
   useLayoutEffect(() => {
@@ -26,6 +27,7 @@ function SideBar() {
         const { data } = await axiosReq.get(`/profiles/${profile_id}`);
         setMenuOpen(data.menu_open);
         setFadeIn(data.menu_open);
+        setProjectsList(data.created_projects_list);
       } catch (err) {
         console.log(err);
       }
@@ -94,19 +96,22 @@ function SideBar() {
                 </NavLink>
               </Nav.Item>
               <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
-              <NavLink exact to="/1" className="nav-link">
+              
+              {console.log(projectsList)}
+                  {projectsList?.map((name) => (
+                    <Nav.Item key={name}>
+                      <NavLink to={`/projects/`} className="nav-link">
+                        {name}
+                      </NavLink>
+                    </Nav.Item>
+                  ))}
+
+              {/* <NavLink exact to="/1" className="nav-link">
                   Project 1
                 </NavLink>
                 <NavLink exact to="/2" className="nav-link">
                   Project 2
-                </NavLink>
-              {/* {Links.map((link) => (
-                <Nav.Item key={link}>
-                  <NavLink to={`/${slugify(link)}`} className="nav-link">
-                    {link}
-                  </NavLink>
-                </Nav.Item>
-              ))} */}
+                </NavLink> */}
               <Nav.Item>
                 <NavLink to="/new" className="nav-link">
                   New <i className="fa-solid fa-plus"></i>

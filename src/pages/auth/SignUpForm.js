@@ -22,7 +22,7 @@ const SignUpForm = () => {
         password2: ""
     });
     const { username, email, password1, password2 } = signUpData;
-    const [submissionSuccess, setSubmissionSuccess] = useState(true);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [errors, setErrors] = useState({});
     
 

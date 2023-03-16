@@ -36,7 +36,6 @@ function App() {
               {/* Main site contents */}
 
               <div className={`Main pt-5`}>
-                {console.log(currentUser)}
                 <Switch>
                   <Route exact path="/" render={() => <HomePage />} />
 

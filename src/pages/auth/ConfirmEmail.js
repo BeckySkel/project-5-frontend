@@ -16,7 +16,7 @@ function ConfirmEmail() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const {data} = await axiosRes.get(
+        await axiosRes.get(
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
       } catch (err) {
@@ -25,7 +25,7 @@ function ConfirmEmail() {
     };
 
     handleMount();
-  }, []);
+  }, [key]);
 
   return (
     <PatchStyles classNames={styles}>
