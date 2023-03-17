@@ -14,10 +14,11 @@ Collapsible sidebar which welcomes the user and acts as site navigation
 */
 function SideBar() {
   // Variables
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
   const currentUser = useCurrentUser();
   const profile_id = currentUser.profile_id;
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
   const [projectsList, setProjectsList] = useState([]);
 
   // Get previous menu state
@@ -25,9 +26,10 @@ function SideBar() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/profiles/${profile_id}`);
-        setMenuOpen(data.menu_open);
-        setFadeIn(data.menu_open);
-        setProjectsList(data.created_projects_list);
+        const { created_projects_list, menu_open } = data;
+        setProjectsList(created_projects_list);
+        setMenuOpen(menu_open);
+        setFadeIn(menu_open);
       } catch (err) {
         console.log(err);
       }
@@ -96,15 +98,14 @@ function SideBar() {
                 </NavLink>
               </Nav.Item>
               <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
-              
-              {console.log(projectsList)}
-                  {projectsList?.map((name) => (
-                    <Nav.Item key={name}>
-                      <NavLink to={`/projects/`} className="nav-link">
-                        {name}
-                      </NavLink>
-                    </Nav.Item>
-                  ))}
+
+              {projectsList?.map((name) => (
+                <Nav.Item key={name}>
+                  <NavLink to={`/projects/`} className="nav-link">
+                    {name}
+                  </NavLink>
+                </Nav.Item>
+              ))}
 
               {/* <NavLink exact to="/1" className="nav-link">
                   Project 1
@@ -123,6 +124,6 @@ function SideBar() {
       </PatchStyles>
     </PatchStyles>
   );
-};
+}
 
 export default SideBar;

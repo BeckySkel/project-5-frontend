@@ -48,6 +48,8 @@ function NavBar() {
               <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
               {/* Links rendered as list */}
               <Fade
+                unmountOnExit
+                mountOnEnter
                 in={accountMenuOpen}
                 id="account-menu"
                 className="AccountMenu"

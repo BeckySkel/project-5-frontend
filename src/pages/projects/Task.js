@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card } from 'react-bootstrap';
 
 function Task(props) {
     // Variables
@@ -18,9 +19,17 @@ function Task(props) {
         summary,
         updated_on
       } = props;
-
+      console.log(props);
+      
   return (
-    <div>Task: {summary}</div>
+    <Card>
+      <Card.Header>
+        {summary}
+      </Card.Header>
+      <Card.Body>
+        {body}
+      </Card.Body>
+    </Card>
   )
 }
 
