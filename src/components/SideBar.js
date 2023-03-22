@@ -41,7 +41,7 @@ function SideBar() {
   useEffect(() => {
     const postMenuState = async () => {
       try {
-        await axiosReq.put(`/profiles/${profile_id}`, {
+        await axiosReq.patch(`/profiles/${profile_id}`, {
           menu_open: menuOpen,
         });
       } catch (err) {

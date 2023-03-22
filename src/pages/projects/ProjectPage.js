@@ -45,10 +45,8 @@ function ProjectPage() {
           <h2>by {creator}</h2>
           <p>total tasks: {task_count}</p>
           {/* Todo and Complete containers */}
-          {containers.map((container, idx) => (
-            <>
-              <TaskContainer title={container} key={idx} />
-            </>
+          {containers.map((container) => (
+            <TaskContainer title={container} key={container} />
           ))}
           {/* End containers */}
         </Col>

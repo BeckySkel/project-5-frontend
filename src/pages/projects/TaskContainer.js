@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Card, Col } from "react-bootstrap";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import React, { useEffect, useState } from "react";
 import appStyles from "../../App.module.css";
 import PatchStyles from "patch-styles";
 import styles from "../../styles/Projects.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
-import Task from "./Task";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
+import Task from "./Task";
+import slugify from "react-slugify";
 
 function TaskContainer(props) {
   // Variables
@@ -18,17 +17,32 @@ function TaskContainer(props) {
     ev.preventDefault();
   };
 
-  const handleDrag = (ev) => {
-    ev.dataTransfer.setData("text", ev.target.id);
-  };
-
+  // https://www.tabnine.com/code/javascript/functions/react/DragEvent/dataTransfer
   const handleDrop = (ev) => {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text");
+    const model = JSON.parse(ev.dataTransfer.getData("item"));
     const task = document.getElementById(data);
-    console.log(task);
-    task.classList.replace("todo", "complete");
+    const container = ev.target.id;
+    console.log(container);
+    if (task.classList.contains("to-do")) {
+      task.classList.replace("to-do", "complete");
+    } else {
+      task.classList.replace("complete", "to-do");
+    }
     ev.target.appendChild(task);
+    postTaskState(model, container);
+  };
+
+  // Set future menu state in API
+  const postTaskState = async (model, container) => {
+    try {
+      await axiosReq.patch(`/tasks/${model.id}`, {
+        completed: container === "complete-container" ? true : false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Get tasks on mount
@@ -37,7 +51,6 @@ function TaskContainer(props) {
       try {
         const { data } = await axiosReq.get("/tasks/", { project: id });
         setTasks(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
@@ -49,38 +62,32 @@ function TaskContainer(props) {
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
-        <div
-          className="TaskContainer BgLight rounded my-2"
-          onDrop={handleDrop}
-          onDragOver={allowDrop}
-        >
+        <div className="TaskContainer BgLight rounded my-2">
           <h3 className="fs-5">{props.title}:</h3>
-
-          {/* Add cards */}
-          {props.title === "To do" ? (
-            <Card
-              draggable
-              onDragStart={handleDrag}
-              id="task1"
-              className="todo"
-            >
-              <Card.Header>Summary</Card.Header>
-              <Card.Body>Body</Card.Body>
-            </Card>
-          ) : tasks.results.length ? 
-          tasks.results.map(task => (
-            <Card
-              draggable
-              onDragStart={handleDrag}
-              className="complete"
-            >
-              <Card.Header>{task.summary}</Card.Header>
-              <Card.Body>{task.body}</Card.Body>
-            </Card>
-          )) :
-          <></>
-          }
-          {/* End of cards */}
+          <div onDrop={handleDrop} onDragOver={allowDrop} className="p-2" id={`${slugify(props.title)}-container`}>
+            {/* Add cards */}
+            {tasks.results?.map((task) => {
+              if (!task.completed && props.title === "To do") {
+                return (
+                  <Task
+                    task={task}
+                    container={slugify(props.title)}
+                    key={task.id}
+                  />
+                );
+              } else if (task.completed && props.title === "Complete") {
+                return (
+                  <Task
+                    task={task}
+                    container={slugify(props.title)}
+                    key={task.id}
+                  />
+                );
+              } else {
+                return null
+              }
+            })}
+          </div>
         </div>
       </PatchStyles>
     </PatchStyles>

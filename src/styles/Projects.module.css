@@ -1,4 +1,8 @@
 .TaskContainer {
-    padding: 1rem;
+    padding-top: 1rem;
     /* margin: 0.5rem; */
+}
+
+.TaskContainer > h3 {
+    padding: 0 1rem;
 }
