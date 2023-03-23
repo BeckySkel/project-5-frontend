@@ -9,6 +9,7 @@ import styles from "../../styles/Project.module.css";
 import appStyles from "../../App.module.css";
 import TaskContainer from "./TaskContainer";
 import DeleteModal from "../../components/DeleteModal";
+import CreateModal from "../../components/CreateModal";
 
 /*
 Page to display the project identified in the url
@@ -63,6 +64,7 @@ function ProjectPage() {
             <TaskContainer title={container} key={container} />
           ))}
           {/* End containers */}
+          <CreateModal />
         </Col>
       </PatchStyles>
     </PatchStyles>

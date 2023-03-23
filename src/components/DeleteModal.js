@@ -15,7 +15,7 @@ function DeleteModal(props) {
     try {
       await axiosRes.delete(`/${props.type}s/${props.id}`);
       if (props.type === "project") {
-      history.push('/');
+        history.push("/");
       } else {
         history.go(0);
       }
@@ -36,6 +36,7 @@ function DeleteModal(props) {
       </Button>
 
       <Modal
+        centered
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -45,14 +46,18 @@ function DeleteModal(props) {
           <Modal.Title>Delete Project?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you wish to delete this {props.type}? 
-          {props.type === "project" ?? (<>All related tasks will also be deleted.</>)}
+          Are you sure you wish to delete this {props.type}?
+          {props.type === "project" ?? (
+            <>All related tasks will also be deleted.</>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleDelete}>Delete</Button>
+          <Button variant="primary" onClick={handleDelete}>
+                Delete
+              </Button>
         </Modal.Footer>
       </Modal>
     </>

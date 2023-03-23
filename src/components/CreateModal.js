@@ -1,62 +1,76 @@
-import React, { useState } from "react";
+import PatchStyles from "patch-styles";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { axiosRes } from "../api/axiosDefaults";
+// Internal imports
+import styles from "../styles/AuthForms.module.css";
+import appStyles from "../App.module.css";
+import TaskCreateForm from "../pages/projects/TaskCreateForm";
 
-function DeleteModal(props) {
+function CreateModal() {
   const [show, setShow] = useState(false);
-  const history = useHistory();
+  const [trigger, setTrigger] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // Delete project
-  const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/${props.type}s/${props.id}`);
-      if (props.type === "project") {
-      history.push('/');
-      } else {
-        history.go(0);
+
+  useEffect(() => {
+    const handleSuccess = () => {
+      console.log(success);
+      if (success) {
+        handleClose();
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+
+    handleSuccess();
+  }, [success])
+  
 
   return (
     <>
-      <Button
-        size="sm"
-        variant="light"
-        className="text-muted"
-        onClick={handleShow}
-      >
-        <i className="fa-regular fa-trash-can"></i>
-      </Button>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Project?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you wish to delete this {props.type}? 
-          {props.type === "project" ?? (<>All related tasks will also be deleted.</>)}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
+      <PatchStyles classNames={styles}>
+        <PatchStyles classNames={appStyles}>
+          <Button
+            size="sm"
+            variant="light"
+            className="text-muted"
+            onClick={handleShow}
+          >
+            new
           </Button>
-          <Button variant="primary" onClick={handleDelete}>Delete</Button>
-        </Modal.Footer>
-      </Modal>
+
+          <Modal
+            centered
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Add Task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="BgGrey">
+              <TaskCreateForm trigger={trigger} setSuccess={setSuccess} setTrigger={setTrigger} success={success} />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button
+            variant="primary"
+            onClick={() => {
+              setTrigger(true);
+            }}
+          >
+            Submit
+          </Button>
+            </Modal.Footer>
+          </Modal>
+        </PatchStyles>
+      </PatchStyles>
     </>
   );
 }
 
-export default DeleteModal;
+export default CreateModal;
