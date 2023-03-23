@@ -7,7 +7,6 @@ import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/AuthForms.module.css";
 import appStyles from "../../App.module.css";
-import { Link } from "react-router-dom";
 
 /* 
 Form to create a new project
