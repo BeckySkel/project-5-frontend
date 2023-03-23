@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
 import { Col, Button } from "react-bootstrap/";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Project.module.css";
@@ -19,6 +19,7 @@ function ProjectPage() {
   const { id } = useParams();
   const [project, setProject] = useState({ results: [] });
   const containers = ["To do", "Complete"];
+  const history = useHistory();
 
   // Get project on mount
   useEffect(() => {
@@ -49,7 +50,7 @@ function ProjectPage() {
           className="BgGrey text-start p-3 rounded mb-5"
         >
           <span className="EditOptions">
-            <Button size="sm" variant="light" className="text-muted">
+            <Button size="sm" variant="light" className="text-muted" onClick={() => history.push(`/projects/${id}/edit/`)}>
               <i className="fa-regular fa-pen-to-square"></i>
             </Button>
             <DeleteModal type="project" id={id}/>

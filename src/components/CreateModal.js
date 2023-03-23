@@ -5,8 +5,9 @@ import { Button, Modal } from "react-bootstrap";
 import styles from "../styles/AuthForms.module.css";
 import appStyles from "../App.module.css";
 import TaskCreateForm from "../pages/projects/TaskCreateForm";
+import TaskEditForm from "../pages/projects/TaskEditForm";
 
-function CreateModal() {
+function CreateModal({ type, taskId }) {
   const [show, setShow] = useState(false);
   const [trigger, setTrigger] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -17,7 +18,6 @@ function CreateModal() {
 
   useEffect(() => {
     const handleSuccess = () => {
-      console.log(success);
       if (success) {
         handleClose();
       }
@@ -51,7 +51,8 @@ function CreateModal() {
               <Modal.Title>Add Task</Modal.Title>
             </Modal.Header>
             <Modal.Body className="BgGrey">
-              <TaskCreateForm trigger={trigger} setSuccess={setSuccess} setTrigger={setTrigger} success={success} />
+              {type === "edit" ? (<TaskEditForm taskId={taskId} trigger={trigger} setSuccess={setSuccess} setTrigger={setTrigger} />) : (<TaskCreateForm trigger={trigger} setSuccess={setSuccess} setTrigger={setTrigger} />)}
+              
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

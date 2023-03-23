@@ -2,6 +2,7 @@
 import PatchStyles from "patch-styles";
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import CreateModal from "../../components/CreateModal";
 import DeleteModal from "../../components/DeleteModal";
 // Internal imports
 import styles from "../../styles/Project.module.css";
@@ -34,6 +35,7 @@ function Task(props) {
             <Button size="sm" variant="light" className="text-muted">
               <i className="fa-regular fa-pen-to-square"></i>
             </Button>
+            <CreateModal type="edit" taskId={id} />
             <DeleteModal type="task" id={id}/>
           </span>
         </Card.Header>

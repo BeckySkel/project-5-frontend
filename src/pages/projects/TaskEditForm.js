@@ -11,7 +11,7 @@ import appStyles from "../../App.module.css";
 /* 
 Form to create a new task
 */
-function TaskCreateForm({ trigger, setTrigger, setSuccess }) {
+function TaskEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   // Variables
   const [errors, setErrors] = useState({});
   const history = useHistory();
@@ -30,6 +30,20 @@ function TaskCreateForm({ trigger, setTrigger, setSuccess }) {
     }
   }, [trigger]);
 
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(`/tasks/${taskId}`);
+        const { summary, body } = data;
+        setTaskData({ summary, body })
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    handleMount();
+  }, [history, id]);
+
   // Form submission
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -39,7 +53,7 @@ function TaskCreateForm({ trigger, setTrigger, setSuccess }) {
     formData.append("project", id);
 
     try {
-      await axiosReq.post("/tasks/", formData);
+      await axiosReq.put(`/tasks/${taskId}`, formData);
       setSuccess(true);
     } catch (err) {
       if (err.response?.status !== 401) {
@@ -146,4 +160,4 @@ function TaskCreateForm({ trigger, setTrigger, setSuccess }) {
   );
 }
 
-export default TaskCreateForm;
+export default TaskEditForm;

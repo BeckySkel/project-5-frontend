@@ -16,6 +16,7 @@ import ProjectCreateForm from "./pages/projects/ProjectCreateForm";
 import ProjectPage from "./pages/projects/ProjectPage";
 import HomePage from "./pages/home/HomePage";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
+import ProjectEditForm from "./pages/projects/ProjectEditForm";
 
 // Main app
 function App() {
@@ -56,6 +57,11 @@ function App() {
                     exact
                     path="/projects/:id"
                     render={() => <ProjectPage />}
+                  />
+                  <Route
+                    exact
+                    path="/projects/:id/edit"
+                    render={() => <ProjectEditForm />}
                   />
                   <Route exact path="/register/:key" render={() => <ConfirmEmail />} />
                   <Route render={() => <p>404 Page not found!</p>} />
