@@ -106,13 +106,6 @@ function SideBar() {
                   </NavLink>
                 </Nav.Item>
               ))}
-
-              {/* <NavLink exact to="/1" className="nav-link">
-                  Project 1
-                </NavLink>
-                <NavLink exact to="/2" className="nav-link">
-                  Project 2
-                </NavLink> */}
               <Nav.Item>
                 <NavLink to="/new" className="nav-link">
                   New <i className="fa-solid fa-plus"></i>

@@ -22,7 +22,7 @@ components which use the current user data.
 export const CurrentUserProvider = ({ children }) => {
   // Variables
   const [currentUser, setCurrentUser] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false);
   const history = useHistory();
 
   // Sets current user data on mount
@@ -33,7 +33,7 @@ export const CurrentUserProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-    setLoaded(true);
+    setUserLoaded(true);
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const CurrentUserProvider = ({ children }) => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
-        <UserLoadedContext.Provider value={loaded}>
+        <UserLoadedContext.Provider value={userLoaded}>
           {children}
         </UserLoadedContext.Provider>
       </SetCurrentUserContext.Provider>

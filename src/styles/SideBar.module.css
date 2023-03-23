@@ -1,12 +1,13 @@
 .MenuButton {
     width: 3rem;
-    z-index: 1;
+    z-index: 3;
 }
 
 .Menu {
     height: calc(100vh - 3rem);
     transition: flex-basis 0.3s;
     flex-basis: 0;
+    z-index: 2;
 }
 
 .MenuOpened {

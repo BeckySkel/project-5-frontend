@@ -5,7 +5,7 @@ import axios from "axios";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import PatchStyles from "patch-styles";
 // Internal imports
-import styles from "../../styles/Forms.module.css";
+import styles from "../../styles/AuthForms.module.css";
 import appStyles from "../../App.module.css";
 
 
@@ -25,7 +25,6 @@ const SignUpForm = () => {
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [errors, setErrors] = useState({});
     
-
     // Input display values
     const handleChange = (event) => {
         setSignUpData({

@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 // Internal imports
-import styles from "../../styles/Forms.module.css";
+import styles from "../../styles/AuthForms.module.css";
 import appStyles from "../../App.module.css";
 
 /*

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import appStyles from "../../App.module.css";
 import PatchStyles from "patch-styles";
-import styles from "../../styles/Projects.module.css";
+import styles from "../../styles/Project.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import Task from "./Task";
 import slugify from "react-slugify";
+import Loading from "../../components/Loading";
 
 function TaskContainer(props) {
   // Variables
   const { id } = useParams();
   const [tasks, setTasks] = useState({ results: [] });
+  const [loaded, setLoaded] = useState(false);
+  const status = slugify(props.title) === "complete";
 
   // Drag and drop functions
   const allowDrop = (ev) => {
@@ -20,6 +23,7 @@ function TaskContainer(props) {
   // https://www.tabnine.com/code/javascript/functions/react/DragEvent/dataTransfer
   const handleDrop = (ev) => {
     ev.preventDefault();
+
     const data = ev.dataTransfer.getData("text");
     const model = JSON.parse(ev.dataTransfer.getData("item"));
     const task = document.getElementById(data);
@@ -30,7 +34,12 @@ function TaskContainer(props) {
     } else {
       task.classList.replace("complete", "to-do");
     }
-    ev.target.appendChild(task);
+    if (ev.target.parentNode.classList.contains("card")) {
+      ev.target.parentNode.parentNode.appendChild(task);
+    } else {
+      ev.target.appendChild(task);
+    }
+
     postTaskState(model, container);
   };
 
@@ -49,44 +58,42 @@ function TaskContainer(props) {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const { data } = await axiosReq.get("/tasks/", { project: id });
-        setTasks(data);
+        const { data } = await axiosReq.get(`/tasks/?project=${id}`);
+        const newData = data.results.filter((task) => {
+          return task.completed === status;
+        });
+        setTasks(newData);
       } catch (err) {
         console.log(err);
       }
+      setLoaded(true);
     };
 
     fetchTasks();
-  }, [id]);
+  }, [id, status]);
 
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         <div className="TaskContainer BgLight rounded my-2">
           <h3 className="fs-5">{props.title}:</h3>
-          <div onDrop={handleDrop} onDragOver={allowDrop} className="p-2" id={`${slugify(props.title)}-container`}>
-            {/* Add cards */}
-            {tasks.results?.map((task) => {
-              if (!task.completed && props.title === "To do") {
-                return (
-                  <Task
-                    task={task}
-                    container={slugify(props.title)}
-                    key={task.id}
-                  />
-                );
-              } else if (task.completed && props.title === "Complete") {
-                return (
-                  <Task
-                    task={task}
-                    container={slugify(props.title)}
-                    key={task.id}
-                  />
-                );
-              } else {
-                return null
-              }
-            })}
+          <div
+            onDrop={handleDrop}
+            onDragOver={allowDrop}
+            className="p-2"
+            id={`${slugify(props.title)}-container`}
+          >
+            {loaded ? (
+              tasks?.map((task) => (
+                <Task
+                  task={task}
+                  container={slugify(props.title)}
+                  key={task.id}
+                />
+              ))
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
       </PatchStyles>

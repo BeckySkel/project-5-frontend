@@ -6,7 +6,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import PatchStyles from 'patch-styles';
 // Internal imports
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-import styles from '../../styles/Forms.module.css';
+import styles from '../../styles/AuthForms.module.css';
 import appStyles from '../../App.module.css';
 
 

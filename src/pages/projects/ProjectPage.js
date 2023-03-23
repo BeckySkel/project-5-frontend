@@ -5,10 +5,13 @@ import { Col } from "react-bootstrap/";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
-import styles from "../../styles/Projects.module.css";
+import styles from "../../styles/Project.module.css";
 import appStyles from "../../App.module.css";
 import TaskContainer from "./TaskContainer";
 
+/*
+Page to display the project identified in the url
+*/
 function ProjectPage() {
   // Variables
   const { id } = useParams();
