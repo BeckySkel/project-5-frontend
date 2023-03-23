@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
 import { Col, Button } from "react-bootstrap/";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Project.module.css";

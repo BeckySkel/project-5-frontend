@@ -21,7 +21,8 @@ function ProjectCreateForm() {
     description: "",
     // contributors: "",
   });
-  const { title, description, contributors } = projectData;
+  const { title, description } = projectData;
+  // contributors ^
 
   // Form submission
   const handleSubmit = async (event) => {

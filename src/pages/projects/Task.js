@@ -2,6 +2,7 @@
 import PatchStyles from "patch-styles";
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import DeleteModal from "../../components/DeleteModal";
 // Internal imports
 import styles from "../../styles/Project.module.css";
 
@@ -33,9 +34,7 @@ function Task(props) {
             <Button size="sm" variant="light" className="text-muted">
               <i className="fa-regular fa-pen-to-square"></i>
             </Button>
-            <Button size="sm" variant="light" className="text-muted">
-              <i className="fa-regular fa-trash-can"></i>
-            </Button>
+            <DeleteModal type="task" id={id}/>
           </span>
         </Card.Header>
         <Card.Body>{body}</Card.Body>
