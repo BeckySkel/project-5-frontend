@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 import Task from "./Task";
 import slugify from "react-slugify";
 import Loading from "../../components/Loading";
+import { Button } from "react-bootstrap";
+import CreateModal from "../../components/CreateModal";
 
 function TaskContainer(props) {
   // Variables
@@ -83,7 +85,7 @@ function TaskContainer(props) {
             className="p-2"
             id={`${slugify(props.title)}-container`}
           >
-            {loaded ? (
+            {loaded ? tasks.length ? (
               tasks?.map((task) => (
                 <Task
                   task={task}
@@ -92,8 +94,11 @@ function TaskContainer(props) {
                 />
               ))
             ) : (
+              <p>No tasks</p>
+            ) : (
               <Loading />
             )}
+            <CreateModal />
           </div>
         </div>
       </PatchStyles>

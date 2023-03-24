@@ -26,10 +26,14 @@ function SideBar() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/profiles/${profile_id}`);
-        const { created_projects_list, menu_open } = data;
-        setProjectsList(created_projects_list);
-        setMenuOpen(menu_open);
-        setFadeIn(menu_open);
+        setMenuOpen(data.menu_open);
+        setFadeIn(data.menu_open);
+      } catch (err) {
+        console.log(err);
+      }
+      try {
+        const { data } = await axiosReq.get(`/projects/?creator=${profile_id}`)
+        setProjectsList(data.results);        
       } catch (err) {
         console.log(err);
       }
@@ -99,15 +103,15 @@ function SideBar() {
               </Nav.Item>
               <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
 
-              {projectsList?.map((name) => (
-                <Nav.Item key={name}>
-                  <NavLink to={`/projects/`} className="nav-link">
-                    {name}
+              {projectsList?.map((project) => (
+                <Nav.Item key={project.id}>
+                  <NavLink exact to={`/projects/${project.id}`} className="nav-link">
+                    {project.title}
                   </NavLink>
                 </Nav.Item>
               ))}
               <Nav.Item>
-                <NavLink to="/new" className="nav-link">
+                <NavLink exact to="/new" className="nav-link">
                   New <i className="fa-solid fa-plus"></i>
                 </NavLink>
               </Nav.Item>
