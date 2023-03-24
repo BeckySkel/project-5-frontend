@@ -8,6 +8,7 @@ import styles from "../styles/SideBar.module.css";
 import appStyles from "../App.module.css";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
+import useViewport from "../contexts/ViewportContext";
 
 /*
 Collapsible sidebar which welcomes the user and acts as site navigation
@@ -16,6 +17,7 @@ function SideBar() {
   // Variables
   const currentUser = useCurrentUser();
   const profile_id = currentUser.profile_id;
+  const {width} = useViewport();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -32,8 +34,8 @@ function SideBar() {
         console.log(err);
       }
       try {
-        const { data } = await axiosReq.get(`/projects/?creator=${profile_id}`)
-        setProjectsList(data.results);        
+        const { data } = await axiosReq.get(`/projects/?creator=${profile_id}`);
+        setProjectsList(data.results);
       } catch (err) {
         console.log(err);
       }
@@ -92,27 +94,44 @@ function SideBar() {
           >
             <Nav className="flex-column pt-5 ps-3 pe-4" variant="pills">
               {/* Welcome user */}
-              <Nav.Item className="text-white fw-bold">
+              <Nav.Item className="text-white fw-bold pt-2">
                 Welcome {currentUser.username}!
               </Nav.Item>
               {/* Navigation links */}
               <Nav.Item>
-                <NavLink exact to="/" className="nav-link">
+                <NavLink exact to="/" className="nav-link text-white">
                   Dashboard
                 </NavLink>
               </Nav.Item>
+              <hr className="NavDivider"></hr>
               <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
 
               {projectsList?.map((project) => (
                 <Nav.Item key={project.id}>
-                  <NavLink exact to={`/projects/${project.id}`} className="nav-link">
-                    {project.title}
+                  <NavLink
+                    exact
+                    to={`/projects/${project.id}`}
+                    className="nav-link text-white"
+                    onClick={() => {
+                      if (width <= 577) {
+                        setMenuOpen(false);
+                        setFadeIn(false);
+                      }
+                    }}
+                  >
+                    <span className="text-truncate d-inline-block NavTitles">{project.title}</span>
+                    {width <= 577 ? (
+                      <i className="fa-solid fa-caret-right AutoClose"></i>
+                    ) : (
+                      <></>
+                    )}
                   </NavLink>
                 </Nav.Item>
               ))}
+              <hr className="NavDivider"></hr>
               <Nav.Item>
-                <NavLink exact to="/new" className="nav-link">
-                  New <i className="fa-solid fa-plus"></i>
+                <NavLink exact to="/new" className="nav-link text-white">
+                  New Project <i className="fa-solid fa-plus"></i>
                 </NavLink>
               </Nav.Item>
             </Nav>

@@ -14,13 +14,25 @@
     flex-basis: 20rem;
 }
 
+.NavDivider {
+    color: white;
+}
 
+.AutoClose {
+    float: right;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
 
-
+.NavTitles {
+    max-width: 10.5rem;
+}
 
 
 @media only screen and (max-width: 576px) {
     .Menu {
       position: absolute;
     }
+
+    
   }

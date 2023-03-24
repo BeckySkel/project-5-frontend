@@ -1,8 +1,8 @@
 // External imports
 import PatchStyles from "patch-styles";
 import React from "react";
-import { Button, Card } from "react-bootstrap";
-import CreateModal from "../../components/CreateModal";
+import { Card } from "react-bootstrap";
+import CreateEditModal from "../../components/CreateEditModal";
 import DeleteModal from "../../components/DeleteModal";
 // Internal imports
 import styles from "../../styles/Project.module.css";
@@ -32,14 +32,11 @@ function Task(props) {
           <span className="float-left">{summary}</span>
 
           <span className="EditOptions">
-            <Button size="sm" variant="light" className="text-muted">
-              <i className="fa-regular fa-pen-to-square"></i>
-            </Button>
-            <CreateModal type="edit" taskId={id} />
+            <CreateEditModal type="edit" taskId={id} />
             <DeleteModal type="task" id={id}/>
           </span>
         </Card.Header>
-        <Card.Body>{body}</Card.Body>
+        <Card.Body><pre>{body}</pre></Card.Body>
       </Card>
     </PatchStyles>
   );

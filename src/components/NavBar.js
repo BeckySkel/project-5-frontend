@@ -57,7 +57,7 @@ function NavBar() {
                 <Nav className="flex-column">
                   {Links.map((link) => (
                     <Nav.Item key={link}>
-                      <NavLink to={`/${slugify(link)}`} className="nav-link">
+                      <NavLink to={`/${slugify(link)}`} className="nav-link text-nowrap">
                         {link}
                       </NavLink>
                     </Nav.Item>

@@ -7,8 +7,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 import Task from "./Task";
 import slugify from "react-slugify";
 import Loading from "../../components/Loading";
-import { Button } from "react-bootstrap";
-import CreateModal from "../../components/CreateModal";
+import CreateEditModal from "../../components/CreateEditModal";
 
 function TaskContainer(props) {
   // Variables
@@ -85,21 +84,23 @@ function TaskContainer(props) {
             className="p-2"
             id={`${slugify(props.title)}-container`}
           >
-            {loaded ? tasks.length ? (
-              tasks?.map((task) => (
-                <Task
-                  task={task}
-                  container={slugify(props.title)}
-                  key={task.id}
-                />
-              ))
-            ) : (
-              <p>No tasks</p>
+            {loaded ? (
+              tasks.length ? (
+                tasks?.map((task) => (
+                  <Task
+                    task={task}
+                    container={slugify(props.title)}
+                    key={task.id}
+                  />
+                ))
+              ) : (
+                <p>No tasks</p>
+              )
             ) : (
               <Loading />
             )}
-            <CreateModal />
           </div>
+          <CreateEditModal />
         </div>
       </PatchStyles>
     </PatchStyles>
