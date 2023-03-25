@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 /*
+Code from tutorial at
 https://blog.logrocket.com/developing-responsive-layouts-with-react-hooks/
 */
 function useViewport() {

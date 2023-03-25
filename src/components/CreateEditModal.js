@@ -2,21 +2,30 @@
 import PatchStyles from "patch-styles";
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import PropTypes from "prop-types";
 // Internal imports
-import styles from "../styles/AuthForms.module.css";
+import styles from "../styles/Forms.module.css";
 import appStyles from "../App.module.css";
 import TaskCreateEditForm from "../pages/projects/TaskCreateEditForm";
+import ProjectEditForm from "../pages/projects/ProjectCreateEditForm";
 
 /*
 Button and modal combination. Props for type (edit or create) and item
-(task or project) determine iinner form-type and text
+(task or project) determine inner form-type and text
 */
-function CreateEditModal({ type, taskId }) {
+function CreateEditModal({ type, item, id }) {
+  // Validate props
+  CreateEditModal.propTypes = {
+    type: PropTypes.oneOf(["edit", "create"]).isRequired,
+    item: PropTypes.oneOf(["task", "project"]).isRequired,
+  };
+
   // Variables
   const [show, setShow] = useState(false);
   const [trigger, setTrigger] = useState(false);
   const [success, setSuccess] = useState(false);
   const isEdit = type === "edit";
+  const isTask = item === "task";
 
   // Open and close modal
   const handleClose = () => setShow(false);
@@ -33,24 +42,26 @@ function CreateEditModal({ type, taskId }) {
     handleSuccess();
   }, [success]);
 
-  // Edit or Create text
+  // Dynamic elements
+  const headerType = isEdit ? "Edit" : "Add";
+  const headerItem = isTask ? "Task" : "Project";
   const buttonText = isEdit ? (
     <i className="fa-regular fa-pen-to-square"></i>
   ) : (
     <>
-      New <i className="fa-solid fa-plus"></i>
+      New {headerItem} <i className="fa-solid fa-plus"></i>
     </>
   );
-  const headerText = isEdit ? "Edit Task" : "Add Task";
-  const form = isEdit ? (
+  const form = isTask ? (
     <TaskCreateEditForm
-      taskId={taskId}
+      taskId={id}
       trigger={trigger}
       setSuccess={setSuccess}
       setTrigger={setTrigger}
     />
   ) : (
-    <TaskCreateEditForm
+    <ProjectEditForm
+      projectId={id}
       trigger={trigger}
       setSuccess={setSuccess}
       setTrigger={setTrigger}
@@ -66,7 +77,7 @@ function CreateEditModal({ type, taskId }) {
           <Button
             size="sm"
             variant="light"
-            className="text-muted"
+            className="text-muted m-1"
             onClick={handleShow}
           >
             {buttonText}
@@ -80,16 +91,18 @@ function CreateEditModal({ type, taskId }) {
             backdrop="static"
             keyboard={false}
           >
-            <Modal.Header closeButton>
-              <Modal.Title>{headerText}</Modal.Title>
+            <Modal.Header closeButton className="BgLight">
+              <Modal.Title>
+                {headerType} {headerItem}
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body className="BgGrey">{form}</Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="BgLight">
               <Button
                 type="submit"
                 size="lg"
                 variant="warning"
-                className="Submit BgOrange m-1 rounded-pill"
+                className="Submit BgOrange m-2 rounded-pill"
                 onClick={() => {
                   setTrigger(true);
                 }}

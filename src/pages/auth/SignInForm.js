@@ -1,12 +1,12 @@
 // External imports
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { Form, Alert, Button, Col, Row } from "react-bootstrap";
 import PatchStyles from "patch-styles";
 // Internal imports
-import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-import styles from "../../styles/AuthForms.module.css";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 
 /* 
@@ -15,6 +15,7 @@ Heavily inspired by CI "Moments" walkthrough project
 */
 function SignInForm() {
   // Variables
+  const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const [signInData, setSignInData] = useState({
     username: "",
@@ -24,13 +25,24 @@ function SignInForm() {
   const [errors, setErrors] = useState({});
   const history = useHistory();
 
+  // Redirect on mount if already logged in
+  useEffect(() => {
+    const handleMount = async () => {
+      if (currentUser) {
+        history.push("/");
+      }
+    };
+
+    handleMount();
+  }, [currentUser]);
+
   // Form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
-      history.push("/");
+      history.goBack();
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -67,6 +79,7 @@ function SignInForm() {
                   className="Input"
                 />
               </Form.Group>
+
               {/* Username errors */}
               {errors.username?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
@@ -86,6 +99,7 @@ function SignInForm() {
                   className="Input"
                 />
               </Form.Group>
+
               {/* Password errors */}
               {errors.password?.map((message, idx) => (
                 <Alert key={idx} variant="warning">

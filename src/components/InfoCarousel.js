@@ -1,16 +1,16 @@
 // External imports
 import { Carousel, Row, Col } from 'react-bootstrap';
 import React from 'react';
+import PatchStyles from 'patch-styles';
 // Internal imports
 import styles from '../styles/InfoCarousel.module.css';
 import appStyles from '../App.module.css';
-import PatchStyles from 'patch-styles';
 import placeholder1 from "../assets/placeholderimage1.jpg";
 import placeholder2 from "../assets/placeholderimage2.jpg";
 import placeholder3 from "../assets/placeholderimage3.jpg";
 
 /*
-Carousel
+Carousel which displays screenshots and information of app features
 */
 function InfoCarousel() {
   return (

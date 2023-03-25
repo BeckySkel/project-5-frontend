@@ -12,11 +12,11 @@ import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 import { useCurrentUser, useUserLoaded } from "./contexts/CurrentUserContext";
 import SignOutForm from "./pages/auth/SignOutForm";
-import ProjectCreateForm from "./pages/projects/ProjectCreateForm";
 import ProjectPage from "./pages/projects/ProjectPage";
 import HomePage from "./pages/home/HomePage";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
-import ProjectEditForm from "./pages/projects/ProjectEditForm";
+import ProjectEditForm from "./pages/projects/ProjectCreateEditForm";
+import Loading from "./components/Loading";
 
 // Main app
 function App() {
@@ -37,35 +37,46 @@ function App() {
               {/* Main site contents */}
 
               <div className={`Main pt-5`}>
-                <Switch>
-                  <Route exact path="/" render={() => <HomePage />} />
+                {!loaded ? (
+                  <Loading />
+                ) : (
+                  <Switch>
+                    <Route exact path="/" render={() => <HomePage />} />
 
-                  <Route exact path="/logout" render={() => <SignOutForm />} />
-                  <Route
-                    exact
-                    path="/edit-profile"
-                    render={() => <h1>Edit Profile</h1>}
-                  />
-                  <Route exact path="/login" render={() => <SignInForm />} />
-                  <Route exact path="/register" render={() => <SignUpForm />} />
-                  <Route
-                    exact
-                    path="/new"
-                    render={() => <ProjectCreateForm />}
-                  />
-                  <Route
-                    exact
-                    path="/projects/:id"
-                    render={() => <ProjectPage />}
-                  />
-                  <Route
-                    exact
-                    path="/projects/:id/edit"
-                    render={() => <ProjectEditForm />}
-                  />
-                  <Route exact path="/register/:key" render={() => <ConfirmEmail />} />
-                  <Route render={() => <p>404 Page not found!</p>} />
-                </Switch>
+                    <Route
+                      exact
+                      path="/logout"
+                      render={() => <SignOutForm />}
+                    />
+                    <Route
+                      exact
+                      path="/edit-profile"
+                      render={() => <h1>Edit Profile</h1>}
+                    />
+                    <Route exact path="/login" render={() => <SignInForm />} />
+                    <Route
+                      exact
+                      path="/register"
+                      render={() => <SignUpForm />}
+                    />
+                    <Route
+                      exact
+                      path="/new"
+                      render={() => <ProjectEditForm />}
+                    />
+                    <Route
+                      exact
+                      path="/projects/:id"
+                      render={() => <ProjectPage />}
+                    />
+                    <Route
+                      exact
+                      path="/register/:key"
+                      render={() => <ConfirmEmail />}
+                    />
+                    <Route render={() => <p>404 Page not found!</p>} />
+                  </Switch>
+                )}
               </div>
             </Col>
           </Row>

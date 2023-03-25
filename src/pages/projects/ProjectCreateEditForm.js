@@ -2,27 +2,27 @@
 import PatchStyles from "patch-styles";
 import React, { useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap/";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 
 /* 
-Form to create or edit a task
-Called as edit if taskID exists, create if not
+Form to create or edit a project
+Called as edit if projectID exists, create if not
 */
-function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
+function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
   // Variables
   const [errors, setErrors] = useState({});
   const history = useHistory();
-  const { id } = useParams();
-  const [taskData, setTaskData] = useState({
-    project: id,
-    summary: "",
-    body: "",
+  const [projectData, setProjectData] = useState({
+    title: "",
+    description: "",
+    // contributors: "",
   });
-  const { summary, body } = taskData;
+  const { title, description } = projectData;
+  // contributors ^
 
   // Submit form when trigger sent
   useEffect(() => {
@@ -31,14 +31,17 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     }
   }, [trigger]);
 
-  // If edit, get existing task data
+  // If edit, get existing project data
   useEffect(() => {
     const handleMount = async () => {
-      if (taskId) {
+      if (projectId) {
         try {
-          const { data } = await axiosReq.get(`/tasks/${taskId}`);
-          const { summary, body } = data;
-          setTaskData({ summary, body });
+          const { data } = await axiosReq.get(`/projects/${projectId}`);
+          const { title, description, is_creator } = data;
+
+          is_creator
+            ? setProjectData({ title, description })
+            : history.push("/");
         } catch (err) {
           console.log(err);
         }
@@ -46,21 +49,23 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     };
 
     handleMount();
-  }, [history, taskId]);
+  }, [history, projectId]);
 
   // Form submission
   const handleSubmit = async () => {
     const formData = new FormData();
 
-    formData.append("summary", summary);
-    formData.append("body", body);
-    formData.append("project", id);
+    formData.append("title", title);
+    formData.append("description", description);
+    // formData.append("contributors", contributors);
 
     try {
-      if (taskId) {
-        await axiosReq.put(`/tasks/${taskId}`, formData);
+      if (projectId) {
+        await axiosReq.put(`/projects/${projectId}`, formData);
+        history.push(`/projects/${projectId}`);
       } else {
-        await axiosReq.post("/tasks/", formData);
+        const { data } = await axiosReq.post("/projects/", formData);
+        history.push(`/projects/${data.id}`);
       }
       setSuccess(true);
     } catch (err) {
@@ -73,8 +78,8 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
 
   // Input display values
   const handleChange = (event) => {
-    setTaskData({
-      ...taskData,
+    setProjectData({
+      ...projectData,
       [event.target.name]: event.target.value,
     });
   };
@@ -83,40 +88,40 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     <PatchStyles classNames={appStyles}>
       <PatchStyles classNames={styles}>
         <Form onSubmit={handleSubmit}>
-          {/* Summary input */}
+          {/* Title input */}
           <Form.Group className="text-start">
-            <Form.Label>Summary</Form.Label>
+            <Form.Label>Title</Form.Label>
             <Form.Control
               className="Input"
               type="text"
-              name="summary"
-              value={summary}
+              name="title"
+              value={title}
               onChange={handleChange}
             />
           </Form.Group>
 
-          {/* Summary errors */}
-          {errors.summary?.map((message, idx) => (
+          {/* Title errors */}
+          {errors.title?.map((message, idx) => (
             <Alert variant="warning" key={idx}>
               {message}
             </Alert>
           ))}
 
-          {/* Body input */}
+          {/* Descripton input */}
           <Form.Group className="text-start">
-            <Form.Label>Body</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               className="Input"
               as="textarea"
               rows={6}
-              name="body"
-              value={body}
+              name="description"
+              value={description}
               onChange={handleChange}
             />
           </Form.Group>
 
-          {/* Body errors */}
-          {errors.body?.map((message, idx) => (
+          {/* Description errors */}
+          {errors.description?.map((message, idx) => (
             <Alert variant="warning" key={idx}>
               {message}
             </Alert>
@@ -129,9 +134,10 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
             variant="danger"
             className="rounded-pill m-1"
             onClick={() =>
-              setTaskData({
-                summary: "",
-                body: "",
+              setProjectData({
+                title: "",
+                description: "",
+                // contributors: ""
               })
             }
           >
@@ -150,4 +156,4 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   );
 }
 
-export default TaskCreateEditForm;
+export default ProjectCreateEditForm;

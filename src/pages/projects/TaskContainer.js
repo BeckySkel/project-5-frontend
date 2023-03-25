@@ -100,7 +100,12 @@ function TaskContainer(props) {
               <Loading />
             )}
           </div>
-          <CreateEditModal />
+          {props.is_project_contrib || props.is_project_creator ? (
+            <CreateEditModal item="task" type="create"/>
+          ) : (
+            <></>
+          )}
+          {/* <CreateEditModal item="task" type="create"/> */}
         </div>
       </PatchStyles>
     </PatchStyles>

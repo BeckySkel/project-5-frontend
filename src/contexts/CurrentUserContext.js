@@ -5,7 +5,10 @@ import { useHistory } from "react-router";
 // Internal imports
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 
-// User context code heavily inspired by CI "Moments" walkthrough project
+/*
+User context code heavily inspired by CI "Moments" walkthrough project
+with addition of userLoadedContext 
+*/
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 export const UserLoadedContext = createContext();

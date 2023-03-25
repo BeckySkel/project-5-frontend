@@ -1,14 +1,15 @@
 // External imports
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
-import { Nav, Button, Fade } from "react-bootstrap";
+import { Nav, Button, Fade, Row } from "react-bootstrap";
 // Internal imports
 import styles from "../styles/SideBar.module.css";
 import appStyles from "../App.module.css";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
 import useViewport from "../contexts/ViewportContext";
+import CreateEditModal from "./CreateEditModal";
 
 /*
 Collapsible sidebar which welcomes the user and acts as site navigation
@@ -17,11 +18,44 @@ function SideBar() {
   // Variables
   const currentUser = useCurrentUser();
   const profile_id = currentUser.profile_id;
-  const {width} = useViewport();
-
+  const { width } = useViewport();
+  const xsScreen = width <= 577;
   const [menuOpen, setMenuOpen] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
   const [projectsList, setProjectsList] = useState([]);
+  const ref = useRef(null);
+  const ref2 = useRef(null);
+
+  // Code from CI walkthrough project
+  useEffect(() => {
+    const handleClickOutside = (ev) => {
+      if (
+        xsScreen &&
+        ref.current &&
+        !ref.current.contains(ev.target) &&
+        !ref2.current.contains(ev.target)
+      ) {
+        setMenuOpen(false);
+        setFadeIn(false);
+      }
+    };
+
+    document.addEventListener("mouseup", handleClickOutside);
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutside);
+    };
+  }, [ref, ref2]);
+
+  // Fade menu in and out
+  const handleFadeInOut = () => {
+    setMenuOpen(!menuOpen);
+    setTimeout(
+      () => {
+        setFadeIn(!menuOpen);
+      },
+      !menuOpen ? 250 : 0
+    );
+  };
 
   // Get previous menu state
   useLayoutEffect(() => {
@@ -43,7 +77,7 @@ function SideBar() {
     handleMount();
   }, [profile_id]);
 
-  // Set future menu state in API
+  // Post menu state in API
   useEffect(() => {
     const postMenuState = async () => {
       try {
@@ -57,21 +91,23 @@ function SideBar() {
     postMenuState();
   }, [menuOpen, profile_id]);
 
+  // Dynamic elements
+  const autoClose = xsScreen ? (
+    <i className="fa-solid fa-caret-right AutoClose"></i>
+  ) : (
+    <></>
+  );
+
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         {/* Menu show/hide */}
         <Button
+          ref={ref}
           className="position-absolute m-3 BgNavy MenuButton"
           aria-label="Toggle navigation"
           onClick={() => {
-            setMenuOpen(!menuOpen);
-            setTimeout(
-              () => {
-                setFadeIn(!menuOpen);
-              },
-              !menuOpen ? 250 : 0
-            );
+            handleFadeInOut();
           }}
         >
           <i className="fa-solid fa-bars"></i>
@@ -79,6 +115,7 @@ function SideBar() {
 
         {/* Collapsible menu */}
         <div
+          ref={ref2}
           className={`Menu BgNavy text-start pt-3 ${
             menuOpen ? "MenuOpened" : ""
           }`}
@@ -94,17 +131,30 @@ function SideBar() {
           >
             <Nav className="flex-column pt-5 ps-3 pe-4" variant="pills">
               {/* Welcome user */}
-              <Nav.Item className="text-white fw-bold pt-2">
+              <Nav.Item className="text-white fw-bold pt-2 mb-1">
                 Welcome {currentUser.username}!
               </Nav.Item>
               {/* Navigation links */}
               <Nav.Item>
-                <NavLink exact to="/" className="nav-link text-white">
+                <NavLink
+                  exact
+                  to="/"
+                  className="nav-link text-white"
+                  onClick={() => {
+                    if (xsScreen) {
+                      handleFadeInOut();
+                    }
+                  }}
+                >
                   Dashboard
+                  {autoClose}
                 </NavLink>
               </Nav.Item>
-              <hr className="NavDivider"></hr>
-              <Nav.Item className="text-white fw-bold">My Projects</Nav.Item>
+              <hr className="text-white"></hr>
+
+              <Nav.Item className="text-white fw-bold mb-1">
+                My Projects
+              </Nav.Item>
 
               {projectsList?.map((project) => (
                 <Nav.Item key={project.id}>
@@ -113,27 +163,22 @@ function SideBar() {
                     to={`/projects/${project.id}`}
                     className="nav-link text-white"
                     onClick={() => {
-                      if (width <= 577) {
-                        setMenuOpen(false);
-                        setFadeIn(false);
+                      if (xsScreen) {
+                        handleFadeInOut();
                       }
                     }}
                   >
-                    <span className="text-truncate d-inline-block NavTitles">{project.title}</span>
-                    {width <= 577 ? (
-                      <i className="fa-solid fa-caret-right AutoClose"></i>
-                    ) : (
-                      <></>
-                    )}
+                    <span className="text-truncate d-inline-block NavTitles">
+                      {project.title}
+                    </span>
+                    {autoClose}
                   </NavLink>
                 </Nav.Item>
               ))}
-              <hr className="NavDivider"></hr>
-              <Nav.Item>
-                <NavLink exact to="/new" className="nav-link text-white">
-                  New Project <i className="fa-solid fa-plus"></i>
-                </NavLink>
-              </Nav.Item>
+
+              <hr className="text-white"></hr>
+
+              <CreateEditModal item="project" type="create" />
             </Nav>
           </Fade>
         </div>

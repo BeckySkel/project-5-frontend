@@ -12,7 +12,7 @@ Tasks displayed as draggable cards
 */
 function Task(props) {
   // Variables
-  const { body, summary, id } = props.task;
+  const { body, summary, id, is_project_contrib, is_project_creator } = props.task;
 
   // Set data to transfer on drag
   const handleDrag = (ev) => {
@@ -23,7 +23,7 @@ function Task(props) {
   return (
     <PatchStyles classNames={styles}>
       <Card
-        draggable
+        draggable={is_project_contrib || is_project_creator ? true : false}
         onDragStart={handleDrag}
         id={`task${id}`}
         className={`${props.container} m-2`}
@@ -31,12 +31,18 @@ function Task(props) {
         <Card.Header>
           <span className="float-left">{summary}</span>
 
-          <span className="EditOptions">
-            <CreateEditModal type="edit" taskId={id} />
-            <DeleteModal type="task" id={id}/>
-          </span>
+          {is_project_contrib || is_project_creator ? (
+            <span className="EditOptions">
+              <CreateEditModal type="edit" id={id} item="task" />
+              <DeleteModal item="task" id={id} />
+            </span>
+          ) : (
+            <></>
+          )}
         </Card.Header>
-        <Card.Body><pre>{body}</pre></Card.Body>
+        <Card.Body>
+          <pre>{body}</pre>
+        </Card.Body>
       </Card>
     </PatchStyles>
   );
