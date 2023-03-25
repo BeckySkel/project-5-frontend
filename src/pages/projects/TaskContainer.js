@@ -77,7 +77,7 @@ function TaskContainer(props) {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         <div className="TaskContainer BgLight rounded my-2">
-          <h3 className="fs-5">{props.title}:</h3>
+          <h3 className="fs-5 text-break">{props.title}:</h3>
           <div
             onDrop={handleDrop}
             onDragOver={allowDrop}

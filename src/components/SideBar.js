@@ -2,7 +2,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
-import { Nav, Button, Fade, Row } from "react-bootstrap";
+import { Nav, Button, Fade } from "react-bootstrap";
 // Internal imports
 import styles from "../styles/SideBar.module.css";
 import appStyles from "../App.module.css";
@@ -23,6 +23,7 @@ function SideBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
   const [projectsList, setProjectsList] = useState([]);
+  const [contribProjectsList, setContribProjectsList] = useState([]);
   const ref = useRef(null);
   const ref2 = useRef(null);
 
@@ -57,19 +58,21 @@ function SideBar() {
     );
   };
 
-  // Get previous menu state
+  // Get previous menu state and user's projects
   useLayoutEffect(() => {
     const handleMount = async () => {
       try {
-        const { data } = await axiosReq.get(`/profiles/${profile_id}`);
+        const {data} = await axiosReq.get(`/profiles/${profile_id}`);
         setMenuOpen(data.menu_open);
         setFadeIn(data.menu_open);
       } catch (err) {
         console.log(err);
       }
       try {
-        const { data } = await axiosReq.get(`/projects/?creator=${profile_id}`);
-        setProjectsList(data.results);
+        const ownProjects = await axiosReq.get(`/projects/?creator__profile=${profile_id}`);
+        setProjectsList(ownProjects.data.results);
+        const contribProjects = await axiosReq.get(`/projects/?contributors__profile=${profile_id}`);
+        setContribProjectsList(contribProjects.data.results);
       } catch (err) {
         console.log(err);
       }
@@ -176,6 +179,31 @@ function SideBar() {
                 </Nav.Item>
               ))}
 
+              <hr className="text-white"></hr>
+
+              <Nav.Item className="text-white fw-bold mb-1">
+                Contributing Projects
+              </Nav.Item>
+
+              {contribProjectsList?.map((project) => (
+                <Nav.Item key={project.id}>
+                  <NavLink
+                    exact
+                    to={`/projects/${project.id}`}
+                    className="nav-link text-white"
+                    onClick={() => {
+                      if (xsScreen) {
+                        handleFadeInOut();
+                      }
+                    }}
+                  >
+                    <span className="text-truncate d-inline-block NavTitles">
+                      {project.title}
+                    </span>
+                    {autoClose}
+                  </NavLink>
+                </Nav.Item>
+              ))}
               <hr className="text-white"></hr>
 
               <CreateEditModal item="project" type="create" />

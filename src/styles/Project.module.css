@@ -10,3 +10,7 @@
 .EditOptions {
     float: right;
 }
+
+.TaskCard {
+    max-width: 78vw;
+}

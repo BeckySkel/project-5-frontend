@@ -26,10 +26,10 @@ function Task(props) {
         draggable={is_project_contrib || is_project_creator ? true : false}
         onDragStart={handleDrag}
         id={`task${id}`}
-        className={`${props.container} m-2`}
+        className={`${props.container} m-2 TaskCard`}
       >
-        <Card.Header>
-          <span className="float-left">{summary}</span>
+        <Card.Header> 
+          <span className="float-left text-break">{summary}</span>
 
           {is_project_contrib || is_project_creator ? (
             <span className="EditOptions">
@@ -40,7 +40,7 @@ function Task(props) {
             <></>
           )}
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="text-break">
           <pre>{body}</pre>
         </Card.Body>
       </Card>

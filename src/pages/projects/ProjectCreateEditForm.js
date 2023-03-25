@@ -132,7 +132,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
             type="reset"
             size="sm"
             variant="danger"
-            className="rounded-pill m-1"
+            className="rounded-pill m-1 float-left"
             onClick={() =>
               setProjectData({
                 title: "",

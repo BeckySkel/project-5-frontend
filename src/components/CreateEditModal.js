@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import styles from "../styles/Forms.module.css";
 import appStyles from "../App.module.css";
 import TaskCreateEditForm from "../pages/projects/TaskCreateEditForm";
-import ProjectEditForm from "../pages/projects/ProjectCreateEditForm";
+import ProjectCreateEditForm from "../pages/projects/ProjectCreateEditForm";
 
 /*
 Button and modal combination. Props for type (edit or create) and item
@@ -18,6 +18,7 @@ function CreateEditModal({ type, item, id }) {
   CreateEditModal.propTypes = {
     type: PropTypes.oneOf(["edit", "create"]).isRequired,
     item: PropTypes.oneOf(["task", "project"]).isRequired,
+    id: type === "edit" ? PropTypes.any.isRequired : null,
   };
 
   // Variables
@@ -60,7 +61,7 @@ function CreateEditModal({ type, item, id }) {
       setTrigger={setTrigger}
     />
   ) : (
-    <ProjectEditForm
+    <ProjectCreateEditForm
       projectId={id}
       trigger={trigger}
       setSuccess={setSuccess}

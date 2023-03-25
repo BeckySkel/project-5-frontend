@@ -64,9 +64,9 @@ function ProjectPage() {
             <></>
           )}
 
-          <h1>{title}</h1>
+          <h1 className="text-break">{title}</h1>
 
-          <h2>by {creator}</h2>
+          <h2 className="text-break">by {creator}</h2>
           <p>total tasks: {task_count}</p>
 
           {/* Todo and Complete containers */}

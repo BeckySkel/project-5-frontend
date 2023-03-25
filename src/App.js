@@ -17,6 +17,7 @@ import HomePage from "./pages/home/HomePage";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
 import ProjectEditForm from "./pages/projects/ProjectCreateEditForm";
 import Loading from "./components/Loading";
+import CreateEditPage from "./pages/projects/CreateEditPage";
 
 // Main app
 function App() {
@@ -62,7 +63,7 @@ function App() {
                     <Route
                       exact
                       path="/new"
-                      render={() => <ProjectEditForm />}
+                      render={() => <CreateEditPage />}
                     />
                     <Route
                       exact
