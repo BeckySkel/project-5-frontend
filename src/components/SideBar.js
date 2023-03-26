@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
 import { Nav, Button, Fade } from "react-bootstrap";
@@ -9,7 +9,7 @@ import appStyles from "../App.module.css";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
 import useViewport from "../contexts/ViewportContext";
-import CreateEditModal from "./CreateEditModal";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 /*
 Collapsible sidebar which welcomes the user and acts as site navigation
@@ -26,8 +26,9 @@ function SideBar() {
   const [contribProjectsList, setContribProjectsList] = useState([]);
   const ref = useRef(null);
   const ref2 = useRef(null);
+  const location = useLocation();
 
-  // Code from CI walkthrough project
+  // Code inspired by CI walkthrough project
   useEffect(() => {
     const handleClickOutside = (ev) => {
       if (
@@ -45,7 +46,7 @@ function SideBar() {
     return () => {
       document.removeEventListener("mouseup", handleClickOutside);
     };
-  }, [ref, ref2]);
+  }, [ref, ref2, xsScreen]);
 
   // Fade menu in and out
   const handleFadeInOut = () => {
@@ -58,27 +59,36 @@ function SideBar() {
     );
   };
 
+  const fetchProjects = useCallback(async () => {
+    try {
+      const ownProjects = await axiosReq.get(
+        `/projects/?creator__profile=${profile_id}`
+      );
+      setProjectsList(ownProjects.data.results);
+      const contribProjects = await axiosReq.get(
+        `/projects/?contributors__profile=${profile_id}`
+      );
+      setContribProjectsList(contribProjects.data.results);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [profile_id, location]);
+
   // Get previous menu state and user's projects
   useLayoutEffect(() => {
     const handleMount = async () => {
       try {
-        const {data} = await axiosReq.get(`/profiles/${profile_id}`);
+        const { data } = await axiosReq.get(`/profiles/${profile_id}`);
         setMenuOpen(data.menu_open);
         setFadeIn(data.menu_open);
       } catch (err) {
         console.log(err);
       }
-      try {
-        const ownProjects = await axiosReq.get(`/projects/?creator__profile=${profile_id}`);
-        setProjectsList(ownProjects.data.results);
-        const contribProjects = await axiosReq.get(`/projects/?contributors__profile=${profile_id}`);
-        setContribProjectsList(contribProjects.data.results);
-      } catch (err) {
-        console.log(err);
-      }
+      fetchProjects();
     };
+
     handleMount();
-  }, [profile_id]);
+  }, [profile_id, fetchProjects]);
 
   // Post menu state in API
   useEffect(() => {
@@ -206,7 +216,20 @@ function SideBar() {
               ))}
               <hr className="text-white"></hr>
 
-              <CreateEditModal item="project" type="create" />
+              <Nav.Item>
+                <NavLink
+                  exact
+                  to="/new"
+                  className="nav-link text-white"
+                  onClick={() => {
+                    if (xsScreen) {
+                      handleFadeInOut();
+                    }
+                  }}
+                >
+                  New Project <i className="fa-solid fa-plus"></i>
+                </NavLink>
+              </Nav.Item>
             </Nav>
           </Fade>
         </div>

@@ -34,7 +34,7 @@ function SignInForm() {
     };
 
     handleMount();
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   // Form submission
   const handleSubmit = async (event) => {

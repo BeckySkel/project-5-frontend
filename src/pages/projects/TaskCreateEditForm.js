@@ -1,6 +1,6 @@
 // External imports
 import PatchStyles from "patch-styles";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -24,13 +24,6 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   });
   const { summary, body } = taskData;
 
-  // Submit form when trigger sent
-  useEffect(() => {
-    if (trigger) {
-      handleSubmit();
-    }
-  }, [trigger]);
-
   // If edit, get existing task data
   useEffect(() => {
     const handleMount = async () => {
@@ -49,7 +42,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   }, [history, taskId]);
 
   // Form submission
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const formData = new FormData();
 
     formData.append("summary", summary);
@@ -69,7 +62,15 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
       }
     }
     setTrigger(false);
-  };
+  }, [summary, body, id, setSuccess, setTrigger, taskId]);
+
+  // Submit form when trigger sent
+  useEffect(() => {
+    if (trigger) {
+      handleSubmit();
+    }
+
+  }, [trigger, handleSubmit]);
 
   // Input display values
   const handleChange = (event) => {
@@ -82,7 +83,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   return (
     <PatchStyles classNames={appStyles}>
       <PatchStyles classNames={styles}>
-        <Form onSubmit={handleSubmit}>
+        <Form>
           {/* Summary input */}
           <Form.Group className="text-start">
             <Form.Label>Summary</Form.Label>

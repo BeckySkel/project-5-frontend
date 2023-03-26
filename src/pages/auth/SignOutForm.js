@@ -29,7 +29,7 @@ function SignOutForm() {
     };
 
     handleMount();
-  }, [currentUser]);
+  }, [currentUser, history]);
   
   // Confirm signout
   const handleSignOut = async () => {

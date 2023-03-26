@@ -1,6 +1,6 @@
 // External imports
 import PatchStyles from "patch-styles";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap/";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -24,13 +24,6 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
   const { title, description } = projectData;
   // contributors ^
 
-  // Submit form when trigger sent
-  useEffect(() => {
-    if (trigger) {
-      handleSubmit();
-    }
-  }, [trigger]);
-
   // If edit, get existing project data
   useEffect(() => {
     const handleMount = async () => {
@@ -52,7 +45,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
   }, [history, projectId]);
 
   // Form submission
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const formData = new FormData();
 
     formData.append("title", title);
@@ -62,7 +55,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     try {
       if (projectId) {
         await axiosReq.put(`/projects/${projectId}`, formData);
-        history.push(`/projects/${projectId}`);
+        history.go(0);
       } else {
         const { data } = await axiosReq.post("/projects/", formData);
         history.push(`/projects/${data.id}`);
@@ -73,8 +66,15 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
         setErrors(err.response?.data);
       }
     }
-    setTrigger(false);
-  };
+      setTrigger(false);
+  }, [title, description, setSuccess, setTrigger, projectId, history]);
+
+  // Submit form when trigger sent
+  useEffect(() => {
+    if (trigger) {
+      handleSubmit();
+    }
+  }, [trigger, handleSubmit]);
 
   // Input display values
   const handleChange = (event) => {
@@ -128,11 +128,12 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
           ))}
 
           {/* Reset form */}
+          <div className="Reset">
           <Button
             type="reset"
             size="sm"
             variant="danger"
-            className="rounded-pill m-1 float-left"
+            className="rounded-pill m-1"
             onClick={() =>
               setProjectData({
                 title: "",
@@ -143,6 +144,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
           >
             Reset
           </Button>
+          </div>
 
           {/* Non-field errors */}
           {errors.non_field_errors?.map((message, idx) => (

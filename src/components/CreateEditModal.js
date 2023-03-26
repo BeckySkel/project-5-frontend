@@ -18,7 +18,6 @@ function CreateEditModal({ type, item, id }) {
   CreateEditModal.propTypes = {
     type: PropTypes.oneOf(["edit", "create"]).isRequired,
     item: PropTypes.oneOf(["task", "project"]).isRequired,
-    id: type === "edit" ? PropTypes.any.isRequired : null,
   };
 
   // Variables

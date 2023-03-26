@@ -36,7 +36,7 @@ const SignUpForm = () => {
     };
 
     handleMount();
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   // Input display values
   const handleChange = (event) => {

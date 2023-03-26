@@ -61,8 +61,6 @@ export const CurrentUserProvider = ({ children }) => {
         return config;
       },
       (err) => {
-        console.log("req error");
-        console.log(err);
         return Promise.reject(err);
       }
     );
@@ -83,7 +81,6 @@ export const CurrentUserProvider = ({ children }) => {
           }
           return axios(err.config);
         }
-        console.log("res error")
         return Promise.reject(err);
       }
     );

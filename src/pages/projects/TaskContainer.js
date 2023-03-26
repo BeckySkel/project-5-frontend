@@ -100,7 +100,7 @@ function TaskContainer(props) {
               <Loading />
             )}
           </div>
-          {props.is_project_contrib || props.is_project_creator ? (
+          {props.permission ? (
             <CreateEditModal item="task" type="create"/>
           ) : (
             <></>

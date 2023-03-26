@@ -15,9 +15,9 @@ import SignOutForm from "./pages/auth/SignOutForm";
 import ProjectPage from "./pages/projects/ProjectPage";
 import HomePage from "./pages/home/HomePage";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
-import ProjectEditForm from "./pages/projects/ProjectCreateEditForm";
 import Loading from "./components/Loading";
 import CreateEditPage from "./pages/projects/CreateEditPage";
+import PageNotFound from "./pages/home/PageNotFound";
 
 // Main app
 function App() {
@@ -75,7 +75,7 @@ function App() {
                       path="/register/:key"
                       render={() => <ConfirmEmail />}
                     />
-                    <Route render={() => <p>404 Page not found!</p>} />
+                    <Route render={() => <PageNotFound />} />
                   </Switch>
                 )}
               </div>
