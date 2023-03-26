@@ -71,7 +71,7 @@ function TaskContainer(props) {
     };
 
     fetchTasks();
-  }, [id, status]);
+  }, [id, status, props.count]);
 
   return (
     <PatchStyles classNames={styles}>
@@ -105,7 +105,6 @@ function TaskContainer(props) {
           ) : (
             <></>
           )}
-          {/* <CreateEditModal item="task" type="create"/> */}
         </div>
       </PatchStyles>
     </PatchStyles>

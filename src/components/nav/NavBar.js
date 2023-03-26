@@ -5,9 +5,9 @@ import PatchStyles from "patch-styles";
 import { Container, Navbar, Nav, Fade } from "react-bootstrap";
 import slugify from "react-slugify";
 // Internal imports
-import { useCurrentUser } from "../contexts/CurrentUserContext";
-import styles from "../styles/NavBar.module.css";
-import appStyles from "../App.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import styles from "../../styles/NavBar.module.css";
+import appStyles from "../../App.module.css";
 
 /* 
 Minimalist navbar which displays the logo (links to homepage) in the far left
@@ -24,7 +24,11 @@ function NavBar() {
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
-        <Navbar className="bg-gradient BgNavy NavBar" variant="dark">
+        <Navbar
+          className="bg-gradient BgNavy NavBar"
+          variant="dark"
+          fixed="top"
+        >
           <Container fluid>
             {/* Logo (links to homepage) */}
             <NavLink to="/">
@@ -57,7 +61,10 @@ function NavBar() {
                 <Nav className="flex-column">
                   {Links.map((link) => (
                     <Nav.Item key={link}>
-                      <NavLink to={`/${slugify(link)}`} className="nav-link text-nowrap">
+                      <NavLink
+                        to={`/${slugify(link)}`}
+                        className="nav-link text-nowrap"
+                      >
                         {link}
                       </NavLink>
                     </Nav.Item>

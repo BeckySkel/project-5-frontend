@@ -37,7 +37,7 @@ function Task(props) {
               <DeleteModal item="task" id={id} />
             </span>
           ) : (
-            <></>
+            console.log("not draggable")
           )}
         </Card.Header>
         <Card.Body className="text-break">

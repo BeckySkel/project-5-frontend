@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
 import { Nav, Button, Fade } from "react-bootstrap";
 // Internal imports
-import styles from "../styles/SideBar.module.css";
-import appStyles from "../App.module.css";
-import { useCurrentUser } from "../contexts/CurrentUserContext";
-import { axiosReq } from "../api/axiosDefaults";
-import useViewport from "../contexts/ViewportContext";
+import styles from "../../styles/SideBar.module.css";
+import appStyles from "../../App.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults";
+import useViewport from "../../contexts/ViewportContext";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 /*
@@ -25,8 +25,25 @@ function SideBar() {
   const [projectsList, setProjectsList] = useState([]);
   const [contribProjectsList, setContribProjectsList] = useState([]);
   const ref = useRef(null);
-  const ref2 = useRef(null);
   const location = useLocation();
+
+  // Fade menu in or out and post menu state in API
+  const handleFadeInOut = useCallback(async (state) => {
+    try {
+      await axiosReq.patch(`/profiles/${profile_id}`, {
+        menu_open: state,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setMenuOpen(state);
+    setTimeout(
+      () => {
+        setFadeIn(state);
+      },
+      state ? 250 : 0
+    );
+  }, [profile_id]);
 
   // Code inspired by CI walkthrough project
   useEffect(() => {
@@ -34,11 +51,9 @@ function SideBar() {
       if (
         xsScreen &&
         ref.current &&
-        !ref.current.contains(ev.target) &&
-        !ref2.current.contains(ev.target)
+        !ref.current.contains(ev.target)
       ) {
-        setMenuOpen(false);
-        setFadeIn(false);
+        handleFadeInOut(false);
       }
     };
 
@@ -46,19 +61,9 @@ function SideBar() {
     return () => {
       document.removeEventListener("mouseup", handleClickOutside);
     };
-  }, [ref, ref2, xsScreen]);
+  }, [ref, xsScreen, handleFadeInOut]);   
 
-  // Fade menu in and out
-  const handleFadeInOut = () => {
-    setMenuOpen(!menuOpen);
-    setTimeout(
-      () => {
-        setFadeIn(!menuOpen);
-      },
-      !menuOpen ? 250 : 0
-    );
-  };
-
+  // Fetch user's related projects for nav menu
   const fetchProjects = useCallback(async () => {
     try {
       const ownProjects = await axiosReq.get(
@@ -72,9 +77,9 @@ function SideBar() {
     } catch (err) {
       console.log(err);
     }
-  }, [profile_id, location]);
+  }, [profile_id]);
 
-  // Get previous menu state and user's projects
+  // Get previous menu state
   useLayoutEffect(() => {
     const handleMount = async () => {
       try {
@@ -88,21 +93,7 @@ function SideBar() {
     };
 
     handleMount();
-  }, [profile_id, fetchProjects]);
-
-  // Post menu state in API
-  useEffect(() => {
-    const postMenuState = async () => {
-      try {
-        await axiosReq.patch(`/profiles/${profile_id}`, {
-          menu_open: menuOpen,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    postMenuState();
-  }, [menuOpen, profile_id]);
+  }, [profile_id, fetchProjects, location]);
 
   // Dynamic elements
   const autoClose = xsScreen ? (
@@ -117,10 +108,10 @@ function SideBar() {
         {/* Menu show/hide */}
         <Button
           ref={ref}
-          className="position-absolute m-3 BgNavy MenuButton"
+          className="position-absolute BgNavy MenuButton"
           aria-label="Toggle navigation"
           onClick={() => {
-            handleFadeInOut();
+            handleFadeInOut(!menuOpen);
           }}
         >
           <i className="fa-solid fa-bars"></i>
@@ -128,15 +119,14 @@ function SideBar() {
 
         {/* Collapsible menu */}
         <div
-          ref={ref2}
           className={`Menu BgNavy text-start pt-3 ${
             menuOpen ? "MenuOpened" : ""
           }`}
         >
           <Fade
             in={fadeIn}
-            id="account-menu"
-            className="AccountMenu"
+            id="site-nav"
+            className="SiteNav"
             appear
             unmountOnExit
             mountOnEnter
@@ -153,11 +143,6 @@ function SideBar() {
                   exact
                   to="/"
                   className="nav-link text-white"
-                  onClick={() => {
-                    if (xsScreen) {
-                      handleFadeInOut();
-                    }
-                  }}
                 >
                   Dashboard
                   {autoClose}
@@ -175,11 +160,6 @@ function SideBar() {
                     exact
                     to={`/projects/${project.id}`}
                     className="nav-link text-white"
-                    onClick={() => {
-                      if (xsScreen) {
-                        handleFadeInOut();
-                      }
-                    }}
                   >
                     <span className="text-truncate d-inline-block NavTitles">
                       {project.title}
@@ -201,11 +181,6 @@ function SideBar() {
                     exact
                     to={`/projects/${project.id}`}
                     className="nav-link text-white"
-                    onClick={() => {
-                      if (xsScreen) {
-                        handleFadeInOut();
-                      }
-                    }}
                   >
                     <span className="text-truncate d-inline-block NavTitles">
                       {project.title}
@@ -221,11 +196,6 @@ function SideBar() {
                   exact
                   to="/new"
                   className="nav-link text-white"
-                  onClick={() => {
-                    if (xsScreen) {
-                      handleFadeInOut();
-                    }
-                  }}
                 >
                   New Project <i className="fa-solid fa-plus"></i>
                 </NavLink>

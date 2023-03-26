@@ -2,7 +2,7 @@
 import PatchStyles from "patch-styles";
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap/";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
@@ -14,10 +14,10 @@ Page to host the project create/edit form
 */
 function CreateEditPage() {
   // Validate props
-  CreateEditPage.propTypes = {
-    type: PropTypes.oneOf(["edit", "create"]).isRequired,
-    item: PropTypes.oneOf(["task", "project"]).isRequired,
-  };
+  // CreateEditPage.propTypes = {
+  //   type: PropTypes.oneOf(["edit", "create"]).isRequired,
+  //   item: PropTypes.oneOf(["task", "project"]).isRequired,
+  // };
 
   // Variables
   const [trigger, setTrigger] = useState(false);

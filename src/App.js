@@ -5,8 +5,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 // Internal imports
 import appStyles from "./App.module.css";
-import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
+import NavBar from "./components/nav/NavBar";
+import SideBar from "./components/nav/SideBar";
 import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
@@ -30,13 +30,15 @@ function App() {
       <div className="App BgLight">
         {/* Navigation bar */}
         <NavBar />
-        <Container fluid>
+
+        <Container fluid className="mt-5">
           <Row>
             <Col className="d-flex flex-row justify-content-between px-0">
               {/* Navigation sidebar */}
               {loaded && currentUser ? <SideBar /> : null}
-              {/* Main site contents */}
+              
 
+              {/* Main site contents */}
               <div className={`Main pt-5`}>
                 {!loaded ? (
                   <Loading />

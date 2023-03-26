@@ -1,7 +1,7 @@
 // External imports
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
-import { Col, SplitButton } from "react-bootstrap/";
+import { Col } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
@@ -37,10 +37,10 @@ function ProjectPage() {
           setProject({ results: project });
         } catch (err) {
           if (err.response.status === 404) {
-            console.log(err)
+            console.log(err);
           }
         }
-          setLoaded(true);
+        setLoaded(true);
       } else {
         history.push("/login");
       }
@@ -50,7 +50,15 @@ function ProjectPage() {
   }, [currentUser, history, id]);
 
   // Spread project values into props
-  const { creator, task_count, title, profile_names, is_creator, is_contributor } = { ...project.results };
+  const {
+    creator,
+    task_count,
+    title,
+    profile_names,
+    is_creator,
+    is_contributor,
+    description,
+  } = { ...project.results };
 
   return (
     <PatchStyles classNames={styles}>
@@ -74,12 +82,19 @@ function ProjectPage() {
               <h1 className="text-break">{title}</h1>
 
               <h2 className="text-break">by {creator}</h2>
-              <h3 className="text-break">contributors {profile_names.join(', ')}</h3>
+              <h3 className="text-break">
+                contributors {profile_names.join(", ")}
+              </h3>
+              <h4>{description}</h4>
               <p>total tasks: {task_count}</p>
 
-            
               {containers.map((container) => (
-                <TaskContainer title={container} key={container} permission={is_contributor || is_creator} />
+                <TaskContainer
+                  title={container}
+                  key={container}
+                  count={task_count}
+                  permission={is_contributor || is_creator}
+                />
               ))}
             </Col>
           ) : (
@@ -95,11 +110,8 @@ function ProjectPage() {
 
 export default ProjectPage;
 
-
 // created_on,
-// description,
 // profile_id,
-// profile_ids,
 // task_ids,
 // updated_on,
 // url_id,
