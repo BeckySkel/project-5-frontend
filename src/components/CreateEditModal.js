@@ -13,7 +13,7 @@ import ProjectCreateEditForm from "../pages/projects/ProjectCreateEditForm";
 Button and modal combination. Props for type (edit or create) and item
 (task or project) determine inner form-type and text
 */
-function CreateEditModal({ type, item, id }) {
+function CreateEditModal({ type, item, id}) {
   // Validate props
   CreateEditModal.propTypes = {
     type: PropTypes.oneOf(["edit", "create"]).isRequired,

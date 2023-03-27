@@ -1,7 +1,7 @@
 // External imports
 import PatchStyles from "patch-styles";
 import React, { useCallback, useEffect, useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap/";
+import { Form, Button, Alert, FormControl } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
@@ -20,11 +20,12 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   const { id } = useParams();
   const [taskData, setTaskData] = useState({
     project: id,
+    completed: "",
     summary: "",
     body: "",
   });
-  const { summary, body } = taskData;
-  const setErrorAlert = useSetErrorAlert(); 
+  const { summary, body, completed } = taskData;
+  const setErrorAlert = useSetErrorAlert();
 
   // If edit, get existing task data
   useEffect(() => {
@@ -32,10 +33,10 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
       if (taskId) {
         try {
           const { data } = await axiosReq.get(`/tasks/${taskId}`);
-          const { summary, body } = data;
-          setTaskData({ summary, body });
+          const { summary, body, completed } = data;
+          setTaskData({ summary, body, completed });
         } catch (err) {
-          setErrorAlert({ ...err.response, variant: "danger"});
+          setErrorAlert({ ...err.response, variant: "danger" });
         }
       }
     };
@@ -47,10 +48,13 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
   const handleSubmit = useCallback(async () => {
     const formData = new FormData();
 
+    formData.append("completed", completed);
+    console.log(completed);
     formData.append("summary", summary);
+    console.log(summary);
     formData.append("body", body);
     formData.append("project", id);
-
+    console.log(formData);
     try {
       if (taskId) {
         await axiosReq.put(`/tasks/${taskId}`, formData);
@@ -65,14 +69,13 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
       }
     }
     setTrigger(false);
-  }, [summary, body, id, setSuccess, setTrigger, taskId, history]);
+  }, [summary, body, completed, id, setSuccess, setTrigger, taskId, history]);
 
   // Submit form when trigger sent
   useEffect(() => {
     if (trigger) {
       handleSubmit();
     }
-
   }, [trigger, handleSubmit]);
 
   // Input display values
@@ -80,6 +83,13 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     setTaskData({
       ...taskData,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleClick = (event) => {
+    setTaskData({
+      ...taskData,
+      [event.target.name]: event.target.checked,
     });
   };
 
@@ -121,6 +131,25 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
 
           {/* Body errors */}
           {errors.body?.map((message, idx) => (
+            <Alert variant="warning" key={idx}>
+              {message}
+            </Alert>
+          ))}
+
+          {/* Completed input */}
+          <Form.Group className="text-start FloatRight d-flex">
+            <Form.Label>Complete?</Form.Label>
+            <Form.Check
+              type="checkbox"
+              name="completed"
+              checked={completed}
+              onChange={handleClick}
+              className="ms-2"
+            />
+          </Form.Group>
+
+          {/* Completed errors */}
+          {errors.completed?.map((message, idx) => (
             <Alert variant="warning" key={idx}>
               {message}
             </Alert>

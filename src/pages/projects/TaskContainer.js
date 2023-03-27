@@ -101,11 +101,6 @@ function TaskContainer(props) {
               <Loading />
             )}
           </div>
-          {props.permission ? (
-            <CreateEditModal item="task" type="create" />
-          ) : (
-            <></>
-          )}
         </div>
       </PatchStyles>
     </PatchStyles>

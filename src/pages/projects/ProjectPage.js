@@ -39,7 +39,7 @@ function ProjectPage() {
           if (project.is_contributor || project.is_creator) {
             setProject({ results: project });
           } else {
-            setProject({ results: null })
+            setProject({ results: null });
             setErrorPage(<PageNotFound />);
           }
         } catch (err) {
@@ -69,6 +69,7 @@ function ProjectPage() {
     is_contributor,
     description,
   } = { ...project.results };
+  const permission = is_contributor || is_creator;
 
   return (
     <PatchStyles classNames={styles}>
@@ -97,13 +98,18 @@ function ProjectPage() {
               </h3>
               <h4>{description}</h4>
               <p>total tasks: {task_count}</p>
+              {permission ? (
+                <CreateEditModal item="task" type="create" />
+              ) : (
+                <></>
+              )}
 
               {containers.map((container) => (
                 <TaskContainer
                   title={container}
                   key={container}
                   count={task_count}
-                  permission={is_contributor || is_creator}
+                  permission={permission}
                 />
               ))}
             </Col>
