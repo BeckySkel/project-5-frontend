@@ -8,6 +8,7 @@ import Task from "./Task";
 import slugify from "react-slugify";
 import Loading from "../../components/Loading";
 import CreateEditModal from "../../components/CreateEditModal";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 function TaskContainer(props) {
   // Variables
@@ -15,6 +16,7 @@ function TaskContainer(props) {
   const [tasks, setTasks] = useState({ results: [] });
   const [loaded, setLoaded] = useState(false);
   const status = slugify(props.title) === "complete";
+  const setErrorAlert = useSetErrorAlert(); 
 
   // Drag and drop functions
   const allowDrop = (ev) => {
@@ -51,7 +53,7 @@ function TaskContainer(props) {
         completed: container === "complete-container" ? true : false,
       });
     } catch (err) {
-      console.log(err);
+      setErrorAlert({ ...err.response, variant: "danger"});
     }
   };
 
@@ -64,7 +66,7 @@ function TaskContainer(props) {
         );
         setTasks(data);
       } catch (err) {
-        console.log(err);
+        setErrorAlert({ ...err.response, variant: "danger"});
       }
       setLoaded(true);
     };

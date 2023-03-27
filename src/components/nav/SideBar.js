@@ -16,6 +16,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import useViewport from "../../contexts/ViewportContext";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /*
 Collapsible sidebar which welcomes the user and acts as site navigation
@@ -32,6 +33,7 @@ function SideBar() {
   const [contribProjectsList, setContribProjectsList] = useState([]);
   const ref = useRef(null);
   const location = useLocation();
+  const setErrorAlert = useSetErrorAlert(); 
 
   // Fade menu in or out and post menu state in API
   const handleFadeInOut = useCallback(
@@ -41,7 +43,7 @@ function SideBar() {
           menu_open: state,
         });
       } catch (err) {
-        console.log(err);
+        setErrorAlert({ ...err.response, variant: "danger"});
       }
       setMenuOpen(state);
       setTimeout(
@@ -80,7 +82,7 @@ function SideBar() {
       );
       setContribProjectsList(contribProjects.data.results);
     } catch (err) {
-      console.log(err);
+      setErrorAlert({ ...err.response, variant: "danger"});
     }
   }, [profile_id]);
 
@@ -92,7 +94,7 @@ function SideBar() {
         setMenuOpen(data.menu_open);
         setFadeIn(data.menu_open);
       } catch (err) {
-        console.log(err);
+        setErrorAlert({ ...err.response, variant: "danger"});
       }
       fetchProjects();
     };

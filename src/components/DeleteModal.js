@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import styles from "../styles/Forms.module.css";
 import appStyles from "../App.module.css";
 import { axiosRes } from "../api/axiosDefaults";
+import { useSetErrorAlert } from "../contexts/ErrorContext";
 
 /*
 Button and modal combination. Clicking button triggers a modal
@@ -23,6 +24,7 @@ function DeleteModal({ item, id }) {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const isProject = item === "project";
+  const setErrorAlert = useSetErrorAlert(); 
 
   // Open and close modal
   const handleClose = () => setShow(false);
@@ -38,7 +40,7 @@ function DeleteModal({ item, id }) {
         history.go(0);
       }
     } catch (err) {
-      console.log(err);
+      setErrorAlert({ ...err.response, variant: "danger"});
     }
   };
 

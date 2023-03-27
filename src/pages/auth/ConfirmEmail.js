@@ -6,12 +6,14 @@ import { axiosRes } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /*
 
 */
 function ConfirmEmail() {
   const { key } = useParams();
+  const setErrorAlert = useSetErrorAlert(); 
 
   useEffect(() => {
     const handleMount = async () => {
@@ -20,7 +22,7 @@ function ConfirmEmail() {
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
       } catch (err) {
-        console.log(err);
+        setErrorAlert({ ...err.response, variant: "danger"});
       }
     };
 

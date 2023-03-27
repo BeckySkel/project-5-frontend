@@ -7,6 +7,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /* 
 Form to create or edit a task
@@ -23,6 +24,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     body: "",
   });
   const { summary, body } = taskData;
+  const setErrorAlert = useSetErrorAlert(); 
 
   // If edit, get existing task data
   useEffect(() => {
@@ -33,7 +35,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
           const { summary, body } = data;
           setTaskData({ summary, body });
         } catch (err) {
-          console.log(err);
+          setErrorAlert({ ...err.response, variant: "danger"});
         }
       }
     };
@@ -137,7 +139,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
               })
             }
           >
-            Reset
+            Clear
           </Button>
 
           {/* Non-field errors */}

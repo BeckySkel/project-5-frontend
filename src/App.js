@@ -18,7 +18,7 @@ import ConfirmEmail from "./pages/auth/ConfirmEmail";
 import Loading from "./components/Loading";
 import CreateEditPage from "./pages/projects/CreateEditPage";
 import PageNotFound from "./pages/home/PageNotFound";
-import ServerError from "./pages/home/ServerError";
+import ToastAlerts from "./components/ToastAlerts";
 
 // Main app
 function App() {
@@ -81,7 +81,9 @@ function App() {
                     <Route render={() => <PageNotFound />} />
                   </Switch>
                 )}
+                <ToastAlerts />
               </div>
+              
             </Col>
           </Row>
         </Container>

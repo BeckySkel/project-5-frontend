@@ -4,6 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 // Internal imports
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
+import { useSetErrorAlert } from "./ErrorContext";
 
 /*
 User context code heavily inspired by CI "Moments" walkthrough project
@@ -27,6 +28,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userLoaded, setUserLoaded] = useState(false);
   const history = useHistory();
+  const setErrorAlert = useSetErrorAlert(); 
 
   // Sets current user data on mount
   const handleMount = async () => {
@@ -34,7 +36,9 @@ export const CurrentUserProvider = ({ children }) => {
       const { data } = await axiosRes.get("dj-rest-auth/user/");
       setCurrentUser(data);
     } catch (err) {
-      console.log(err);
+      if (err.response.status !== 401) {
+        setErrorAlert({ ...err.response, variant: "danger"});
+      }
     }
     setUserLoaded(true);
   };

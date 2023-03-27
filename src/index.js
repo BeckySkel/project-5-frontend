@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { CurrentUserProvider } from './contexts/CurrentUserContext';
+import { SetErrorAlertProvider } from './contexts/ErrorContext';
 
 ReactDOM.render(
     <Router>
+      <SetErrorAlertProvider>
       <CurrentUserProvider>
       <App />
       </CurrentUserProvider>
+      </SetErrorAlertProvider>
     </Router>,  
   document.getElementById('root')
 );

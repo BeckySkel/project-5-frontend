@@ -54,7 +54,6 @@ const SignUpForm = () => {
       setSubmissionSuccess(true);
     } catch (err) {
       setErrors(err.response?.data);
-      console.log(err);
     }
   };
 

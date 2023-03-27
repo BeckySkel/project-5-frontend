@@ -7,6 +7,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /* 
 Form to create or edit a project
@@ -21,6 +22,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     description: "",
     // contributors: "",
   });
+  const setErrorAlert = useSetErrorAlert();
   const { title, description } = projectData;
   // contributors ^
 
@@ -36,7 +38,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
             ? setProjectData({ title, description })
             : history.push("/");
         } catch (err) {
-          console.log(err);
+          setErrorAlert({ ...err.response, variant: "danger"});
         }
       }
     };
@@ -64,9 +66,12 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
         setSuccess(true);
       }
     } catch (err) {
-      if (err.response?.status !== 401) {
+      if (err.response?.status === 400) {
         setErrors(err.response?.data);
         setTrigger(false);
+      }
+      if (err.response?.status === 403) {
+        setErrorAlert({ ...err.response, variant: "danger"});
       }
     }
   }, [title, description, setSuccess, setTrigger, projectId, history]);
@@ -144,7 +149,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
               })
             }
           >
-            Reset
+            Clear
           </Button>
           </div>
 

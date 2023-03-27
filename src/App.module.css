@@ -3,7 +3,6 @@
     font-family: 'Nunito', sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
-    /* margin-top: 3rem; */
 }
 
 .Main {
@@ -16,18 +15,8 @@
     padding-top: 6rem;
 }
 
-.AuthLink {
-    padding: 0.25rem 0.5rem;
-    color: #fff;
-    margin: 0.25rem;
-}
-
-.AuthLink:hover {
-    color: #e6dbfe;
-}
-
 .BgNavy {
-    background-color: #102542;
+    background-color: #102542 !important;
 }
 
 .BgOrange {
@@ -44,4 +33,14 @@
 
 .BgGrey {
     background-color: #E1DEE3;
+}
+
+.AuthLink {
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    margin: 0.25rem;
+}
+
+.AuthLink:hover {
+    color: #e6dbfe;
 }

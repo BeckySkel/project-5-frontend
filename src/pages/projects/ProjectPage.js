@@ -39,10 +39,10 @@ function ProjectPage() {
           setProject({ results: project });
         } catch (err) {
           if (err.response.status === 404) {
-            setErrorPage(<PageNotFound />)
+            setErrorPage(<PageNotFound />);
           }
           if (err.response.status === 500) {
-            setErrorPage(<ServerError />)
+            setErrorPage(<ServerError />);
           }
         }
         setLoaded(true);
@@ -83,6 +83,12 @@ function ProjectPage() {
               ) : (
                 <></>
               )}
+
+              {/* testing */}
+              <span className="EditOptions">
+                <CreateEditModal type="edit" item="project" id={id} />
+                <DeleteModal item="project" id={id} />
+              </span>
 
               <h1 className="text-break">{title}</h1>
 

@@ -8,6 +8,7 @@ import PatchStyles from "patch-styles";
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /* 
 Form for user to sign-out
@@ -16,6 +17,7 @@ function SignOutForm() {
   // Variables
   const setCurrentUser = useSetCurrentUser();
   const currentUser = useCurrentUser();
+  const setErrorAlert = useSetErrorAlert(); 
 
   // const [errors, setErrors] = useState({});
   const history = useHistory();
@@ -38,7 +40,7 @@ function SignOutForm() {
       setCurrentUser(null);
       history.push("/");
     } catch (err) {
-      console.log(err);
+      setErrorAlert({ ...err.response, variant: "danger"});
     }
   };
 
