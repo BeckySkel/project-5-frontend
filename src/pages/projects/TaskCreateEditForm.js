@@ -56,13 +56,14 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
         await axiosReq.post("/tasks/", formData);
       }
       setSuccess(true);
+      history.go(0);
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
     }
     setTrigger(false);
-  }, [summary, body, id, setSuccess, setTrigger, taskId]);
+  }, [summary, body, id, setSuccess, setTrigger, taskId, history]);
 
   // Submit form when trigger sent
   useEffect(() => {

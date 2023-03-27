@@ -54,19 +54,21 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
 
     try {
       if (projectId) {
-        await axiosReq.put(`/projects/${projectId}`, formData);
+        await axiosReq.patch(`/projects/${projectId}`, formData);
         history.go(0);
       } else {
         const { data } = await axiosReq.post("/projects/", formData);
-        history.push(`/projects/${data.id}`);
+        history.push(`/projects/${data.id}`); 
       }
-      setSuccess(true);
+      if (typeof setSuccess === "function") {
+        setSuccess(true);
+      }
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        setTrigger(false);
       }
     }
-      setTrigger(false);
   }, [title, description, setSuccess, setTrigger, projectId, history]);
 
   // Submit form when trigger sent

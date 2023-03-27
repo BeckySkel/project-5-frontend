@@ -36,15 +36,15 @@ function TaskContainer(props) {
       task.classList.replace("complete", "to-do");
     }
     if (ev.target.parentNode.classList.contains("card")) {
-      ev.target.parentNode.parentNode.appendChild(task);
+      ev.target.parentNode.parentNode.prepend(task);
     } else {
-      ev.target.appendChild(task);
+      ev.target.prepend(task);
     }
 
     postTaskState(model, container);
   };
 
-  // Set future menu state in API
+  // Set future task state in API
   const postTaskState = async (model, container) => {
     try {
       await axiosReq.patch(`/tasks/${model.id}`, {
@@ -55,15 +55,14 @@ function TaskContainer(props) {
     }
   };
 
-  // Get tasks on mount
+  // Get tasks on mount and updated
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const { data } = await axiosReq.get(`/tasks/?project=${id}`);
-        const newData = data.results.filter((task) => {
-          return task.completed === status;
-        });
-        setTasks(newData);
+        const { data } = await axiosReq.get(
+          `/tasks/?project=${id}&completed=${status}`
+        );
+        setTasks(data);
       } catch (err) {
         console.log(err);
       }
@@ -71,7 +70,7 @@ function TaskContainer(props) {
     };
 
     fetchTasks();
-  }, [id, status, props.count]);
+  }, [id, status]);
 
   return (
     <PatchStyles classNames={styles}>
@@ -85,8 +84,8 @@ function TaskContainer(props) {
             id={`${slugify(props.title)}-container`}
           >
             {loaded ? (
-              tasks.length ? (
-                tasks?.map((task) => (
+              tasks.results.length ? (
+                tasks.results?.map((task) => (
                   <Task
                     task={task}
                     container={slugify(props.title)}
@@ -101,7 +100,7 @@ function TaskContainer(props) {
             )}
           </div>
           {props.permission ? (
-            <CreateEditModal item="task" type="create"/>
+            <CreateEditModal item="task" type="create" />
           ) : (
             <></>
           )}

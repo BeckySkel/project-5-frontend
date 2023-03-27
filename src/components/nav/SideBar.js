@@ -1,5 +1,11 @@
 // External imports
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { NavLink } from "react-router-dom";
 import PatchStyles from "patch-styles";
 import { Nav, Button, Fade } from "react-bootstrap";
@@ -28,31 +34,30 @@ function SideBar() {
   const location = useLocation();
 
   // Fade menu in or out and post menu state in API
-  const handleFadeInOut = useCallback(async (state) => {
-    try {
-      await axiosReq.patch(`/profiles/${profile_id}`, {
-        menu_open: state,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    setMenuOpen(state);
-    setTimeout(
-      () => {
-        setFadeIn(state);
-      },
-      state ? 250 : 0
-    );
-  }, [profile_id]);
+  const handleFadeInOut = useCallback(
+    async (state) => {
+      try {
+        await axiosReq.patch(`/profiles/${profile_id}`, {
+          menu_open: state,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      setMenuOpen(state);
+      setTimeout(
+        () => {
+          setFadeIn(state);
+        },
+        state ? 250 : 0
+      );
+    },
+    [profile_id]
+  );
 
   // Code inspired by CI walkthrough project
   useEffect(() => {
     const handleClickOutside = (ev) => {
-      if (
-        xsScreen &&
-        ref.current &&
-        !ref.current.contains(ev.target)
-      ) {
+      if (xsScreen && ref.current && !ref.current.contains(ev.target)) {
         handleFadeInOut(false);
       }
     };
@@ -61,7 +66,7 @@ function SideBar() {
     return () => {
       document.removeEventListener("mouseup", handleClickOutside);
     };
-  }, [ref, xsScreen, handleFadeInOut]);   
+  }, [ref, xsScreen, handleFadeInOut]);
 
   // Fetch user's related projects for nav menu
   const fetchProjects = useCallback(async () => {
@@ -108,7 +113,7 @@ function SideBar() {
         {/* Menu show/hide */}
         <Button
           ref={ref}
-          className="position-absolute BgNavy MenuButton"
+          className="BgNavy MenuButton"
           aria-label="Toggle navigation"
           onClick={() => {
             handleFadeInOut(!menuOpen);
@@ -119,9 +124,7 @@ function SideBar() {
 
         {/* Collapsible menu */}
         <div
-          className={`Menu BgNavy text-start pt-3 ${
-            menuOpen ? "MenuOpened" : ""
-          }`}
+          className={`Menu Sidebar BgNavy text-start ${menuOpen ? "MenuOpened" : ""}`}
         >
           <Fade
             in={fadeIn}
@@ -132,18 +135,17 @@ function SideBar() {
             mountOnEnter
             timeout={100}
           >
-            <Nav className="flex-column pt-5 ps-3 pe-4" variant="pills">
+            <Nav
+              className="flex-column pb-5 pt-3 pt-sm-5 ps-3 pe-4"
+              variant="pills"
+            >
               {/* Welcome user */}
               <Nav.Item className="text-white fw-bold pt-2 mb-1">
                 Welcome {currentUser.username}!
               </Nav.Item>
               {/* Navigation links */}
               <Nav.Item>
-                <NavLink
-                  exact
-                  to="/"
-                  className="nav-link text-white"
-                >
+                <NavLink exact to="/" className="nav-link text-white">
                   Dashboard
                   {autoClose}
                 </NavLink>
@@ -195,7 +197,7 @@ function SideBar() {
                 <NavLink
                   exact
                   to="/new"
-                  className="nav-link text-white"
+                  className="nav-link text-dark bg-light"
                 >
                   New Project <i className="fa-solid fa-plus"></i>
                 </NavLink>
@@ -203,6 +205,12 @@ function SideBar() {
             </Nav>
           </Fade>
         </div>
+
+        <div
+          className={`MenuBack Sidebar text-start ${
+            menuOpen ? "MenuOpened" : ""
+          }`}
+        ></div>
       </PatchStyles>
     </PatchStyles>
   );

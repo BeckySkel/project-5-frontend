@@ -13,15 +13,8 @@ import ProjectCreateEditForm from "./ProjectCreateEditForm";
 Page to host the project create/edit form
 */
 function CreateEditPage() {
-  // Validate props
-  // CreateEditPage.propTypes = {
-  //   type: PropTypes.oneOf(["edit", "create"]).isRequired,
-  //   item: PropTypes.oneOf(["task", "project"]).isRequired,
-  // };
-
   // Variables
   const [trigger, setTrigger] = useState(false);
-  // const [success, setSuccess] = useState(false);
 
   return (
     <PatchStyles classNames={appStyles}>
@@ -36,7 +29,6 @@ function CreateEditPage() {
               <h1>Start New Project</h1>
             <ProjectCreateEditForm
               trigger={trigger}
-              // setSuccess={setSuccess}
               setTrigger={setTrigger}
             />
 

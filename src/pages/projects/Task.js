@@ -30,14 +30,15 @@ function Task(props) {
       >
         <Card.Header> 
           <span className="float-left text-break">{summary}</span>
-
+          
+          {console.log(props.updated)}
           {is_project_contrib || is_project_creator ? (
             <span className="EditOptions">
               <CreateEditModal type="edit" id={id} item="task" />
               <DeleteModal item="task" id={id} />
             </span>
           ) : (
-            console.log("not draggable")
+            <></>
           )}
         </Card.Header>
         <Card.Body className="text-break">

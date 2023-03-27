@@ -31,7 +31,7 @@ function App() {
         {/* Navigation bar */}
         <NavBar />
 
-        <Container fluid className="mt-5">
+        <Container fluid className="">
           <Row>
             <Col className="d-flex flex-row justify-content-between px-0">
               {/* Navigation sidebar */}

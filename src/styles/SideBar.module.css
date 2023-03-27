@@ -3,27 +3,33 @@
     z-index: 3;
     margin: 0.5rem;
     font-size: 0.8rem;
-    position: absolute;
-
+    position: fixed;
 }
 
 .Menu {
-    height: 100%;
-    transition: flex-basis 0.3s;
-    flex-basis: 0;
     z-index: 2;
-    position: sticky;
-    bottom: 0;
-    overflow-y: scroll;
-
+    overflow-y: auto;
+    overflow-x: visible;
+    position: fixed;
 }
 
 .Menu::-webkit-scrollbar {
     display: none;
   }
 
+.Sidebar {
+    height: 100vh;
+    flex-basis: 0rem;
+}
+
+.MenuBack {
+    transition: flex-basis 0.3s;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
 .MenuOpened {
-    flex-basis: 20rem;
+    flex-basis: 16rem;
 }
 
 .AutoClose {
@@ -37,11 +43,16 @@
 }
 
 .SiteNav {
-    margin: 0 0 2rem 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-top: 0;
 }
 
 @media only screen and (max-width: 576px) {
     .Menu {
-      position: absolute;
+      position: fixed;
     }    
+    .MenuBack {
+        display: none;
+    }
   }
