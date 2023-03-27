@@ -136,7 +136,7 @@ function SideBar() {
             timeout={100}
           >
             <Nav
-              className="flex-column pb-5 pt-3 pt-sm-5 ps-3 pe-4"
+              className="flex-column pb-5 pt-4 pt-sm-5 ps-3 pe-4"
               variant="pills"
             >
               {/* Welcome user */}

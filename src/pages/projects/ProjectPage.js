@@ -13,6 +13,7 @@ import CreateEditModal from "../../components/CreateEditModal";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import PageNotFound from "../home/PageNotFound";
 import Loading from "../../components/Loading";
+import ServerError from "../home/ServerError";
 
 /*
 Page to display the project identified in the url
@@ -25,6 +26,7 @@ function ProjectPage() {
   const [project, setProject] = useState({ results: null });
   const containers = ["To do", "Complete"];
   const history = useHistory();
+  const [errorPage, setErrorPage] = useState(null);
 
   // Get project on mount, redirect if not logged in
   useEffect(() => {
@@ -37,7 +39,10 @@ function ProjectPage() {
           setProject({ results: project });
         } catch (err) {
           if (err.response.status === 404) {
-            console.log(err);
+            setErrorPage(<PageNotFound />)
+          }
+          if (err.response.status === 500) {
+            setErrorPage(<ServerError />)
           }
         }
         setLoaded(true);
@@ -98,7 +103,7 @@ function ProjectPage() {
               ))}
             </Col>
           ) : (
-            <PageNotFound />
+            <>{errorPage}</>
           )
         ) : (
           <Loading />

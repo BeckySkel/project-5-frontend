@@ -1,0 +1,18 @@
+.Code {
+    color: #757383;
+    font-size: 8rem;
+}
+
+.Message {
+    margin-top: 4rem;
+    padding: 0 1rem;
+}
+
+.ErrorPage {
+    height: 90%;
+    margin: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

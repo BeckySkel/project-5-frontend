@@ -18,6 +18,7 @@ import ConfirmEmail from "./pages/auth/ConfirmEmail";
 import Loading from "./components/Loading";
 import CreateEditPage from "./pages/projects/CreateEditPage";
 import PageNotFound from "./pages/home/PageNotFound";
+import ServerError from "./pages/home/ServerError";
 
 // Main app
 function App() {
@@ -39,7 +40,7 @@ function App() {
               
 
               {/* Main site contents */}
-              <div className={`Main pt-5`}>
+              <div className={`Main`}>
                 {!loaded ? (
                   <Loading />
                 ) : (

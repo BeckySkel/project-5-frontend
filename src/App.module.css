@@ -1,19 +1,29 @@
 .App {
-    min-height: calc(100vh - 3rem);
     width: 100vw;
     font-family: 'Nunito', sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-top: 3rem;
+    /* margin-top: 3rem; */
 }
 
 .Main {
+    min-height: calc(100vh - 3rem);
     text-align: center;
     transition: flex-basis 0.5s;
     flex-basis: 100%;
     flex-shrink: 1;
-    /* flex-grow: 1; */
     z-index: 1;
+    padding-top: 6rem;
+}
+
+.AuthLink {
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    margin: 0.25rem;
+}
+
+.AuthLink:hover {
+    color: #e6dbfe;
 }
 
 .BgNavy {
