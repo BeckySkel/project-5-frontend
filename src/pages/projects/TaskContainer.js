@@ -72,7 +72,7 @@ function TaskContainer(props) {
     };
 
     fetchTasks();
-  }, [id, status]);
+  }, [id, status, setErrorAlert]);
 
   return (
     <PatchStyles classNames={styles}>

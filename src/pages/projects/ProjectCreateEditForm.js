@@ -44,7 +44,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     };
 
     handleMount();
-  }, [history, projectId]);
+  }, [history, projectId, setErrorAlert]);
 
   // Form submission
   const handleSubmit = useCallback(async () => {
@@ -74,7 +74,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
         setErrorAlert({ ...err.response, variant: "danger"});
       }
     }
-  }, [title, description, setSuccess, setTrigger, projectId, history]);
+  }, [title, description, setSuccess, setTrigger, projectId, history, setErrorAlert]);
 
   // Submit form when trigger sent
   useEffect(() => {

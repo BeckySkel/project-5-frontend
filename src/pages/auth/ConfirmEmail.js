@@ -18,16 +18,17 @@ function ConfirmEmail() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        await axiosRes.get(
+        const {data} = await axiosRes.get(
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
       } catch (err) {
-        setErrorAlert({ ...err.response, variant: "danger"});
+        console.log(err)
+        setErrorAlert({ ...err.response.data, variant: "danger"});
       }
     };
 
     handleMount();
-  }, [key]);
+  }, [key, setErrorAlert]);
 
   return (
     <PatchStyles classNames={styles}>

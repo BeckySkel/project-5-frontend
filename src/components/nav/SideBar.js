@@ -53,7 +53,7 @@ function SideBar() {
         state ? 250 : 0
       );
     },
-    [profile_id]
+    [profile_id, setErrorAlert]
   );
 
   // Code inspired by CI walkthrough project
@@ -84,7 +84,7 @@ function SideBar() {
     } catch (err) {
       setErrorAlert({ ...err.response, variant: "danger"});
     }
-  }, [profile_id]);
+  }, [profile_id, setErrorAlert]);
 
   // Get previous menu state
   useLayoutEffect(() => {
@@ -100,7 +100,7 @@ function SideBar() {
     };
 
     handleMount();
-  }, [profile_id, fetchProjects, location]);
+  }, [profile_id, fetchProjects, location, setErrorAlert]);
 
   // Dynamic elements
   const autoClose = xsScreen ? (

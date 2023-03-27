@@ -31,21 +31,21 @@ export const CurrentUserProvider = ({ children }) => {
   const setErrorAlert = useSetErrorAlert(); 
 
   // Sets current user data on mount
-  const handleMount = async () => {
-    try {
-      const { data } = await axiosRes.get("dj-rest-auth/user/");
-      setCurrentUser(data);
-    } catch (err) {
-      if (err.response.status !== 401) {
-        setErrorAlert({ ...err.response, variant: "danger"});
-      }
-    }
-    setUserLoaded(true);
-  };
-
   useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosRes.get("dj-rest-auth/user/");
+        setCurrentUser(data);
+      } catch (err) {
+        if (err.response.status !== 401) {
+          setErrorAlert({ ...err.response, variant: "danger"});
+        }
+      }
+      setUserLoaded(true);
+    };
+
     handleMount();
-  }, []);
+  }, [setErrorAlert]);
 
   // Refreshes access token if expired
   useMemo(() => {

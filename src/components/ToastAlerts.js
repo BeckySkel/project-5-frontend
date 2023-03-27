@@ -7,6 +7,7 @@ function ToastAlerts() {
   const [show, setShow] = useState(false);
   const error = useErrorAlert();
   const setError = useSetErrorAlert();
+  console.log(error);
   const message = error.data?.detail;
 
   useEffect(() => {
@@ -17,7 +18,7 @@ function ToastAlerts() {
     };
 
     handleMount();
-  }, [error]);
+  }, [message]);
 
   return (
     <div className="fixed-bottom d-flex justify-content-center">

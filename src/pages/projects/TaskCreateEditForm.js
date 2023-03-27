@@ -41,7 +41,7 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     };
 
     handleMount();
-  }, [history, taskId]);
+  }, [history, taskId, setErrorAlert]);
 
   // Form submission
   const handleSubmit = useCallback(async () => {
