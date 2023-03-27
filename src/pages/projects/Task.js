@@ -30,8 +30,6 @@ function Task(props) {
       >
         <Card.Header> 
           <span className="float-left text-break">{summary}</span>
-          
-          {console.log(props.updated)}
           {is_project_contrib || is_project_creator ? (
             <span className="EditOptions">
               <CreateEditModal type="edit" id={id} item="task" />

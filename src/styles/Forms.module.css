@@ -10,7 +10,7 @@
 }
 
 .Submit:hover {
-    background-color: #e36253;
+    background-color: #e36253 !important;
 }
 
 .AuthForm {

@@ -81,9 +81,9 @@ function App() {
                     <Route render={() => <PageNotFound />} />
                   </Switch>
                 )}
-                <ToastAlerts />
+                
               </div>
-              
+              <ToastAlerts />
             </Col>
           </Row>
         </Container>

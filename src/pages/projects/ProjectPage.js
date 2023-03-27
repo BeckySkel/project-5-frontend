@@ -36,7 +36,12 @@ function ProjectPage() {
           const [{ data: project }] = await Promise.all([
             axiosReq.get(`/projects/${id}`),
           ]);
-          setProject({ results: project });
+          if (project.is_contributor || project.is_creator) {
+            setProject({ results: project });
+          } else {
+            setProject({ results: null })
+            setErrorPage(<PageNotFound />);
+          }
         } catch (err) {
           if (err.response.status === 404) {
             setErrorPage(<PageNotFound />);
@@ -83,12 +88,6 @@ function ProjectPage() {
               ) : (
                 <></>
               )}
-
-              {/* testing */}
-              <span className="EditOptions">
-                <CreateEditModal type="edit" item="project" id={id} />
-                <DeleteModal item="project" id={id} />
-              </span>
 
               <h1 className="text-break">{title}</h1>
 

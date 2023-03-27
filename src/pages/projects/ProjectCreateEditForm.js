@@ -69,8 +69,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
       if (err.response?.status === 400) {
         setErrors(err.response?.data);
         setTrigger(false);
-      }
-      if (err.response?.status === 403) {
+      } else if (err.response?.status !== 401) {
         setErrorAlert({ ...err.response, variant: "danger"});
       }
     }
@@ -152,13 +151,6 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
             Clear
           </Button>
           </div>
-
-          {/* Non-field errors */}
-          {errors.non_field_errors?.map((message, idx) => (
-            <Alert key={idx} variant="warning" className="mt-3">
-              {message}
-            </Alert>
-          ))}
         </Form>
       </PatchStyles>
     </PatchStyles>

@@ -42,6 +42,7 @@ function DeleteModal({ item, id }) {
     } catch (err) {
       setErrorAlert({ ...err.response, variant: "danger"});
     }
+    handleClose();
   };
 
   return (

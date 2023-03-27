@@ -20,19 +20,19 @@
 }
 
 .BgOrange {
-    background-color: #F87060;
+    background-color: #F87060 !important;
 }
 
 .BgPurple {
-    background-color: #6D72C3;
+    background-color: #6D72C3 !important;
 }
 
 .BgLight {
-    background-color: #FDFFFC;
+    background-color: #FDFFFC !important;
 }
 
 .BgGrey {
-    background-color: #E1DEE3;
+    background-color: #E1DEE3 !important;
 }
 
 .AuthLink {
@@ -43,4 +43,12 @@
 
 .AuthLink:hover {
     color: #e6dbfe;
+}
+
+.FloatRight {
+    float: right;
+}
+
+.AlertContainer {
+    
 }

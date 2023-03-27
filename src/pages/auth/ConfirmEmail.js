@@ -1,48 +1,73 @@
 // External imports
 import PatchStyles from "patch-styles";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
+import ServerError from "../home/ServerError";
+import Loading from "../../components/Loading";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 /*
 
 */
 function ConfirmEmail() {
   const { key } = useParams();
-  const setErrorAlert = useSetErrorAlert(); 
+  const setErrorAlert = useSetErrorAlert();
+  const [success, setSuccess] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const currentUser = useCurrentUser();
+  const history = useHistory();
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const {data} = await axiosRes.get(
+        if (currentUser) {
+          history.push("/");
+        }
+        await axiosRes.get(
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
+        setSuccess(true);
       } catch (err) {
-        console.log(err)
-        setErrorAlert({ ...err.response.data, variant: "danger"});
+        setErrorAlert({
+          data: { detail: err.response.statusText },
+          variant: "danger",
+        });
       }
+      setLoaded(true);
     };
 
     handleMount();
-  }, [key, setErrorAlert]);
+  }, [key, setErrorAlert, setSuccess, setLoaded, currentUser, history]);
 
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
-        <div>Email confirmed</div>
+        {loaded ? (
+          success ? (
+            <>
+              <h1 className="mt-5">Email confirmed!</h1>
 
-        <p>Please log in</p>
+              <p className="mt-5">Please log in to complete sign-up</p>
 
-        <Link
-          to="/login"
-          className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap"
-        >
-          Sign in
-        </Link>
+              <Link
+                to="/login"
+                className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap"
+              >
+                Sign in
+              </Link>
+            </>
+          ) : (
+            <ServerError />
+          )
+        ) : (
+          <Loading />
+        )}
       </PatchStyles>
     </PatchStyles>
   );
