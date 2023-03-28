@@ -22,7 +22,7 @@ function ToastAlerts() {
       setError({});
       setShow(false);
     }, 8000);
-  }, [message]);
+  }, [message, setError]);
 
   return (
     <PatchStyles classNames={appStyles}>

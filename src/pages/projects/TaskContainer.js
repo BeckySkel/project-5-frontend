@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 import Task from "./Task";
 import slugify from "react-slugify";
 import Loading from "../../components/Loading";
-import CreateEditModal from "../../components/CreateEditModal";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 function TaskContainer(props) {

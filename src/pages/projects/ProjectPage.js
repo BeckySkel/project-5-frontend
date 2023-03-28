@@ -10,10 +10,11 @@ import appStyles from "../../App.module.css";
 import TaskContainer from "./TaskContainer";
 import DeleteModal from "../../components/DeleteModal";
 import CreateEditModal from "../../components/CreateEditModal";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import PageNotFound from "../home/PageNotFound";
 import Loading from "../../components/Loading";
 import ServerError from "../home/ServerError";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /*
 Page to display the project identified in the url
@@ -27,6 +28,7 @@ function ProjectPage() {
   const containers = ["To do", "Complete"];
   const history = useHistory();
   const [errorPage, setErrorPage] = useState(null);
+  const setErrorAlert = useSetErrorAlert();
 
   // Get project on mount, redirect if not logged in
   useEffect(() => {
@@ -45,6 +47,7 @@ function ProjectPage() {
         } catch (err) {
           if (err.response.status === 404) {
             setErrorPage(<PageNotFound />);
+            setErrorAlert({ ...err.response, variant: "danger" });
           }
           if (err.response.status === 500) {
             setErrorPage(<ServerError />);
@@ -126,8 +129,3 @@ function ProjectPage() {
 
 export default ProjectPage;
 
-// created_on,
-// profile_id,
-// task_ids,
-// updated_on,
-// url_id,

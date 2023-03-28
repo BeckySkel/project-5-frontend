@@ -1,7 +1,7 @@
 // External imports
 import PatchStyles from "patch-styles";
 import React, { useCallback, useEffect, useState } from "react";
-import { Form, Button, Alert, FormControl } from "react-bootstrap/";
+import { Form, Button, Alert } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
