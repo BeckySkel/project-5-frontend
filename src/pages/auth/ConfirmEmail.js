@@ -17,7 +17,6 @@ New users redirected here to confirm email address, validates email on get
 */
 function ConfirmEmail() {
   // State variables
-  const [success, setSuccess] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   // Functional variables
@@ -33,7 +32,6 @@ function ConfirmEmail() {
         await axiosRes.get(
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
-        setSuccess(true);
       } catch (err) {
         if (err.response.status !== 500) {
           setErrorAlert({
@@ -46,7 +44,7 @@ function ConfirmEmail() {
     };
 
     handleMount();
-  }, [key, setErrorAlert, setSuccess, setLoaded, currentUser, history]);
+  }, [key, setErrorAlert, setLoaded, currentUser, history]);
 
   return (
     <PatchStyles classNames={styles}>
