@@ -1,16 +1,16 @@
 // External imports
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
-import { Col } from "react-bootstrap/";
+import { Col, Button } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Project.module.css";
 import appStyles from "../../App.module.css";
 import TaskContainer from "./TaskContainer";
 import DeleteModal from "../../components/DeleteModal";
 import CreateEditModal from "../../components/CreateEditModal";
-import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import PageNotFound from "../home/PageNotFound";
 import Loading from "../../components/Loading";
 import ServerError from "../home/ServerError";
@@ -38,7 +38,7 @@ function ProjectPage() {
           const [{ data: project }] = await Promise.all([
             axiosReq.get(`/projects/${id}`),
           ]);
-          if (project.is_contributor || project.is_creator) {
+          if (project.is_contrib || project.is_creator) {
             setProject({ results: project });
           } else {
             setProject({ results: null });
@@ -60,19 +60,19 @@ function ProjectPage() {
     };
 
     handleMount();
-  }, [currentUser, history, id]);
+  }, [currentUser, history, id, setErrorAlert]);
 
   // Spread project values into props
   const {
     creator,
     task_count,
     title,
-    profile_names,
     is_creator,
-    is_contributor,
     description,
+    is_contrib,
+    contributor_names,
   } = { ...project.results };
-  const permission = is_contributor || is_creator;
+  const permission = is_contrib || is_creator;
 
   return (
     <PatchStyles classNames={styles}>
@@ -90,14 +90,28 @@ function ProjectPage() {
                   <DeleteModal item="project" id={id} />
                 </span>
               ) : (
-                <></>
+                <span className="EditOptions"></span>
               )}
+
+              <Button
+                onClick={async () => {
+                  const { data } = await axiosRes.get("/contributors/", {
+                    project: id,
+                    user: currentUser.id,
+                    creator: creator,
+                  });
+
+                  await axiosReq.delete(`/contributors/${data.results[0].id}`);
+                }}
+              >
+                Leave project?
+              </Button>
 
               <h1 className="text-break">{title}</h1>
 
               <h2 className="text-break">by {creator}</h2>
               <h3 className="text-break">
-                contributors {profile_names.join(", ")}
+                contributors: {contributor_names?.join(", ")}
               </h3>
               <h4>{description}</h4>
               <p>total tasks: {task_count}</p>
@@ -128,4 +142,3 @@ function ProjectPage() {
 }
 
 export default ProjectPage;
-

@@ -33,7 +33,7 @@ function SideBar() {
   const [contribProjectsList, setContribProjectsList] = useState([]);
   const ref = useRef(null);
   const location = useLocation();
-  const setErrorAlert = useSetErrorAlert(); 
+  const setErrorAlert = useSetErrorAlert();
 
   // Fade menu in or out and post menu state in API
   const handleFadeInOut = useCallback(
@@ -43,7 +43,7 @@ function SideBar() {
           menu_open: state,
         });
       } catch (err) {
-        setErrorAlert({ ...err.response, variant: "danger"});
+        setErrorAlert({ ...err.response, variant: "danger" });
       }
       setMenuOpen(state);
       setTimeout(
@@ -77,12 +77,10 @@ function SideBar() {
         `/projects/?creator__profile=${profile_id}`
       );
       setProjectsList(ownProjects.data.results);
-      const contribProjects = await axiosReq.get(
-        `/projects/?contributors__profile=${profile_id}`
-      );
+      const contribProjects = await axiosReq.get(`/contributors/?user__profile=${profile_id}`);
       setContribProjectsList(contribProjects.data.results);
     } catch (err) {
-      setErrorAlert({ ...err.response, variant: "danger"});
+      setErrorAlert({ ...err.response, variant: "danger" });
     }
   }, [profile_id, setErrorAlert]);
 
@@ -94,7 +92,7 @@ function SideBar() {
         setMenuOpen(data.menu_open);
         setFadeIn(data.menu_open);
       } catch (err) {
-        setErrorAlert({ ...err.response, variant: "danger"});
+        setErrorAlert({ ...err.response, variant: "danger" });
       }
       fetchProjects();
     };
@@ -126,7 +124,9 @@ function SideBar() {
 
         {/* Collapsible menu */}
         <div
-          className={`Menu Sidebar BgNavy text-start ${menuOpen ? "MenuOpened" : ""}`}
+          className={`Menu Sidebar BgNavy text-start ${
+            menuOpen ? "MenuOpened" : ""
+          }`}
         >
           <Fade
             in={fadeIn}
@@ -183,11 +183,11 @@ function SideBar() {
                 <Nav.Item key={project.id}>
                   <NavLink
                     exact
-                    to={`/projects/${project.id}`}
+                    to={`/projects/${project.project}`}
                     className="nav-link text-white"
                   >
                     <span className="text-truncate d-inline-block NavTitles">
-                      {project.title}
+                      {project.project_name}
                     </span>
                     {autoClose}
                   </NavLink>
