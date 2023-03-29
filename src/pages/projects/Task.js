@@ -2,8 +2,8 @@
 import PatchStyles from "patch-styles";
 import React from "react";
 import { Card } from "react-bootstrap";
-import CreateEditModal from "../../components/CreateEditModal";
-import DeleteModal from "../../components/DeleteModal";
+import CreateEditModal from "../../components/modals/CreateEditModal";
+import DeleteModal from "../../components/modals/DeleteModal";
 // Internal imports
 import styles from "../../styles/Project.module.css";
 

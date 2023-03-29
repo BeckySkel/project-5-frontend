@@ -30,7 +30,6 @@ function TaskContainer(props) {
     const model = JSON.parse(ev.dataTransfer.getData("item"));
     const task = document.getElementById(data);
     const container = ev.target.id;
-    console.log(container);
     if (task.classList.contains("to-do")) {
       task.classList.replace("to-do", "complete");
     } else {

@@ -10,7 +10,7 @@ import {
   Col,
 } from "react-bootstrap/";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import validator from "validator";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
@@ -31,7 +31,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
   });
   const { title, description } = projectData;
   const [contribData, setContribData] = useState([]);
-  const [contribEmails, setContribEmails] = useState([]);
+  const [deleteContribs, setDeleteContribs] = useState([]);
 
   // Functional variables
   const history = useHistory();
@@ -74,8 +74,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
               const contrib = await fetchContribInfo(c.user);
               displayContribs.push(contrib);
             }
-            setContribEmails(displayContribs);
-            setContribEmails([...displayContribs.id]);
+            setContribData(displayContribs);
           } else {
             history.push("/");
           }
@@ -83,7 +82,6 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
           setErrorAlert({ ...err.response, variant: "danger" });
         }
       }
-      console.log(contribData)
     };
 
     handleMount();
@@ -95,21 +93,37 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
 
     formData.append("title", title);
     formData.append("description", description);
-    console.log(contribData);
-    for (let contrib of contribData) {
-      console.log(contrib);
-      await axiosReq.post("/contributors/", {
-        project: projectId,
-        user: contrib,
-      });
+
+    try {
+      for (let contrib of deleteContribs) {
+        const { data } = await axiosRes.get("/contributors/", {
+          project: projectId,
+          user: contrib.id,
+        });
+        await axiosReq.delete(`/contributors/${data.results[0].id}`);
+      }
+    } catch (err) {
+      setErrorAlert({ ...err.response, variant: "danger" });
     }
 
     try {
       if (projectId) {
+        for (let contrib of contribData) {
+          await axiosReq.post("/contributors/", {
+            project: projectId,
+            user: contrib.user_id,
+          });
+        }
         await axiosReq.put(`/projects/${projectId}`, formData);
-        // history.go(0);
+        history.go(0);
       } else {
         const { data } = await axiosReq.post("/projects/", formData);
+        for (let contrib of contribData) {
+          await axiosReq.post("/contributors/", {
+            project: data.id,
+            user: contrib.user_id,
+          });
+        }
         history.push(`/projects/${data.id}`);
       }
       if (typeof setSuccess === "function") {
@@ -131,7 +145,8 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     projectId,
     history,
     setErrorAlert,
-    contribData
+    contribData,
+    deleteContribs,
   ]);
 
   // Submit form when trigger received
@@ -151,9 +166,10 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
 
   // Remove contributor
   const handleRemove = (contrib) => {
-    const index = contribEmails.indexOf(contrib);
-    contribEmails.splice(index, 1);
-    setContribEmails((contribEmails) => [...contribEmails]);
+    setDeleteContribs((deleteContribs) => [...deleteContribs, contrib])
+    const index = contribData.indexOf(contrib);
+    contribData.splice(index, 1);
+    setContribData((contribData) => [...contribData]);
 
     const pkIndex = contribData.indexOf(contrib.id);
     contribData.splice(pkIndex, 1);
@@ -164,7 +180,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     if (!validator.isEmail(email)) {
       throw new Error("Please enter a valid email address");
     }
-    if (contribEmails.find((contrib) => contrib.email === email)) {
+    if (contribData.find((contrib) => contrib.email === email)) {
       throw new Error("User already present in list");
     }
     if (currentUser.email === email) {
@@ -183,8 +199,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
       if (!data) {
         throw new Error("Email not registered as user");
       }
-      setContribEmails((contribEmails) => [...contribEmails, data]);
-      setContribData((contribData) => [...contribData, data.id]);
+      setContribData((contribData) => [...contribData, data]);
       // Remove input error on successful input
       delete errors.contrib_email;
       emailInput.value = "";
@@ -273,7 +288,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
 
           {/* Contributors display */}
           <ListGroup id="contributors" className="m-1">
-            {contribEmails?.map((contrib, idx) => (
+            {contribData?.map((contrib, idx) => (
               <ListGroupItem
                 variant="info"
                 className="text-break d-flex justify-content-between"
@@ -293,13 +308,6 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
             ))}
           </ListGroup>
 
-          {/* Contributors errors */}
-          {/* {errors?.contributors?.map((message, idx) => (
-            <Alert variant="warning" key={idx}>
-              {message}
-            </Alert>
-          ))} */}
-
           {/* Reset form */}
           <div className="Reset">
             <Button
@@ -313,7 +321,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
                   description: "",
                   // contributors: [],
                 });
-                setContribEmails([]);
+                setContribData([]);
               }}
             >
               Clear form

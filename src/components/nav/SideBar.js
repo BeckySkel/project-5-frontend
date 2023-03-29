@@ -155,8 +155,8 @@ function SideBar() {
               <Nav.Item className="text-white fw-bold mb-1">
                 My Projects
               </Nav.Item>
-
-              {projectsList?.map((project) => (
+              {projectsList.length ? (
+              projectsList?.map((project) => (
                 <Nav.Item key={project.id}>
                   <NavLink
                     exact
@@ -169,7 +169,11 @@ function SideBar() {
                     {autoClose}
                   </NavLink>
                 </Nav.Item>
-              ))}
+              ))) :(
+                <Nav.Item className="text-white">
+                  Follow the link below to start your first project 
+                </Nav.Item>
+              )}
 
               <hr className="text-white"></hr>
 
@@ -177,21 +181,26 @@ function SideBar() {
               <Nav.Item className="text-white fw-bold mb-1">
                 Contributing Projects
               </Nav.Item>
-
-              {contribProjectsList?.map((project) => (
-                <Nav.Item key={project.id}>
-                  <NavLink
-                    exact
-                    to={`/projects/${project.id}`}
-                    className="nav-link text-white"
-                  >
-                    <span className="text-truncate d-inline-block NavTitles">
-                      {project.title}
-                    </span>
-                    {autoClose}
-                  </NavLink>
+              {contribProjectsList.length ? (
+                contribProjectsList?.map((project) => (
+                  <Nav.Item key={project.id}>
+                    <NavLink
+                      exact
+                      to={`/projects/${project.id}`}
+                      className="nav-link text-white"
+                    >
+                      <span className="text-truncate d-inline-block NavTitles">
+                        {project.title}
+                      </span>
+                      {autoClose}
+                    </NavLink>
+                  </Nav.Item>
+                ))
+              ) : (
+                <Nav.Item className="text-white">
+                  You've not joined any projects
                 </Nav.Item>
-              ))}
+              )}
               <hr className="text-white"></hr>
 
               {/* Link to new project form */}

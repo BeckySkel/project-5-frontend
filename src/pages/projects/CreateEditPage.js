@@ -2,12 +2,10 @@
 import PatchStyles from "patch-styles";
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap/";
-// import PropTypes from "prop-types";
 // Internal imports
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 import ProjectCreateEditForm from "./ProjectCreateEditForm";
-
 
 /* 
 Page to host the project create/edit form
@@ -27,30 +25,30 @@ function CreateEditPage() {
           >
             <div className="BgGrey AuthForm">
               <h1>Start New Project</h1>
-            <ProjectCreateEditForm
-              trigger={trigger}
-              setTrigger={setTrigger}
-            />
+              <ProjectCreateEditForm
+                trigger={trigger}
+                setTrigger={setTrigger}
+              />
 
-            <p className="m-2 ActionButtons">
-              <Button
-                type="submit"
-                size="lg"
-                variant="warning"
-                className="Submit BgOrange m-2 rounded-pill"
-                onClick={() => {
-                  setTrigger(true);
-                }}
-              >
-                Create
-              </Button>
-              <Button
-                variant="secondary"
-                className="BgPurple rounded-pill border-0"
-              >
-                Cancel
-              </Button>
-            </p>
+              <p className="m-2 ActionButtons">
+                <Button
+                  type="submit"
+                  size="lg"
+                  variant="warning"
+                  className="Submit BgOrange m-2 rounded-pill"
+                  onClick={() => {
+                    setTrigger(true);
+                  }}
+                >
+                  Create
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="BgPurple rounded-pill border-0"
+                >
+                  Cancel
+                </Button>
+              </p>
             </div>
           </Col>
         </Row>

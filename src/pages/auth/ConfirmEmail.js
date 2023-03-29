@@ -7,7 +7,6 @@ import { axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
-import ServerError from "../home/ServerError";
 import Loading from "../../components/Loading";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";

@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";
 // Internal imports
-import styles from "../styles/Forms.module.css";
-import appStyles from "../App.module.css";
-import TaskCreateEditForm from "../pages/projects/TaskCreateEditForm";
-import ProjectCreateEditForm from "../pages/projects/ProjectCreateEditForm";
+import styles from "../../styles/Forms.module.css";
+import appStyles from "../../App.module.css";
+import TaskCreateEditForm from "../../pages/projects/TaskCreateEditForm";
+import ProjectCreateEditForm from "../../pages/projects/ProjectCreateEditForm";
 
 /*
 Button and modal combination. Props for type (edit or create) and item

@@ -49,12 +49,9 @@ function TaskCreateEditForm({ trigger, setTrigger, setSuccess, taskId }) {
     const formData = new FormData();
 
     formData.append("completed", completed);
-    console.log(completed);
     formData.append("summary", summary);
-    console.log(summary);
     formData.append("body", body);
     formData.append("project", id);
-    console.log(formData);
     try {
       if (taskId) {
         await axiosReq.put(`/tasks/${taskId}`, formData);

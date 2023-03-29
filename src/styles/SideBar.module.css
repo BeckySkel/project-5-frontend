@@ -13,6 +13,7 @@
     overflow-x: visible;
     position: fixed;
     padding-top: 3rem;
+    max-width: 20rem;
 }
 
 .Menu::-webkit-scrollbar {

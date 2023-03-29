@@ -5,10 +5,10 @@ import { useHistory } from "react-router-dom";
 import PatchStyles from "patch-styles";
 import PropTypes from "prop-types";
 // Internal imports
-import styles from "../styles/Forms.module.css";
-import appStyles from "../App.module.css";
-import { axiosRes } from "../api/axiosDefaults";
-import { useSetErrorAlert } from "../contexts/ErrorContext";
+import styles from "../../styles/Forms.module.css";
+import appStyles from "../../App.module.css";
+import { axiosRes } from "../../api/axiosDefaults";
+import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
 /*
 Button and modal combination. Clicking button triggers a modal

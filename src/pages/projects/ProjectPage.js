@@ -1,20 +1,21 @@
 // External imports
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
-import { Col, Button } from "react-bootstrap/";
+import { Col } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosReq} from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Project.module.css";
 import appStyles from "../../App.module.css";
 import TaskContainer from "./TaskContainer";
-import DeleteModal from "../../components/DeleteModal";
-import CreateEditModal from "../../components/CreateEditModal";
+import DeleteModal from "../../components/modals/DeleteModal";
+import CreateEditModal from "../../components/modals/CreateEditModal";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import PageNotFound from "../home/PageNotFound";
 import Loading from "../../components/Loading";
 import ServerError from "../home/ServerError";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
+import LeaveProjectModal from "../../components/modals/LeaveProjectModal";
 
 /*
 Page to display the project identified in the url
@@ -90,22 +91,24 @@ function ProjectPage() {
                   <DeleteModal item="project" id={id} />
                 </span>
               ) : (
-                <span className="EditOptions"></span>
+                <span className="EditOptions">
+                  {/* <Button
+                    onClick={async () => {
+                      const { data } = await axiosRes.get("/contributors/", {
+                        project: id,
+                        user: currentUser.id,
+                      });
+                      await axiosReq.delete(
+                        `/contributors/${data.results[0].id}`
+                      );
+
+                    }}
+                  >
+                    Leave project?
+                  </Button> */}
+                  <LeaveProjectModal project={id} />
+                </span>
               )}
-
-              <Button
-                onClick={async () => {
-                  const { data } = await axiosRes.get("/contributors/", {
-                    project: id,
-                    user: currentUser.id,
-                    creator: creator,
-                  });
-
-                  await axiosReq.delete(`/contributors/${data.results[0].id}`);
-                }}
-              >
-                Leave project?
-              </Button>
 
               <h1 className="text-break">{title}</h1>
 
