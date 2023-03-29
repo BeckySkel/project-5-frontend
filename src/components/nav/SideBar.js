@@ -73,12 +73,11 @@ function SideBar() {
   // Fetch user's related projects for nav menu
   const fetchProjects = useCallback(async () => {
     try {
-      const ownProjects = await axiosReq.get(
-        `/projects/?creator__profile=${profile_id}`
+      const profile = await axiosReq.get(
+        `/profiles/${profile_id}`
       );
-      setProjectsList(ownProjects.data.results);
-      const contribProjects = await axiosReq.get(`/contributors/?user__profile=${profile_id}`);
-      setContribProjectsList(contribProjects.data.results);
+      setProjectsList(profile.data.created_projects);
+      setContribProjectsList(profile.data.contrib_projects);
     } catch (err) {
       setErrorAlert({ ...err.response, variant: "danger" });
     }
@@ -183,11 +182,11 @@ function SideBar() {
                 <Nav.Item key={project.id}>
                   <NavLink
                     exact
-                    to={`/projects/${project.project}`}
+                    to={`/projects/${project.id}`}
                     className="nav-link text-white"
                   >
                     <span className="text-truncate d-inline-block NavTitles">
-                      {project.project_name}
+                      {project.title}
                     </span>
                     {autoClose}
                   </NavLink>
