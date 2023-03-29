@@ -30,9 +30,6 @@ function ConfirmEmail() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        if (currentUser) {
-          history.push("/");
-        }
         await axiosRes.get(
           `/dj-rest-auth/registration/account-confirm-email/${key}/`
         );
@@ -55,18 +52,18 @@ function ConfirmEmail() {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         {loaded ? (
-            <>
-              <h1 className="mt-5">Email confirmed!</h1>
+          <>
+            <h1 className="mt-5">Email confirmed!</h1>
 
-              <p className="mt-5">Please log in to complete sign-up</p>
+            <p className="mt-5">Please log in to complete sign-up</p>
 
-              <Link
-                to="/login"
-                className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap"
-              >
-                Sign in
-              </Link>
-            </>
+            <Link
+              to="/login"
+              className="py-1 px-2 BgPurple rounded-pill text-white m-1 text-nowrap"
+            >
+              Sign in
+            </Link>
+          </>
         ) : (
           <Loading />
         )}
