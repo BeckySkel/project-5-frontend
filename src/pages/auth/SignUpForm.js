@@ -8,6 +8,7 @@ import PatchStyles from "patch-styles";
 import styles from "../../styles/Forms.module.css";
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Loading from "../../components/Loading";
 
 /* 
 Form for user to sign-up and create new account in order to access the site's contents.
@@ -26,6 +27,7 @@ const SignUpForm = () => {
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   // Redirect on mount if already logged in
   useEffect(() => {
@@ -160,8 +162,11 @@ const SignUpForm = () => {
                     size="lg"
                     variant="warning"
                     className="Submit BgOrange rounded-pill"
+                    onClick={() => {
+                      setLoading(true);
+                    }}
                   >
-                    Sign up
+                    {loading ? <Loading /> : "Sign up"}
                   </Button>
                   {/* Non-field errors */}
                   {errors.non_field_errors?.map((message, idx) => (

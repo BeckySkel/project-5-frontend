@@ -38,14 +38,14 @@ function ConfirmEmail() {
         );
         setSuccess(true);
       } catch (err) {
-        setErrorAlert({
-          data: { detail: err.response.statusText },
-          variant: "danger",
-        });
+        if (err.reponse.status !== 500) {
+          setErrorAlert({
+            data: { detail: err.response.statusText },
+            variant: "danger",
+          });
+        }
       }
-      setTimeout(() => {
-        setLoaded(true);
-      }, 500);
+      setLoaded(true);
     };
 
     handleMount();
@@ -55,7 +55,6 @@ function ConfirmEmail() {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         {loaded ? (
-          success ? (
             <>
               <h1 className="mt-5">Email confirmed!</h1>
 
@@ -68,9 +67,6 @@ function ConfirmEmail() {
                 Sign in
               </Link>
             </>
-          ) : (
-            <ServerError />
-          )
         ) : (
           <Loading />
         )}
