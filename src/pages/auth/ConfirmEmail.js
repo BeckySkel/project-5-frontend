@@ -35,7 +35,7 @@ function ConfirmEmail() {
         );
         setSuccess(true);
       } catch (err) {
-        if (err.reponse.status !== 500) {
+        if (err.response.status !== 500) {
           setErrorAlert({
             data: { detail: err.response.statusText },
             variant: "danger",
