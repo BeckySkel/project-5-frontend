@@ -77,7 +77,7 @@ function CreateEditModal({ type, item, id }) {
           <Button
             size="sm"
             variant="light"
-            className="text-muted m-1"
+            className="text-secondary m-1"
             onClick={handleShow}
           >
             {buttonText}

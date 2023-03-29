@@ -1,9 +1,9 @@
 // External imports
 import React, { useEffect, useState } from "react";
 import PatchStyles from "patch-styles";
-import { Col } from "react-bootstrap/";
+import { Col, Row } from "react-bootstrap/";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import { axiosReq} from "../../api/axiosDefaults";
+import { axiosReq } from "../../api/axiosDefaults";
 // Internal imports
 import styles from "../../styles/Project.module.css";
 import appStyles from "../../App.module.css";
@@ -71,7 +71,7 @@ function ProjectPage() {
     is_creator,
     description,
     is_contrib,
-    contributor_names,
+    contributors,
   } = { ...project.results };
   const permission = is_contrib || is_creator;
 
@@ -92,37 +92,39 @@ function ProjectPage() {
                 </span>
               ) : (
                 <span className="EditOptions">
-                  {/* <Button
-                    onClick={async () => {
-                      const { data } = await axiosRes.get("/contributors/", {
-                        project: id,
-                        user: currentUser.id,
-                      });
-                      await axiosReq.delete(
-                        `/contributors/${data.results[0].id}`
-                      );
-
-                    }}
-                  >
-                    Leave project?
-                  </Button> */}
                   <LeaveProjectModal project={id} />
                 </span>
               )}
 
-              <h1 className="text-break">{title}</h1>
+              <h1 className="text-break fs-2">{title}</h1>
+              <h2 className="text-break fs-4">by {creator}</h2>
 
-              <h2 className="text-break">by {creator}</h2>
-              <h3 className="text-break">
-                contributors: {contributor_names?.join(", ")}
-              </h3>
-              <h4>{description}</h4>
-              <p>total tasks: {task_count}</p>
-              {permission ? (
-                <CreateEditModal item="task" type="create" />
+              {contributors.length ? (
+                <h3 className="text-break fs-5 BgDarkGrey text-light rounded p-1">
+                  <span className="me-2">contributors:</span>
+                  {contributors.map((contrib) => {
+                    return (
+                      <span key={contrib.user}>{contrib.user_username}</span>
+                    );
+                  })}
+                </h3>
               ) : (
                 <></>
               )}
+              <h4>{description}</h4>
+
+              <Row className="d-flex justify-content-start align-items-baseline">
+                <Col xs="auto">
+                  {permission ? (
+                    <CreateEditModal item="task" type="create" />
+                  ) : (
+                    <></>
+                  )}
+                </Col>
+                <Col xs="auto rounded py-1">
+                  <span>total tasks: {task_count}</span>
+                </Col>
+              </Row>
 
               {containers.map((container) => (
                 <TaskContainer

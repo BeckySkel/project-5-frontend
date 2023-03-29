@@ -109,10 +109,17 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
     try {
       if (projectId) {
         for (let contrib of contribData) {
-          await axiosReq.post("/contributors/", {
-            project: projectId,
-            user: contrib.user_id,
-          });
+          try {
+            await axiosReq.post("/contributors/", {
+              project: projectId,
+              user: contrib.user_id,
+            });
+          } catch (err) {
+            if (err.response?.status !== 400) {
+              setErrors(err.response?.data);
+              setTrigger(false);
+            }
+          }
         }
         await axiosReq.put(`/projects/${projectId}`, formData);
         history.go(0);
@@ -166,7 +173,7 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
 
   // Remove contributor
   const handleRemove = (contrib) => {
-    setDeleteContribs((deleteContribs) => [...deleteContribs, contrib])
+    setDeleteContribs((deleteContribs) => [...deleteContribs, contrib]);
     const index = contribData.indexOf(contrib);
     contribData.splice(index, 1);
     setContribData((contribData) => [...contribData]);

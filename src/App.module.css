@@ -35,6 +35,10 @@
     background-color: #E1DEE3 !important;
 }
 
+.BgDarkGrey {
+    background-color: #8b898d !important;
+}
+
 .AuthLink {
     padding: 0.25rem 0.5rem;
     color: #fff;
