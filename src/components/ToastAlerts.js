@@ -1,22 +1,30 @@
+// External imports
 import PatchStyles from "patch-styles";
 import React, { useState, useEffect } from "react";
 import { Alert, Button } from "react-bootstrap";
+// Internal imports
 import { useErrorAlert, useSetErrorAlert } from "../contexts/ErrorContext";
 import appStyles from "../App.module.css";
 
+/*
+Dismissable alert to display errors to the user. Fades after 8 seconds
+*/
 function ToastAlerts() {
+  // State variables
   const [show, setShow] = useState(false);
+
+  // Functional variables
   const error = useErrorAlert();
   const setError = useSetErrorAlert();
   const message = error.data?.detail;
 
+  // Mount on error message received
   useEffect(() => {
     const handleMount = () => {
       if (message) {
         setShow(true);
       }
     };
-
     handleMount();
     setTimeout(() => {
       setError({});
@@ -34,7 +42,6 @@ function ToastAlerts() {
         lg={{ col: 6, offset: 3 }}
       >
         <Alert
-          // dismissible
           transition
           show={show}
           className="m-3 d-flex"

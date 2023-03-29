@@ -28,7 +28,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userLoaded, setUserLoaded] = useState(false);
   const history = useHistory();
-  const setErrorAlert = useSetErrorAlert(); 
+  const setErrorAlert = useSetErrorAlert();
 
   // Sets current user data on mount
   useEffect(() => {
@@ -38,7 +38,7 @@ export const CurrentUserProvider = ({ children }) => {
         setCurrentUser(data);
       } catch (err) {
         if (err.response.status !== 401) {
-          setErrorAlert({ ...err.response, variant: "danger"});
+          setErrorAlert({ ...err.response, variant: "danger" });
         }
       }
       setUserLoaded(true);
@@ -56,7 +56,7 @@ export const CurrentUserProvider = ({ children }) => {
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
-              history.push("/signin");
+              history.push("/login");
             }
             return null;
           });
@@ -78,7 +78,7 @@ export const CurrentUserProvider = ({ children }) => {
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                history.push("/signin");
+                history.push("/login");
               }
               return null;
             });

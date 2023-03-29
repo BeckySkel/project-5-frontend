@@ -1,6 +1,5 @@
 // External imports
 import { createContext, useContext, useState } from "react";
-// Internal imports
 
 /*
 User context code heavily inspired by CI "Moments" walkthrough project

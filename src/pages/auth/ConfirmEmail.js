@@ -13,16 +13,20 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 /*
-
+New users redirected here to confirm email address, validates email on get
 */
 function ConfirmEmail() {
-  const { key } = useParams();
-  const setErrorAlert = useSetErrorAlert();
+  // State variables
   const [success, setSuccess] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  // Functional variables
+  const { key } = useParams();
+  const setErrorAlert = useSetErrorAlert();
   const currentUser = useCurrentUser();
   const history = useHistory();
 
+  // Validate email on get
   useEffect(() => {
     const handleMount = async () => {
       try {
@@ -39,7 +43,9 @@ function ConfirmEmail() {
           variant: "danger",
         });
       }
-      setLoaded(true);
+      setTimeout(() => {
+        setLoaded(true);
+      }, 500);
     };
 
     handleMount();

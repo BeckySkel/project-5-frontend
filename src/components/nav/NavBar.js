@@ -14,13 +14,15 @@ Minimalist navbar which displays the logo (links to homepage) in the far left
 and a custom collapsing account menu (different links if user logged in or out) on the right 
 */
 function NavBar() {
-  // Variables
+  // State variables
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+
+  // Functional variables
   const currentUser = useCurrentUser();
   const Links = currentUser
     ? ["Logout", "Edit Profile"]
     : ["Login", "Register"];
-
+  
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>

@@ -24,7 +24,7 @@ function DeleteModal({ item, id }) {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const isProject = item === "project";
-  const setErrorAlert = useSetErrorAlert(); 
+  const setErrorAlert = useSetErrorAlert();
 
   // Open and close modal
   const handleClose = () => setShow(false);
@@ -40,7 +40,7 @@ function DeleteModal({ item, id }) {
         history.go(0);
       }
     } catch (err) {
-      setErrorAlert({ ...err.response, variant: "danger"});
+      setErrorAlert({ ...err.response, variant: "danger" });
     }
     handleClose();
   };

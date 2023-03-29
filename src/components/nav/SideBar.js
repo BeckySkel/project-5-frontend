@@ -73,9 +73,7 @@ function SideBar() {
   // Fetch user's related projects for nav menu
   const fetchProjects = useCallback(async () => {
     try {
-      const profile = await axiosReq.get(
-        `/profiles/${profile_id}`
-      );
+      const profile = await axiosReq.get(`/profiles/${profile_id}`);
       setProjectsList(profile.data.created_projects);
       setContribProjectsList(profile.data.contrib_projects);
     } catch (err) {
@@ -153,6 +151,7 @@ function SideBar() {
               </Nav.Item>
               <hr className="text-white"></hr>
 
+              {/* Map links to contributing projects */}
               <Nav.Item className="text-white fw-bold mb-1">
                 My Projects
               </Nav.Item>
@@ -174,6 +173,7 @@ function SideBar() {
 
               <hr className="text-white"></hr>
 
+              {/* Map links to contributing projects */}
               <Nav.Item className="text-white fw-bold mb-1">
                 Contributing Projects
               </Nav.Item>
@@ -194,6 +194,7 @@ function SideBar() {
               ))}
               <hr className="text-white"></hr>
 
+              {/* Link to new project form */}
               <Nav.Item>
                 <NavLink
                   exact
@@ -206,7 +207,6 @@ function SideBar() {
             </Nav>
           </Fade>
         </div>
-
         <div
           className={`MenuBack Sidebar text-start ${
             menuOpen ? "MenuOpened" : ""
