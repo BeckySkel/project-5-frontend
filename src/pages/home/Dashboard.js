@@ -1,14 +1,14 @@
-import { Row } from "react-bootstrap";
-import appStyles from "../../App.module.css";
-import styles from "../../styles/Dashboard.module.css";
 // External imports
 import React, { useLayoutEffect, useState } from "react";
 import PatchStyles from "patch-styles";
+import { Row } from "react-bootstrap";
 // Internal imports
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
 import ProjectCard from "./ProjectCard";
+import appStyles from "../../App.module.css";
+import styles from "../../styles/Dashboard.module.css";
 
 /*
 User's dashboard to display all related tasks and recent updates
@@ -55,22 +55,18 @@ const Dashboard = () => {
                 <ProjectCard project={project} key={project.id} />
               ))
             ) : (
-              <p>
-                No projects yet!
-              </p>
+              <p className="ms-2">No projects yet! Click the link in the menu to start your first project</p>
             )}
           </div>
 
           <div className="BgLight rounded mt-3">
-          <h2 className="py-2">Contributing Projects</h2>
+            <h2 className="py-2">Contributing Projects</h2>
             {contribProjectsList?.length ? (
               contribProjectsList?.map((project) => (
                 <ProjectCard project={project} key={project.id} />
               ))
             ) : (
-              <p className="ms-2">
-                No projects yet!
-              </p>
+              <p className="ms-2">No projects yet!</p>
             )}
           </div>
         </Row>

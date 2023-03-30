@@ -1,20 +1,19 @@
+// External imports
 import PatchStyles from "patch-styles";
 import React from "react";
 import { Card, ProgressBar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// Internal imports
 import appStyles from "../../App.module.css";
 import styles from "../../styles/Dashboard.module.css";
 
+/*
+Displays user's related projects in dashboard
+*/
 function ProjectCard(props) {
   // Variables
-  const {
-    id,
-    completed_tasks,
-    description,
-    task_count,
-    title,
-    updated_on,
-  } = props.project;
+  const { id, completed_tasks, description, task_count, title, updated_on } =
+    props.project;
 
   // Calculate value for progress bar
   const progress = () => {

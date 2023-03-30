@@ -5,9 +5,8 @@ import PatchStyles from "patch-styles";
 // Internal imports
 import styles from "../styles/InfoCarousel.module.css";
 import appStyles from "../App.module.css";
-import placeholder1 from "../assets/placeholderimage1.jpg";
-import placeholder2 from "../assets/placeholderimage2.jpg";
-import placeholder3 from "../assets/placeholderimage3.jpg";
+import dashboard from "../assets/dashboard.png";
+import projectview from "../assets/projectview.png";
 
 /*
 Carousel which displays screenshots and information of app features
@@ -16,44 +15,31 @@ function InfoCarousel() {
   return (
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
-        <Row>
+        <Row className="d-flex align-items-center h-100">
           <Col xs={{ span: 10, offset: 1 }} xl={{ span: 8, offset: 2 }}>
             <Carousel>
               <Carousel.Item>
-                <div className="CarouselContainer">
-                  <img src={placeholder1} alt="Placeholder 1" />
+                <div className="BgPurple CarouselContainer">
+                  <img src={dashboard} alt="View of dashboard" />
                 </div>
 
-                <Carousel.Caption className="CarouselText">
-                  <h3>Placeholder text</h3>
+                <Carousel.Caption className="CarouselText rounded">
+                  <h3>View your projects at a glance</h3>
                   <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    Check on progress at the dashboard.
                   </p>
                 </Carousel.Caption>
               </Carousel.Item>
 
               <Carousel.Item>
                 <div className="BgPurple CarouselContainer">
-                  <img src={placeholder2} alt="Placeholder 2" />
+                  <img src={projectview} alt="View of the project layout" />
                 </div>
 
-                <Carousel.Caption className="CarouselText">
-                  <h3>Second slide label</h3>
+                <Carousel.Caption className="CarouselText rounded">
+                  <h3>Share your thoughts and plans with others</h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                </Carousel.Caption>
-              </Carousel.Item>
-
-              <Carousel.Item>
-                <div className="BgPurple CarouselContainer">
-                  <img src={placeholder3} alt="Placeholder 3" />
-                </div>
-                <Carousel.Caption className="CarouselText">
-                  <h3>Third slide label</h3>
-                  <p>
-                    Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur.
+                    Keep a project private or share with other users!
                   </p>
                 </Carousel.Caption>
               </Carousel.Item>

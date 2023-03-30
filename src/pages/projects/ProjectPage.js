@@ -16,6 +16,7 @@ import Loading from "../../components/Loading";
 import ServerError from "../home/ServerError";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
 import LeaveProjectModal from "../../components/modals/LeaveProjectModal";
+import Avatar from "../../components/Avatar";
 
 /*
 Page to display the project identified in the url
@@ -104,7 +105,7 @@ function ProjectPage() {
                   <span className="me-2">contributors:</span>
                   {contributors.map((contrib) => {
                     return (
-                      <span key={contrib.user}>{contrib.user_username}</span>
+                      <Avatar key={contrib.user} user={contrib} />
                     );
                   })}
                 </h3>
