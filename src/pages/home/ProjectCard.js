@@ -6,12 +6,11 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/Dashboard.module.css";
 
 function ProjectCard(props) {
+  // Variables
   const {
     id,
     completed_tasks,
-    creator,
     description,
-    is_creator,
     task_count,
     title,
     updated_on,

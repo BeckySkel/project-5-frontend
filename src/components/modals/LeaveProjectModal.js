@@ -45,7 +45,7 @@ function LeaveProjectModal({ id }) {
     <PatchStyles classNames={appStyles}>
       <PatchStyles classNames={styles}>
         {/* Button to open modal */}
-        <Button onClick={handleShow}>Leave project?</Button>
+        <Button className="ms-3" onClick={handleShow}>Leave project?</Button>
 
         {/* Modal with deletion confirmation */}
         <Modal

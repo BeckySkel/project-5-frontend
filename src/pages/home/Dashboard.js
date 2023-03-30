@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [contribProjectsList, setContribProjectsList] = useState([]);
   const setErrorAlert = useSetErrorAlert();
 
-  // Get previous menu state
+  // Fetch all related projects
   useLayoutEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -29,14 +29,17 @@ const Dashboard = () => {
           `/projects/?creator__profile=${profile_id}`
         );
         setProjectsList(data.results);
-        setContribProjectsList(data.contrib_projects);
+        const contribProjects = await axiosReq.get(
+          `/projects/?contributors__user__profile=${profile_id}`
+        );
+        setContribProjectsList(contribProjects.data.results);
       } catch (err) {
         setErrorAlert({ ...err.response, variant: "danger" });
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [profile_id, setErrorAlert]);
 
   return (
     <PatchStyles classNames={styles}>
