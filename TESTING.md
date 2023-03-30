@@ -38,7 +38,7 @@
 - All pages were ran through Lighthouse on Chrome Devtools for both desktop and mobile device display. Ran in incognito mode. Any issues were dealt with and all now have a high passing mark with any exceptions detailed below.
 
 ### Desktop
-- 
+- All scores were good except for performance on the coursel screen due to the picture formats.
 
 ### Mobile
 - 

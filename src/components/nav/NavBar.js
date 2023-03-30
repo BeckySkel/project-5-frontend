@@ -59,7 +59,6 @@ function NavBar() {
                 in={accountMenuOpen}
                 id="account-menu"
                 className="AccountMenu"
-                aria-rolw="account-menu"
               >
                 <Nav className="flex-column">
                   {Links.map((link) => (
