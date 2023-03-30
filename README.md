@@ -126,7 +126,7 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 ### Wireframes
 - After looking at common designs and features and deciding what I would like to include, I mapped out the intended features of the website using [Balsamiq](https://balsamiq.com/) to create wireframes of some of the page views.
 - [View the wireframes here](documents/wireframes.pdf)
-- The key differences between planning and the final product ...
+- The key differences between planning and the final product are the lack of footer and the layout of the task containers. The footer didn't feel necessary and the task containers fit better as a cow than columns.
 
 ### Information architecture
 - Devise is a planning app made up of 6 main views: Homepage, Dashboard, Login, Logout, Register and Project
