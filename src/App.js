@@ -1,7 +1,7 @@
 // External imports
 import React from "react";
 import PatchStyles from "patch-styles";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 // Internal imports
 import appStyles from "./App.module.css";

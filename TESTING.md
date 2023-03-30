@@ -9,7 +9,7 @@
 ###  W3C HTML Validator (Validate by URI)
 
 #### index.html
-- 3 errors returned as a results of React links, otherwise all ok.
+- 3 errors returned as a results of React link format, otherwise all ok.
 
 ![Feedback from run through the W3 CSS validator for all css modules](src/assets/readme-images/html-w3c-result.png)
 
