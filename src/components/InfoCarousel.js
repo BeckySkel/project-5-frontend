@@ -16,7 +16,7 @@ function InfoCarousel() {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         <Row className="d-flex align-items-center h-100">
-          <Col xs={{ span: 10, offset: 1 }} xl={{ span: 8, offset: 2 }}>
+          <Col xs={{ span: 10, offset: 1 }} xl={{ span: 6, offset: 3 }}>
             <Carousel>
               <Carousel.Item>
                 <div className="BgPurple CarouselContainer">

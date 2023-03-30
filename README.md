@@ -1,8 +1,13 @@
 # Devise
 
-![The Devise website displayed on different devices](/images/responsive-test.png)
+![The Devise website displayed on different devices](src/assets/readme-images/responsive-test.png)
 
-- Devise is ...
+- Devise is planner tool designed to help you share your plans with other. Users can invite contributors to their projects or keep them personal.
+- Easily navigate between your own projects or projects that others have invited you to.
+- Mark tasks as complete when finished and celebrate together!
+
+
+- This repository hosts the Django Rest Framework API backend of the project. Follow links below to access front end repository.
 
 ## Links
 
@@ -42,7 +47,7 @@
 ## Strategy
 
 ### Target Audience
-- This site is targeted ...
+- This site is targeted towards users who would like to organise a project they're working on with others. This will primarily be adults who are comfortbale working with technology and potentially some older teens/students.
 
 - View [User Personas](documents/personas.pdf)
 
@@ -50,38 +55,40 @@
 
 #### Admin
 *These are staff/admin users who maintain the site and manage it's contents.*
-- [#1](https://github.com/BeckySkel/project-5-frontend/issues/1) As a
-- [#2](https://github.com/BeckySkel/project-5-frontend/issues/2) As a
+- [#2](https://github.com/BeckySkel/project-5-frontend/issues/2) As an **admin**, I can **edit and remove projects, tasks and comments** so that **I can manage the site contents**.
 
-#### ...
-*These are users who ...*
-- [#3](https://github.com/BeckySkel/project-5-frontend/issues/3) As a 
-- [#4](https://github.com/BeckySkel/project-5-frontend/issues/4) As a 
-- [#5](https://github.com/BeckySkel/project-5-frontend/issues/5) As a 
-- [#6](https://github.com/BeckySkel/project-5-frontend/issues/6) As a 
-- [#8](https://github.com/BeckySkel/project-5-frontend/issues/8) As a 
-- [#11](https://github.com/BeckySkel/project-5-frontend/issues/11) As a 
-- [#12](https://github.com/BeckySkel/project-5-frontend/issues/12) As a 
+#### General Users
+*These are any users who visit the site.*
+- [#1](https://github.com/BeckySkel/project-5-frontend/issues/1) As a **user**, I can **create an account** so that **I can create and contribute to projects**.
+- [#3](https://github.com/BeckySkel/project-5-frontend/issues/3) As a **user**, I can **create my own project(s)** so that **I can plan and track their progress**.
+- [#5](https://github.com/BeckySkel/project-5-frontend/issues/5) As a **user**, I can **add and complete tasks** so that **I can keep track of my progress**.
+- [#11](https://github.com/BeckySkel/project-5-frontend/issues/11) As a **user**, I can **customise my profile** so that **other users can identify me easily**.
+- [#12](https://github.com/BeckySkel/project-5-frontend/issues/12) As a **user**, I can **create a project calendar** so that **I have a visual representation of the timeline**.
+- [#15](https://github.com/BeckySkel/project-5-frontend/issues/15) As a **user**, I can **assign due dates to tasks/projects** so that **I know when they need to be completed by**.
+- [#16](https://github.com/BeckySkel/project-5-frontend/issues/16) As a **user**, I can **view a dashboard with reminders and updates** so that **I can easily keep track of my different projects/tasks/comments**.
 
-#### ...
-*These are users who ...*
-- [#6](https://github.com/BeckySkel/project-5-frontend/issues/6) As a 
-- [#7](https://github.com/BeckySkel/project-5-frontend/issues/7) As a 
-- [#8](https://github.com/BeckySkel/project-5-frontend/issues/8) As a 
-- [#9](https://github.com/BeckySkel/project-5-frontend/issues/9) As a 
-- [#10](https://github.com/BeckySkel/project-5-frontend/issues/10) As a 
-- [#11](https://github.com/BeckySkel/project-5-frontend/issues/11) As a 
-- [#13](https://github.com/BeckySkel/project-5-frontend/issues/13) As a 
-- [#14](https://github.com/BeckySkel/project-5-frontend/issues/14) As a 
-- [#15](https://github.com/BeckySkel/project-5-frontend/issues/15) As a 
-- [#16](https://github.com/BeckySkel/project-5-frontend/issues/16) As a
-- [#17](https://github.com/BeckySkel/project-5-frontend/issues/17) As a 
+#### Project Owners
+*These are users who have created a project and invited others to contribute*
+- [#4](https://github.com/BeckySkel/project-5-frontend/issues/4) As a **project owner**, I can **invite others to contribute to my project** so that **we can collaborate on it**.
+- [#7](https://github.com/BeckySkel/project-5-frontend/issues/7) As a **project owner**, I can **set the projects visibility to others** so that **I can decide who views it**.
+- [#8](https://github.com/BeckySkel/project-5-frontend/issues/8) As a **project owner**, I can **remove collaborators from a project** so that **they can no longer contribute to or view the contents**.
+- [#9](https://github.com/BeckySkel/project-5-frontend/issues/9) As a **project owner**, I can **edit the project brief and workspace** so that **it fits my needs**.
+- [#10](https://github.com/BeckySkel/project-5-frontend/issues/10) As a **project owner**, I can **remove the tasks and comments within my project** so that **I can manage the contents**.
+- [#14](https://github.com/BeckySkel/project-5-frontend/issues/14) As a **project owner**, I can **categorise tasks** so that **I can group and identify them**.
+
+#### Project Contributors
+*These are users who have been invited to a project as a contributor*
+- [#6](https://github.com/BeckySkel/project-5-frontend/issues/6) As a **project member**, I can **comment and like/vote on added tasks/ideas** so that **I can share my opinion with the team**.
+- [#13](https://github.com/BeckySkel/project-5-frontend/issues/13) As a **user**, I can **tag other users in my comments** so that **they are alerted of it**.
+
+
+Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/4)
 
 ---
 ## Scope
 
 ### Research
-- Before any planning, I conducted research into ...
+- Before any planning, I conducted research into a few similar websites to look for inspiration on design and features. This research helped me land on the style and colour theme I chose.
 
 ### Future Features
 
