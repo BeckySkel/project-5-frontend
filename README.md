@@ -143,52 +143,80 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 ### Current Features
 
 #### Header
-- ...
+- The header is simple but elegant with a fun pop of colour.
+- Clicking the Devise logo takes the user to the homepage/dashboard (depending on logged in state)
+- The account menu is displayed in a circle which extends when hovered over. The contents is either "Lgoin" and "Register" when logged out or "Logout" and "Edit Profile" when logged in.
 
-![Header on desktop](static/images/header-desktop.png)
+![Header on desktop](src/assets/readme-images/header.png)
 
-![Header on mobile](static/images/header-mobile.png)
+#### Sidebar
+- Displayed on the left-hand side of the screen
+- pushes main content to the side on larger screens and hides it on smaller
+- Autoclose when clicked out of on smaller screens but static on larger
+- Provides project navigation
+
+![Sidebar on desktop](src/assets/readme-images/sidebar-desktop.png)
+![Sidebar on mobile](src/assets/readme-images/sidebar-mobile.png)
 
 #### Homepage
-- Welcomes user and displays either ...
+- Displays either the information carousel or dashboard depending if user is logged in
+
 ##### Carousel
-- ...
+- The carousel features 2 screenshots of the app with shorts nisppets of information about app features.
 
-![Carousel on desktop](static/images/carousel-desktop.png)
+![Carousel on desktop](src/assets/readme-images/carousel.png)
 ##### Dashboard
-- ...
+- The dashboard shows logged in users their curent projects witha bit of information about progress as well as displaying the description
 
-![Dashboard on desktop](static/images/carousel-desktop.png)
+![Dashboard on desktop](src/assets/readme-images/dashboard.png)
+![Dashboard on mobile](src/assets/readme-images/dashboard-mobile.png)
 
-##### ...
-- ...
+##### Login
+- The login page consists of a simple form
+- Option to folow link to registration if user does not yet have an acount
+- Redirected to homepage on successful login
 
-##### ...
-- ...
+![Login on desktop](src/assets/readme-images/login.png)
 
-![Other options](static/images/other-options.png)
+##### Register
+- Similar to the login form, the register form is fairly simple and displays a link to the login form
+- User is informormed that they need to verify their email before continuing after successful submission
 
-#### ...
-- ...
+![Register on mobile](src/assets/readme-images/register.png)
 
-![Recipe page on desktop](static/images/recipe-desktop.png)
+#### Logout
+- If user clicks the logout option in the account menu, they are redirected to confirm logout
 
-![Recipe page on mobile](static/images/recipe-mobile.png)
+![Logout on mobile](src/assets/readme-images/logout.png)
 
-#### ...
-- ...
+#### Profile Edit
+- Users have the ability to edit their profile so that others can identify them easily
+- All fields are optional
 
-![Edit recipe page on mobile](static/images/edit-recipe-mobile.png)
+![Edit profile on desktop](src/assets/readme-images/profile-edit.png)
 
-#### ...
-- ...
+#### Project
+- A single project is displayed with information about the creator, contributors, title and description
+- Tasks are then displayed in "To do" and "Complete" containers
+- Project edit is displayed as a pop-up modal over the current project
 
-![Others profile page on desktop](static/images/profile-desktop.png)
+![Project on mobile](src/assets/readme-images/project-mobile.png)
 
-![Own profile page on mobile](static/images/profile-mobile.png)
+![Project edit on mobile](src/assets/readme-images/project-edit.png)
 
-#### Edit Profile
-- ...
+#### Tasks
+- Tasks are cards that can be dragged and dropped from one container to another to set the state as To do or Complete
+- They are editable via a pop-up modal
+
+![Task display on desktop](src/assets/readme-images/tasks.png)
+![Task edit on mobile](src/assets/readme-images/task-edit.png)
+
+#### Avatars
+- Avatars are buttons displaying user profile information when hoevered over
+- Although they are currentnly only present on the project view page, they could be easily incorporated anywhere that usernames appear to provide other users some insight into the users profile
+
+![Avatar component](src/assets/readme-images/avatar.png)
+
 
 ![Edit profile on desktop](static/images/edit-profile.png)
 
