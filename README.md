@@ -142,7 +142,7 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 
 ### Current Features
 
-#### Header & Navbar
+#### Header
 - ...
 
 ![Header on desktop](static/images/header-desktop.png)
@@ -265,23 +265,13 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 - Websites used for initial research:
   - [Asana](https://app.asana.com/) for layout and functionality
   - [Toggle Plan](https://toggl.com/plan/index) for design inspiration
-- ... [...](...)
-- ... [...](...)
-- ... [...](...)
+- During test I found it helpful to hide POST/PUT forms when not authenticated, code used to hide forms at [https://forum.djangoproject.com/t/django-rest-framework-404-not-found-put-delete/7980](https://forum.djangoproject.com/t/django-rest-framework-404-not-found-put-delete/7980)
 - Signals tutorial and code to connect Profile database to User inspired by [https://www.youtube.com/watch?v=Kc1Q_ayAeQk](https://www.youtube.com/watch?v=Kc1Q_ayAeQk)
-- ... [...](...)
-- ... [...](...)
-- Contributors model inspired by [Code Institute](https://codeinstitute.net/) 'I Think Therefore I Blog' walkthrough project.
-- ... [...](...)
-- Formatting textarea widget from []()
-- ... [...](...)
-- ... [...](...)
-- ... [...](...)
-- ... [...](...)
-
-
-### Media
-- All icons from [Font Awesome](https://fontawesome.com/)
+- Code for the current user serializer from the Moments CI walkthrough project [Code Institute](https://codeinstitute.net/)
+- Contributors model inspired by Followers model in Moments CI walkthrough project [Code Institute](https://codeinstitute.net/) 
+- Help with updating email templates from [https://medium.com/@etentuk/django-rest-framework-how-to-edit-reset-password-link-in-dj-rest-auth-with-dj-allauth-installed-c54bae36504e](https://medium.com/@etentuk/django-rest-framework-how-to-edit-reset-password-link-in-dj-rest-auth-with-dj-allauth-installed-c54bae36504e)
+- Help with registration endpoints [https://dev.to/willp11/django-part-3-user-authentication-with-dj-rest-auth-and-allauth-4dih](https://dev.to/willp11/django-part-3-user-authentication-with-dj-rest-auth-and-allauth-4dih)
+- root_route and logout_route views kindly provided by Moments CI walkthrough project [Code Institute](https://codeinstitute.net/)
 
 ### Acknowledgements
 - [Code Institute](https://codeinstitute.net/) for providing excellent learning content
