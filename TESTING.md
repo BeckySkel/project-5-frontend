@@ -3,6 +3,7 @@
 ## HTML and CSS Validation Testing
 
 - All pages were passed through either the [W3C CSS validator](https://jigsaw.w3.org/css-validator/), [W3C HTML Validator](https://validator.w3.org/nu/), or Github's local pycodestyle PROBLEMS tab (depending on relevance).
+- Eslint was also installed for JSX code.
 - Any issues found have been rectified and all pages now pass with no errors to show. Any warnings received explained below.
 
 
@@ -12,7 +13,6 @@
 - 3 errors returned as a results of React link format, otherwise all ok.
 
 ![Feedback from run through the W3 CSS validator for all css modules](src/assets/readme-images/html-w3c-result.png)
-
 
 ###  W3C CSS Validator (Validate by direct input)
 
@@ -30,15 +30,18 @@
 ###  Prettier - Code Formatter
 - JSX code formatted using prettier.
 
+###  ESLint
+- JSX files pass through ESLint. 6 issues were raised but have been intentionally ignored as they are in relation to code that was provided in the Moments Walkthrough project.
+
 ---
 ## Lighthouse
-- All pages were ran through Lighthouse on Chrome Devtools for both desktop and mobile device display. Ran in incognito mode. Any issues were dealt with and all now have a high passing mark with any exceptions detailed in linked documents.
+- All pages were ran through Lighthouse on Chrome Devtools for both desktop and mobile device display. Ran in incognito mode. Any issues were dealt with and all now have a high passing mark with any exceptions detailed below.
 
 ### Desktop
-- Click [here](dcuments/desktop-lighthouse-testing.pdf) to see Lighthouse scores on desktop
+- 
 
 ### Mobile
-- Click [here](documents/mobile-lighthouse-testing.pdf) to see Lighthouse scores on mobile
+- 
 
 ---
 ## Manual testing
@@ -65,14 +68,17 @@
 
 #### Edit Profile (https://pp5-devise.herokuapp.com/edit-profile)
 - Form tested manually on **29/3/23** and found to be working as intended
+- No external links to test
 - All dynamic content tested manually on **29/3/23** and found to be working as intended
 
 #### 404 Error (https://pp5-devise.herokuapp.com/404)
 - All internal links tested manually on **29/3/23** and found to be working as intended
+- No external links to test
 - All dynamic content tested manually on **29/3/23** and found to be working as intended
 
 #### 500 Error (https://pp5-devise.herokuapp.com/500)
 - All internal links tested manually on **29/3/23** and found to be working as intended
+- No external links to test
 - All dynamic content tested manually on **29/3/23** and found to be working as intended
 
 ---
@@ -114,8 +120,8 @@
 ---
 ## Bugs
 ### Resolved Bugs
-- ...
-- ...
+- This project faced some challenges with deployment ot Heroku. Usually user error with incorrect code being pushed to the repo. Any issues were dealt with by searching for solutions online.
+- Bug where the sidebar button would appear in different places and have different scrollability on mobile vs desktop screens. Fixed by positioning the menu as fixed and adding a hidden div behind it to help with the menu annimation.
 
 ### Unresolved Bugs
 - none identified.

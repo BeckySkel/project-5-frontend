@@ -207,18 +207,19 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 #### Tasks
 - Tasks are cards that can be dragged and dropped from one container to another to set the state as To do or Complete
 - They are editable via a pop-up modal
+- If the site were to grow, they could be used again for Subtasks or commenting
 
 ![Task display on desktop](src/assets/readme-images/tasks.png)
 ![Task edit on mobile](src/assets/readme-images/task-edit.png)
 
 #### Avatars
 - Avatars are buttons displaying user profile information when hoevered over
-- Although they are currentnly only present on the project view page, they could be easily incorporated anywhere that usernames appear to provide other users some insight into the users profile
+- Although they are currently only present on the project view page, they could be easily incorporated anywhere that usernames appear to provide other users some insight into the users profile
 
 ![Avatar component](src/assets/readme-images/avatar.png)
 
-
-![Edit profile on desktop](static/images/edit-profile.png)
+#### Modals
+- Modals have been reused throughout the site to display create, edit and deletion forms, as well as confirmation when a user wants to leave a project
 
 ### Technologies used
 
@@ -233,13 +234,17 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 - [os](https://docs.python.org/3/library/os.html)
 
 #### Installed Libraries
-- [cloudinary](https://pypi.org/project/cloudinary/)
-- [dj3-cloudinary-storage](https://pypi.org/project/dj3-cloudinary-storage/)
-- [gunicorn](https://pypi.org/project/gunicorn/)
-- [oauthlib](https://pypi.org/project/oauthlib/)
-- [psycopg2](https://pypi.org/project/psycopg2/)
-- [whitenoise](https://pypi.org/project/whitenoise/)
-- [django-crispy-forms](https://pypi.org/project/django-crispy-forms/)
+##### Python
+- [cloudinary](https://pypi.org/project/cloudinary/) for database storage
+- [dj3-cloudinary-storage](https://pypi.org/project/dj3-cloudinary-storage/) for database storage
+- [gunicorn](https://pypi.org/project/gunicorn/) for hosting
+- [oauthlib](https://pypi.org/project/oauthlib/) for user authentication
+- [psycopg2](https://pypi.org/project/psycopg2/) to comunicate with database
+
+##### Javascript
+- [slugify]() to slugify container titles
+- [react-bootstrap]() for styling
+- [Patchstyles]() for easily applying module styles
 
 #### Frameworks
 - [Django](https://www.djangoproject.com/)

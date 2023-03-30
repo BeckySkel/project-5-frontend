@@ -51,7 +51,7 @@ function NavBar() {
               aria-expanded={accountMenuOpen}
             >
               {/* User icon */}
-              <i aria-label="Account Menu" className="fas fa-user UserIcon"></i>
+              <i className="fas fa-user UserIcon"></i>
               {/* Links rendered as list */}
               <Fade
                 unmountOnExit
