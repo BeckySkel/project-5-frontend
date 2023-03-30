@@ -9,6 +9,9 @@ import slugify from "react-slugify";
 import Loading from "../../components/Loading";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
+/*
+Container to store task cards. Has drag and drop functionality
+*/
 function TaskContainer({ title }) {
   // Variables
   const { id } = useParams();
@@ -54,7 +57,7 @@ function TaskContainer({ title }) {
   const postTaskState = async (model, container) => {
     try {
       await axiosReq.patch(`/tasks/${model.id}`, {
-        completed: container === "complete-container" ? true : false,
+        completed: container === "complete" ? true : false,
       });
     } catch (err) {
       setErrorAlert({ ...err.response, variant: "danger" });

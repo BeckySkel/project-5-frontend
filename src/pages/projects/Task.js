@@ -10,7 +10,7 @@ import styles from "../../styles/Project.module.css";
 /*
 Tasks displayed as draggable cards
 */
-function Task({ task, container }) {
+function Task({ task }) {
   // Variables
   const { body, summary, id, is_project_contrib, is_project_creator } = task;
 
@@ -40,7 +40,7 @@ function Task({ task, container }) {
           )}
         </Card.Header>
         <Card.Body className="text-break">
-          <pre>{body}</pre>
+          <pre className="TaskBody">{body}</pre>
         </Card.Body>
       </Card>
     </PatchStyles>

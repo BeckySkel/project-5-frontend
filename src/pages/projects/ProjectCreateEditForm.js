@@ -326,7 +326,6 @@ function ProjectCreateEditForm({ trigger, setTrigger, setSuccess, projectId }) {
                 setProjectData({
                   title: "",
                   description: "",
-                  // contributors: [],
                 });
                 setContribData([]);
               }}
