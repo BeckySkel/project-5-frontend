@@ -46,7 +46,7 @@ const EditProfileForm = () => {
     };
 
     handleMount();
-  }, [currentUser, history]);
+  }, [currentUser, history, setErrorAlert, profile_id]);
 
   // Input display values
   const handleChange = (event) => {

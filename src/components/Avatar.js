@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import { axiosReq } from "../api/axiosDefaults";
 import Loading from "./Loading";
 
@@ -11,32 +11,35 @@ function Avatar(props) {
   // Get profile instance on mount
   useEffect(() => {
     const fetchUserProfile = async () => {
-        const { data } = await axiosReq.get(
-          `/profiles/${props.user.user_profile_id}`
-        );
-        setProfile({...data});
-        setLoaded(true);
-      };
-  
-    fetchUserProfile();
-  }, []);
+      const { data } = await axiosReq.get(
+        `/profiles/${props.user.user_profile_id}`
+      );
+      setProfile({ ...data });
+      setLoaded(true);
+    };
 
+    fetchUserProfile();
+  }, [props.user.user_profile_id]);
 
   const popover = loaded ? (
     <Popover id="popover-basic">
-      <Popover.Title as="h3">{profile.user} {profile.full_name}</Popover.Title>
+      <Popover.Title as="h3" className="d-flex justify-content-between">
+        <span className="text-truncate">{profile.user}</span>{" "}
+        <span className="ms-2">{profile.full_name}</span>
+      </Popover.Title>
       <Popover.Content>
-        {profile.bio}
+        <span className="fs-6">{profile.bio}</span>
+        <p>
         Member since: {profile.created_on}
+        </p>
       </Popover.Content>
     </Popover>
-  ) : (<></>);
+  ) : (
+    <></>
+  );
 
   return loaded ? (
-    <OverlayTrigger
-      placement="bottom"
-      overlay={popover}
-    >
+    <OverlayTrigger placement="bottom" overlay={popover}>
       {({ ref, ...triggerHandler }) => (
         <Button
           variant="light"
@@ -50,7 +53,7 @@ function Avatar(props) {
     </OverlayTrigger>
   ) : (
     <Loading />
-  )
+  );
 }
 
 export default Avatar;
