@@ -275,7 +275,7 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 
 #### Colour scheme
 
-![The colour scheme used for the display](static/images/colour-scheme.png)
+![The colour scheme used for the display](src/assets/readme-images/coolors.png)
 
 - The colour-scheme is clear and sharp to compliment the function of the site.
 - A complimentary highlight colour has been used sparingly to prevent the site looking too plain. 
