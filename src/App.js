@@ -19,6 +19,7 @@ import Loading from "./components/Loading";
 import CreateEditPage from "./pages/projects/CreateEditPage";
 import PageNotFound from "./pages/home/PageNotFound";
 import ToastAlerts from "./components/ToastAlerts";
+import EditProfileForm from "./pages/auth/EditProfileForm";
 
 // Main app
 function App() {
@@ -55,7 +56,7 @@ function App() {
                     <Route
                       exact
                       path="/edit-profile"
-                      render={() => <h1>Edit Profile</h1>}
+                      render={() => <EditProfileForm />}
                     />
                     <Route exact path="/login" render={() => <SignInForm />} />
                     <Route
