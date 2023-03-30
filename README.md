@@ -92,23 +92,28 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 
 ### Future Features
 
-#### ...
-- In the future, I'd like to ...
+- Unfortunately, I did not manage to fulfill all my user stories so some planned features for the future would be:
 
-#### ...
-- Another helpful feature would be ...
+#### Add Due Date to Projects and Tasks
+- In the future, I'd like to include due dates to help the user(s) plan their time and set deadlines.
 
-#### ...
-- Either inputted by the poster at time of creation or voted on by the community (or both), the recipe could be assigned a difficulty (beginner, intermediate or pro) so that user's can select based on their current abilities. There is currently already a 'Quick & Easy' tag so this could be extended to include other difficulty tags.
+#### Privacy Control
+- Another helpful feature would be to allow users the option to share their plans witha wider audience if they choose. Permissions could be set per project as Everyone, Connections only, Me only.
 
-#### ...
-- Similarly ...
+#### Add Comments and Votes/Likes
+- Users could comment on tasks to track progress and development and up/down vote ideas.
 
-#### ...
-- ...
+#### Comment Tags
+- If comments were included, user's could tag one another to draw attention to a task/project.
 
-#### ...
-- Adding a ...
+#### Manage Comments
+- Project creators would be able to manage comments.
+
+#### Custom Categories
+- Adding custom categories to extend the "To do" and "complete" options would allow users to track tasks at all stages of the project.
+
+#### Calendar
+- Calendar tools are a popular and useful feature on planning apps and would be a welcome addition.
 
 ### Testing
 - Throughout the project, I relied heavily on [Chrome Devtools](https://developer.chrome.com/docs/devtools/) to help me view this project on different screen sizes so that I could adjust elements, create media queries (by adding bootstrap classes) for responsive design and debug JavaScript by logging outcomes to the console.
