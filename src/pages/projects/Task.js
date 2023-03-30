@@ -10,14 +10,14 @@ import styles from "../../styles/Project.module.css";
 /*
 Tasks displayed as draggable cards
 */
-function Task(props) {
+function Task({ task, container }) {
   // Variables
-  const { body, summary, id, is_project_contrib, is_project_creator } = props.task;
+  const { body, summary, id, is_project_contrib, is_project_creator } = task;
 
   // Set data to transfer on drag
   const handleDrag = (ev) => {
     ev.dataTransfer.setData("text", ev.target.id);
-    ev.dataTransfer.setData("item", JSON.stringify(props.task));
+    ev.dataTransfer.setData("item", JSON.stringify(task));
   };
 
   return (
@@ -26,7 +26,7 @@ function Task(props) {
         draggable={is_project_contrib || is_project_creator ? true : false}
         onDragStart={handleDrag}
         id={`task${id}`}
-        className={`${props.container} m-2 TaskCard`}
+        className="m-2 TaskCard"
       >
         <Card.Header> 
           <span className="float-left text-break">{summary}</span>
@@ -48,13 +48,3 @@ function Task(props) {
 }
 
 export default Task;
-
-// completed,
-// created_on,
-// creator,
-// due_date,
-// is_creator,
-// is_project_contrib,
-// is_project_creator,
-// profile_id,
-// updated_on

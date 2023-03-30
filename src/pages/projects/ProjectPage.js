@@ -130,8 +130,6 @@ function ProjectPage() {
                 <TaskContainer
                   title={container}
                   key={container}
-                  count={task_count}
-                  permission={permission}
                 />
               ))}
             </Col>

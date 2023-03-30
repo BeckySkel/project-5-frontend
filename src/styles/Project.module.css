@@ -13,3 +13,7 @@
 .TaskCard {
     max-width: 78vw;
 }
+
+.TaskContainerInner {
+    min-height: 5rem;
+}

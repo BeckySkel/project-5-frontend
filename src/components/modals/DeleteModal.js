@@ -52,7 +52,6 @@ function DeleteModal({ item, id }) {
         <Button
           size="sm"
           variant="light"
-          className="text-muted"
           onClick={handleShow}
         >
           <i className="fa-regular fa-trash-can"></i>

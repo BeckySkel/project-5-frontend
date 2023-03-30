@@ -9,13 +9,13 @@ import slugify from "react-slugify";
 import Loading from "../../components/Loading";
 import { useSetErrorAlert } from "../../contexts/ErrorContext";
 
-function TaskContainer(props) {
+function TaskContainer({ title }) {
   // Variables
   const { id } = useParams();
   const [tasks, setTasks] = useState({ results: [] });
   const [loaded, setLoaded] = useState(false);
-  const status = slugify(props.title) === "complete";
-  const setErrorAlert = useSetErrorAlert(); 
+  const status = slugify(title) === "complete";
+  const setErrorAlert = useSetErrorAlert();
 
   // Drag and drop functions
   const allowDrop = (ev) => {
@@ -29,19 +29,25 @@ function TaskContainer(props) {
     const data = ev.dataTransfer.getData("text");
     const model = JSON.parse(ev.dataTransfer.getData("item"));
     const task = document.getElementById(data);
-    const container = ev.target.id;
-    if (task.classList.contains("to-do")) {
-      task.classList.replace("to-do", "complete");
+    const target = ev.target;
+    let container;
+
+    if (target.classList.contains("container")) {
+      container = target;
     } else {
-      task.classList.replace("complete", "to-do");
-    }
-    if (ev.target.parentNode.classList.contains("card")) {
-      ev.target.parentNode.parentNode.prepend(task);
-    } else {
-      ev.target.prepend(task);
+      if (target.parentNode.classList.contains("container")) {
+        container = target.parentNode;
+      } else {
+        if (target.parentNode.parentNode.classList.contains("container")) {
+          container = target.parentNode.parentNode;
+        } else {
+          container = target.parentNode.parentNode.parentNode;
+        }
+      }
     }
 
-    postTaskState(model, container);
+    container.prepend(task);
+    postTaskState(model, container.id);
   };
 
   // Set future task state in API
@@ -51,7 +57,7 @@ function TaskContainer(props) {
         completed: container === "complete-container" ? true : false,
       });
     } catch (err) {
-      setErrorAlert({ ...err.response, variant: "danger"});
+      setErrorAlert({ ...err.response, variant: "danger" });
     }
   };
 
@@ -64,7 +70,7 @@ function TaskContainer(props) {
         );
         setTasks(data);
       } catch (err) {
-        setErrorAlert({ ...err.response, variant: "danger"});
+        setErrorAlert({ ...err.response, variant: "danger" });
       }
       setLoaded(true);
     };
@@ -76,24 +82,20 @@ function TaskContainer(props) {
     <PatchStyles classNames={styles}>
       <PatchStyles classNames={appStyles}>
         <div className="TaskContainer BgLight rounded my-2">
-          <h3 className="fs-5 text-break">{props.title}:</h3>
+          <h3 className="fs-5">{title}:</h3>
           <div
             onDrop={handleDrop}
             onDragOver={allowDrop}
-            className="p-2"
-            id={`${slugify(props.title)}-container`}
+            className="p-2 container TaskContainerInner"
+            id={`${slugify(title)}`}
           >
             {loaded ? (
               tasks.results.length ? (
                 tasks.results?.map((task) => (
-                  <Task
-                    task={task}
-                    container={slugify(props.title)}
-                    key={task.id}
-                  />
+                  <Task task={task} container={slugify(title)} key={task.id} />
                 ))
               ) : (
-                <p>No tasks</p>
+                <></>
               )
             ) : (
               <Loading />
