@@ -291,6 +291,50 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 
 #### Icons
 - [Font Awesome](https://fontawesome.com/) icons were used for navigation links and action buttons.
+
+
+### Deployment
+- This site was developed using [Gitpod](https://www.gitpod.io/), stored on [Github](https://github.com/) and deployed with [Heroku](https://dashboard.heroku.com/apps).
+
+- Creating the React App:
+    1. Create new repository and launch in Gitpod
+    2. Install ReactJS: npx create-react-app . --use-npm, npm start
+    3. Install packages from list below with "pip3 install"
+        - react-bootstrap@1.6.3 bootstrap@4.6.0
+        - react-router-dom@5.3.0
+        - axios
+        - bootstrap
+        - jwt-decode
+        - patch-styles
+        - prop-types
+        - react-infinite-scroll-component
+        - react-slugify
+    4. Create an axiosDefaults.js file and add the following code:
+        axios.defaults.baseURL = "https://REACT-APP-NAME.herokuapp.com"
+        axios.defaults.headers.post["Content-Type"] = "multipart/form-data"
+        axios.defaults.withCredentials = true
+    5. Create Procfile and populate with below code:
+        web: serve -s build
+    6. Add below code to scripts section of package.json file:
+        "heroku-prebuild": "npm install -g serve",
+
+- Connecting to DRF backend:
+    1. Add the following config vars to your DRF app in Heroku:
+        - CLIENT_ORIGIN: https://REACT-APP-NAME.herokuapp.com
+        - CLIENT_ORIGIN_DEV: https://GITPOD-WORKSPACE-LINK.ws-eu54.gitpod.io
+
+- Debugging in Gitpod:
+    1. In the terminal, type "npm start" and press enter to begin the application
+    2. Click "Open in Browser" on the pop-up
+    3. Once finished, use Ctrl + C in the terminal to close the application
+
+- Deploying to Heroku:
+    1. From the homescreen, click "New" and select "Create new app"
+    2. Choose app name, select region and click "Create"
+    3. Add heroku/node.js buildpack
+    5. Go to "Deploy" and connect Github repository
+    6. Select "Enable Automatic Deploys" and click "Deploy Branch"
+
 ---
 ## Credits
 
