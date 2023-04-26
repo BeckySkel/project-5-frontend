@@ -221,6 +221,23 @@ Link to [User Stories Kanban Board](https://github.com/users/BeckySkel/projects/
 #### Modals
 - Modals have been reused throughout the site to display create, edit and deletion forms, as well as confirmation when a user wants to leave a project
 
+
+### Reusable Components
+- axiosDefault.js for ease of communication with the backend API.
+- CreateEditModal.js used to display the create/edit project/task forms
+- DeleteModal.js used to confirm deletion of a project/task
+- LeaveProjectModal.js used to confirm when a user tries to leave a project
+- Avatar.js to display more information about the user when hovered over
+- InfoCarousel.js currently only used on logged-out homepage but could be included to display other information inthe carousel format
+- Loading.js to display a spinner when loading
+- ToastAlerts.js displays error alerts to the user on any screen where errors may occur
+- CurrentUserContext.js to confirm users logged-in status make their user info available.
+- ErrorContext.js used to call the display errors through ToastAlerts.js
+- ViewportContext.js to update components based on viewport size
+- ProjectCard.js used on dashboard to display user's projects with useful information
+- Task.js used within project to display relevant tasks
+- TaskContainer.js used within project to contain task cards
+
 ### Technologies used
 
 #### Languages
